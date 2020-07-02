@@ -21,7 +21,7 @@ namespace NewsPortal.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("NewsPortalDbConnection", throwIfV1Schema: false)
         {
         }
 
