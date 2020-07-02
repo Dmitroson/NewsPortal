@@ -16,5 +16,11 @@ namespace NewsPortal.Controllers
                 return View(articles);
             }
         }
+
+        // GET: Article/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
     }
 }
