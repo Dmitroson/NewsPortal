@@ -200,6 +200,9 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ClassMap\ArticleMap.cs" />
+    <Compile Include="Models\ClassMap\CommentMap.cs" />
+    <Compile Include="Models\ClassMap\ImageMap.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
