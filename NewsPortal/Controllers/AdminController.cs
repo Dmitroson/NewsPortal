@@ -76,7 +76,7 @@ namespace NewsPortal.Controllers
         // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Article article)
+        public ActionResult Edit(Article article)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace NewsPortal.Controllers
                     {
                         session.Update(article);
                         transaction.Commit();
-                        return RedirectToAction("Details", id);
+                        return RedirectToAction("Details", article.Id);
                     }
                 }
             }
