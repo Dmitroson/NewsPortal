@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -24,7 +24,7 @@ namespace NewsPortal.Controllers
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                using(ITransaction transaction = session.BeginTransaction())
+                using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
                     transaction.Commit();
@@ -44,16 +44,19 @@ namespace NewsPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Article article)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                using(ISession session = NHibernateHelper.OpenSession())
+                {
+                    using(ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Save(article);
+                        transaction.Commit();
+                        return RedirectToAction("Index");
+                    }
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(article);
         }
 
         // GET: Admin/Edit/5
@@ -75,19 +78,19 @@ namespace NewsPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Article article)
         {
-            using (ISession session = NHibernateHelper.OpenSession())
+            if (ModelState.IsValid)
             {
-                using (ITransaction transaction = session.BeginTransaction())
+                using (ISession session = NHibernateHelper.OpenSession())
                 {
-                    if (ModelState.IsValid)
+                    using (ITransaction transaction = session.BeginTransaction())
                     {
                         session.Update(article);
                         transaction.Commit();
                         return RedirectToAction("Details", id);
                     }
-                    return View(article);
                 }
             }
+            return View(article);
         }
 
         // GET: Admin/Delete/5
@@ -95,7 +98,7 @@ namespace NewsPortal.Controllers
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                using(ITransaction transaction = session.BeginTransaction())
+                using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
                     transaction.Commit();
