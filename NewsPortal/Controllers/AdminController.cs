@@ -1,6 +1,7 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
 using System.Linq;
+using System.Transactions;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -20,7 +21,15 @@ namespace NewsPortal.Controllers
         // GET: Admin/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                using(ITransaction transaction = session.BeginTransaction())
+                {
+                    var article = session.Get<Article>(id);
+                    transaction.Commit();
+                    return View(article);
+                }
+            }
         }
 
         // GET: Admin/Create
@@ -31,7 +40,8 @@ namespace NewsPortal.Controllers
 
         // POST: Admin/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Article article)
         {
             try
             {
@@ -48,12 +58,21 @@ namespace NewsPortal.Controllers
         // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    var article = session.Get<Article>(id);
+                    transaction.Commit();
+                    return View(article);
+                }
+            }
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Article article)
         {
             try
             {
@@ -70,22 +89,32 @@ namespace NewsPortal.Controllers
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                using(ITransaction transaction = session.BeginTransaction())
+                {
+                    var article = session.Get<Article>(id);
+                    transaction.Commit();
+                    return View(article);
+                }
+            }
         }
 
         // POST: Admin/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
+            using (ISession session = NHibernateHelper.OpenSession())
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    var article = session.Get<Article>(id);
+                    session.Delete(article);
+                    transaction.Commit();
+                    return RedirectToAction("Index");
+                }
             }
         }
     }
