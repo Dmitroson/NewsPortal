@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -72,17 +73,20 @@ namespace NewsPortal.Controllers
         // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Article article)
+        public ActionResult Edit(int id, Article article)
         {
-            try
+            using (ISession session = NHibernateHelper.OpenSession())
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        session.Update(article);
+                        transaction.Commit();
+                        return RedirectToAction("Details", id);
+                    }
+                    return View(article);
+                }
             }
         }
 
