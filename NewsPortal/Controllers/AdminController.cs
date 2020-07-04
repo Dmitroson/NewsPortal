@@ -1,8 +1,6 @@
-﻿using Microsoft.Owin.Security.OAuth;
-using NewsPortal.Models;
+﻿using NewsPortal.Models;
 using NHibernate;
 using System.Linq;
-using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -54,13 +52,13 @@ namespace NewsPortal.Controllers
                 article.ImageUrl = "/Images/" + uploadImage.FileName;
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
-                    using(ITransaction transaction = session.BeginTransaction())
+                    using (ITransaction transaction = session.BeginTransaction())
                     {
                         session.Save("Article", article);
                         transaction.Commit();
-                        return RedirectToAction("Index");
                     }
                 }
+                return RedirectToAction("Index");
             }
             return View(article);
         }
@@ -92,9 +90,9 @@ namespace NewsPortal.Controllers
                     {
                         session.Update(article);
                         transaction.Commit();
-                        return RedirectToAction("Details", article.Id);
                     }
                 }
+                return RedirectToAction("Details", article.Id);
             }
             return View(article);
         }
@@ -126,9 +124,9 @@ namespace NewsPortal.Controllers
                     var article = session.Get<Article>(id);
                     session.Delete(article);
                     transaction.Commit();
-                    return RedirectToAction("Index");
                 }
             }
+            return RedirectToAction("Index");
         }
     }
 }
