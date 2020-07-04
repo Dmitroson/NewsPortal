@@ -49,14 +49,14 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid && uploadImage != null)
             {
-                using(ISession session = NHibernateHelper.OpenSession())
+                var path = Server.MapPath("~/Images/") + uploadImage.FileName;
+                uploadImage.SaveAs(path);
+                article.ImageUrl = "/Images/" + uploadImage.FileName;
+                using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using(ITransaction transaction = session.BeginTransaction())
                     {
-                        var path = Server.MapPath("~/Images/");
-                        article.ImageUrl = path + uploadImage.FileName;
-                        uploadImage.SaveAs(article.ImageUrl);
-                        session.Save(article);
+                        session.Save("Article", article);
                         transaction.Commit();
                         return RedirectToAction("Index");
                     }
