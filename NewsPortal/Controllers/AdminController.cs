@@ -1,7 +1,9 @@
-﻿using NewsPortal.Models;
+﻿using Microsoft.Owin.Security.OAuth;
+using NewsPortal.Models;
 using NHibernate;
 using System.Linq;
 using System.Transactions;
+using System.Web;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -42,14 +44,21 @@ namespace NewsPortal.Controllers
         // POST: Admin/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Article article)
+        [ValidateInput(false)]
+        public ActionResult Create(Article article, HttpPostedFileBase uploadImage)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && uploadImage != null)
             {
                 using(ISession session = NHibernateHelper.OpenSession())
                 {
                     using(ITransaction transaction = session.BeginTransaction())
                     {
+                        var path = Server.MapPath("~/Images/");
+                        var image = new Image() { Article = article};
+                        image.UrlFullSize = path + uploadImage.FileName;
+                        uploadImage.SaveAs(image.UrlFullSize);
+                        article.Image = image;
+
                         session.Save(article);
                         transaction.Commit();
                         return RedirectToAction("Index");
