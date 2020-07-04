@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -54,11 +54,8 @@ namespace NewsPortal.Controllers
                     using(ITransaction transaction = session.BeginTransaction())
                     {
                         var path = Server.MapPath("~/Images/");
-                        var image = new Image() { Article = article};
-                        image.UrlFullSize = path + uploadImage.FileName;
-                        uploadImage.SaveAs(image.UrlFullSize);
-                        article.Image = image;
-
+                        article.ImageUrl = path + uploadImage.FileName;
+                        uploadImage.SaveAs(article.ImageUrl);
                         session.Save(article);
                         transaction.Commit();
                         return RedirectToAction("Index");
