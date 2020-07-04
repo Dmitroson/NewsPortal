@@ -23,18 +23,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Article")</li>
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Article")</li>
+                    <li>@Html.ActionLink("Домашняя страница", "Index", "Admin")</li>
+                    <li>@Html.ActionLink("Домашняя страница", "Index", "Admin")</li>
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
-
     </div>
-
     <footer>
         <p>&copy; @DateTime.Now.Year</p>
     </footer>
