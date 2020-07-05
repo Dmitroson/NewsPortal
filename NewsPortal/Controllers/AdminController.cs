@@ -1,12 +1,13 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -47,6 +48,10 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid && uploadImage != null)
             {
+                DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/Images/"));
+                if (!dir.Exists)
+                    dir.Create();
+
                 var path = Server.MapPath("~/Images/") + uploadImage.FileName;
                 uploadImage.SaveAs(path);
                 article.ImageUrl = "/Images/" + uploadImage.FileName;
