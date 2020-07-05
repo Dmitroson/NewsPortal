@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css?v=@DateTime.Now.Millisecond")" rel="stylesheet" type="text/css" />
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -30,8 +30,34 @@
         </div>
     </div>
     <div class="container body-content">
+
+        <div class="filtersandsorting">
+            <p>
+                <input type="search" name="q" placeholder="Поиск по сайту">
+                <input type="submit" value="Найти">
+            </p>
+            <p>
+                <form action="select1.php" method="post">
+            <p>
+                <select>
+                    <option>Пункт 1</option>
+                    <option>Пункт 2</option>
+                </select>
+            </p>
+            <p><input type="submit" value="Отправить"></p>
+            </form>
+            </p>
+            <form action="handler.php">
+                <p>Filters</p>
+                <p><input type="checkbox" name="a" value="1417"> 1417</p>
+                <p><input type="checkbox" name="a" value="1680" checked> 1680</p>
+                <p><input type="checkbox" name="a" value="1883" checked> 1883</p>
+                <p><input type="checkbox" name="a" value="1934"> 1934</p>
+                <p><input type="submit" value="Отправить"></p>
+            </form>
+        </div>
         @RenderBody()
-        <hr />
+        <!--<hr />-->
 
     </div>
 
