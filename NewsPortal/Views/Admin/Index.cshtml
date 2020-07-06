@@ -26,6 +26,9 @@
         <th>
             <label>Publication Date</label>
         </th>
+        <th>
+            <label>Image</label>
+        </th>
         <th></th>
     </tr>
 
@@ -44,6 +47,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PubDate)
             </td>
+            <td>@item.ImageUrl</td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
