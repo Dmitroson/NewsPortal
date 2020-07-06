@@ -1,5 +1,6 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -8,7 +9,7 @@ namespace NewsPortal.Controllers
     public class ArticleController : Controller
     {
         // GET: Article
-        public ActionResult Index(string sortOrder = "Date")
+        public ActionResult Index(string sortOrder = "Date", int page = 1)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -25,7 +26,22 @@ namespace NewsPortal.Controllers
                         articles = articles.OrderBy(a => a.PubDate);
                         break;
                 }
-                return View(articles.ToList());
+
+                var articlesList = articles.ToList();
+                int pageSize = 10;
+                IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
+                PageInfo pageInfo = new PageInfo
+                {
+                    PageNumber = page,
+                    PageSize = pageSize,
+                    TotalItems = articlesList.Count
+                };
+                ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
+                {
+                    Articles = articlesPerPages,
+                    PageInfo = pageInfo
+                };
+                return View(articlesViewModel);
             }
         }
 
