@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background: #a0a0a0 !important;
+    /*background: #a0a0a0 !important;*/
 }
 
 footer {
@@ -16,7 +16,7 @@ footer {
 .body-content {
     padding-left: 15px;
     padding-right: 30%;
-    color: white;
+    /*color: white;*/
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
