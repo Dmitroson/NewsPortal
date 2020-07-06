@@ -8,13 +8,13 @@ namespace NewsPortal.Helpers
 {
     public static class PagingHelpers
     {
-        public static MvcHtmlString PageLinks(this HtmlHelper html, PageInfo pageInfo)
+        public static MvcHtmlString PageLinks(this HtmlHelper html, PageInfo pageInfo, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
             for(int i = 1; i <= pageInfo.TotalPages; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
-                tag.MergeAttribute("href", i.ToString());
+                tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = i.ToString();
 
                 if (i == pageInfo.PageNumber)

@@ -18,7 +18,7 @@ namespace NewsPortal.Controllers
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>().ToList();
-                int pageSize = 2;
+                int pageSize = 10;
                 IEnumerable<Article> articlesPerPages = articles.Skip((page - 1) * pageSize).Take(pageSize);
                 PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = articles.Count };
                 ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel { Articles = articlesPerPages, PageInfo = pageInfo };
