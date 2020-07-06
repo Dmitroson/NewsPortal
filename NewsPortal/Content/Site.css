@@ -69,3 +69,7 @@ input[type=search] {
 .body-content{
     padding-right:0%!important;
 }
+
+img{
+    max-width:300px;
+}
