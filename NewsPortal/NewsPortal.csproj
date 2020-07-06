@@ -203,12 +203,14 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleIndexViewModel.cs" />
     <Compile Include="Models\ClassMap\ArticleMap.cs" />
     <Compile Include="Models\ClassMap\CommentMap.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NHibernate\NHibernateHelper.cs" />
+    <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
