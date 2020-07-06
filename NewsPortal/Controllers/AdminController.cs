@@ -30,11 +30,21 @@ namespace NewsPortal.Controllers
                         articles = articles.OrderBy(a => a.PubDate);
                         break;
                 }
+
                 var articlesList = articles.ToList();
                 int pageSize = 10;
                 IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
-                PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = articlesList.Count };
-                ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel { Articles = articlesPerPages, PageInfo = pageInfo };
+                PageInfo pageInfo = new PageInfo
+                { 
+                    PageNumber = page, 
+                    PageSize = pageSize, 
+                    TotalItems = articlesList.Count 
+                };
+                ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
+                { 
+                    Articles = articlesPerPages, 
+                    PageInfo = pageInfo 
+                };
                 return View(articlesViewModel);
             }
         }
