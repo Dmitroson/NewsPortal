@@ -16,10 +16,10 @@
             <label>Description</label>
         </th>
         <th>
-            <label>Visibility</label>
+            <label>Publication Date</label>
         </th>
         <th>
-            <label>Publication Date</label>
+            <label>Image</label>
         </th>
     </tr>
     @foreach (var item in Model.Articles)
@@ -29,7 +29,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.Raw(item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PubDate)
