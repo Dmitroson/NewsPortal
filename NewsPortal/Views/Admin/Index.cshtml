@@ -11,23 +11,20 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@{
-    var path = Server.MapPath("~/Images/");
-    <p>@path</p>
-}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Articles.FirstOrDefault().Title)
+            <label>Title</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Articles.FirstOrDefault().Description)
+            <label>Description</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Articles.FirstOrDefault().Visibility)
+            <label>Visibility</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Articles.FirstOrDefault().PubDate)
+            <label>Publication Date</label>
         </th>
         <th></th>
     </tr>
