@@ -1,5 +1,7 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -11,12 +13,16 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>().ToList();
-                return View(articles);
+                int pageSize = 10;
+                IEnumerable<Article> articlesPerPages = articles.Skip((page - 1) * pageSize).Take(pageSize);
+                PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = articles.Count };
+                ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel { Articles = articlesPerPages, PageInfo = pageInfo };
+                return View(articlesViewModel);
             }
         }
 

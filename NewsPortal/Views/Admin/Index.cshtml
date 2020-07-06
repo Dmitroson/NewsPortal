@@ -1,4 +1,5 @@
-﻿@model IEnumerable<NewsPortal.Models.Article>
+﻿@model NewsPortal.Models.ArticleIndexViewModel
+@using NewsPortal.Helpers;
 
 @{
     ViewBag.Title = "Index";
@@ -17,28 +18,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Articles.FirstOrDefault().Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Articles.FirstOrDefault().Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Visibility)
+            @Html.DisplayNameFor(model => model.Articles.FirstOrDefault().Visibility)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PubDate)
+            @Html.DisplayNameFor(model => model.Articles.FirstOrDefault().PubDate)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Articles)
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.Raw(item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Visibility)
@@ -55,3 +56,7 @@
     }
 
 </table>
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+</div>
