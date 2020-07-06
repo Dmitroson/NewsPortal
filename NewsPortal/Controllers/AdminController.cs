@@ -13,7 +13,7 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date",int page = 1)
+        public ActionResult Index(string sortOrder = "Date", int page = 1)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -62,8 +62,6 @@ namespace NewsPortal.Controllers
                 }
             }
         }
-
-
 
         // GET: Admin/Create
         public ActionResult Create()

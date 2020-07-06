@@ -24,8 +24,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Article")</li>
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Article")</li>
+                    <li>@Html.ActionLink("HomePage(Users)", "Index", "Article")</li>
+                    <li>@Html.ActionLink("HomePage(Admin)", "Index", "Admin")</li>
                 </ul>
             </div>
         </div>
@@ -54,7 +54,7 @@
             <form>
                 <p>Filters</p>
                 <p><input type="checkbox" name="a" value="today"> today</p>
-                <p><input type="checkbox" name="a" value="yesterday" > yesterday</p>
+                <p><input type="checkbox" name="a" value="yesterday"> yesterday</p>
                 <p><input type="checkbox" name="a" value="this week"> this week</p>
                 <p><input type="checkbox" name="a" value="all" checked> all</p>
             </form>
@@ -70,6 +70,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
