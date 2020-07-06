@@ -1,7 +1,8 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
+using System.IO;
 using System.Linq;
-using System.Transactions;
+using System.Web;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -42,19 +43,27 @@ namespace NewsPortal.Controllers
         // POST: Admin/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Article article)
+        [ValidateInput(false)]
+        public ActionResult Create(Article article, HttpPostedFileBase uploadImage)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && uploadImage != null)
             {
-                using(ISession session = NHibernateHelper.OpenSession())
+                DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/Images/"));
+                if (!dir.Exists)
+                    dir.Create();
+
+                var path = Server.MapPath("~/Images/") + uploadImage.FileName;
+                uploadImage.SaveAs(path);
+                article.ImageUrl = "/Images/" + uploadImage.FileName;
+                using (ISession session = NHibernateHelper.OpenSession())
                 {
-                    using(ITransaction transaction = session.BeginTransaction())
+                    using (ITransaction transaction = session.BeginTransaction())
                     {
-                        session.Save(article);
+                        session.Save("Article", article);
                         transaction.Commit();
-                        return RedirectToAction("Index");
                     }
                 }
+                return RedirectToAction("Index");
             }
             return View(article);
         }
@@ -86,9 +95,9 @@ namespace NewsPortal.Controllers
                     {
                         session.Update(article);
                         transaction.Commit();
-                        return RedirectToAction("Details", article.Id);
                     }
                 }
+                return RedirectToAction("Details", article.Id);
             }
             return View(article);
         }
@@ -120,9 +129,9 @@ namespace NewsPortal.Controllers
                     var article = session.Get<Article>(id);
                     session.Delete(article);
                     transaction.Commit();
-                    return RedirectToAction("Index");
                 }
             }
+            return RedirectToAction("Index");
         }
     }
 }

@@ -205,10 +205,8 @@
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ClassMap\ArticleMap.cs" />
     <Compile Include="Models\ClassMap\CommentMap.cs" />
-    <Compile Include="Models\ClassMap\ImageMap.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NHibernate\NHibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -225,7 +223,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Properties\PublishProfiles\NewsPortal20200702133310 - Web Deploy.pubxml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
@@ -241,6 +238,7 @@
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
+    <None Include="Properties\PublishProfiles\NewsPortal20200705224151 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
@@ -614,7 +612,8 @@
     <Content Include="Views\Article\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\Images\" />
+    <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

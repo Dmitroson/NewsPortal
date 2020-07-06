@@ -10,9 +10,9 @@ namespace NewsPortal.Models.ClassMap
             Id(a => a.Id);
             Map(a => a.Title);
             Map(a => a.Description);
+            Map(a => a.ImageUrl);
             Map(a => a.Visibility);
             Map(a => a.PubDate);
-            HasOne(a => a.Image).Cascade.All().Constrained();
             HasMany(a => a.Comments).Inverse();
         }
     }
