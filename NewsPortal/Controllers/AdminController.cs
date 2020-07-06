@@ -13,14 +13,27 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(string sortOrder = "Date",int page = 1)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                var articles = session.Query<Article>().ToList();
+                var articles = session.Query<Article>();
+                switch (sortOrder)
+                {
+                    case "Title":
+                        articles = articles.OrderBy(a => a.Title);
+                        break;
+                    case "Description":
+                        articles = articles.OrderBy(a => a.Description);
+                        break;
+                    default:
+                        articles = articles.OrderBy(a => a.PubDate);
+                        break;
+                }
+                var articlesList = articles.ToList();
                 int pageSize = 10;
-                IEnumerable<Article> articlesPerPages = articles.Skip((page - 1) * pageSize).Take(pageSize);
-                PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = articles.Count };
+                IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
+                PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = articlesList.Count };
                 ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel { Articles = articlesPerPages, PageInfo = pageInfo };
                 return View(articlesViewModel);
             }
@@ -39,6 +52,8 @@ namespace NewsPortal.Controllers
                 }
             }
         }
+
+
 
         // GET: Admin/Create
         public ActionResult Create()
