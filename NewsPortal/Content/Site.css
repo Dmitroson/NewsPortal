@@ -57,6 +57,7 @@ table {
     width: 75% !important;
     clear: right;
     display:inline;
+    margin: auto!important;
 }
 
 input[type=search] {
