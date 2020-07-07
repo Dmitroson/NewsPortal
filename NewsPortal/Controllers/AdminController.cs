@@ -114,6 +114,7 @@ namespace NewsPortal.Controllers
         // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Edit(Article article)
         {
             if (ModelState.IsValid)
