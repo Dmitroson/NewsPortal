@@ -48,7 +48,15 @@ namespace NewsPortal.Controllers
         // GET: Article/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    var article = session.Get<Article>(id);
+                    transaction.Commit();
+                    return View(article);
+                }
+            }
         }
 
 

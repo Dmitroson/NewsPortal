@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="@Url.Content("~/Content/Site.css?v=@DateTime.Now.Millisecond")" rel="stylesheet" type="text/css" />
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("Acme Cosmetics", "Index", "Article", new { area = "" }, new { @class = "navbar-brand" })
+                <!--<button type="button" class="logo" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>-->
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("HomePage(Users)", "Index", "Article")</li>
+                    <li>@Html.ActionLink("HomePage(Admin)", "Index", "Admin")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+
+        <div class="filtersandsorting">
+            <p>
+                <input type="search" name="q" placeholder="Поиск по сайту">
+                <input type="submit" value="Найти">
+            </p>
+            <form method="post">
+                <p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Сортировать по
+                        </button>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Default", "Index", new { sortOrder = "Date" })
+                            @Html.ActionLink("Title", "Index", new { sortOrder = "Title" })
+                            @Html.ActionLink("Description", "Index", new { sortOrder = "Description" })
+                        </div>
+                    </div>
+                </p>
+            </form>
+            <form>
+                <p>Filters</p>
+                <p><input type="checkbox" name="a" value="today"> today</p>
+                <p><input type="checkbox" name="a" value="yesterday"> yesterday</p>
+                <p><input type="checkbox" name="a" value="this week"> this week</p>
+                <p><input type="checkbox" name="a" value="all" checked> all</p>
+            </form>
+        </div>
+        @RenderBody()
+        <!--<hr />-->
+
+    </div>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
