@@ -1,6 +1,7 @@
 ﻿using Lucene.Net.Analysis;
 using NewsPortal.Models;
 using NHibernate;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "")
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filter = "all")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -37,6 +38,20 @@ namespace NewsPortal.Controllers
                     default:
                         articles = articles.OrderByDescending(a => a.PubDate);
                         break;
+                }
+
+                switch (filter)
+                {
+                    case "today":
+                        articles = articles.Where(a => a.PubDate == DateTime.Today);
+                        break;
+                    case "yesterday":
+                        articles = articles.Where(a => a.PubDate == DateTime.Today.AddDays(-1));
+                        break;
+                    case "last week":
+                        articles = articles.Where(a => a.PubDate >= DateTime.Today.AddDays(-7));
+                        break;
+
                 }
 
                 var articlesList = articles.ToList();
