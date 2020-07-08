@@ -1,4 +1,5 @@
-﻿using NewsPortal.Models;
+﻿using Lucene.Net.Analysis;
+using NewsPortal.Models;
 using NHibernate;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,11 +14,18 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1)
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
+
+                if (keywords != "")
+                {
+                    articles = articles.Where(a => a.Title.Contains(keywords)
+                                                || a.Description.Contains(keywords));
+                }
+
                 switch (sortOrder)
                 {
                     case "Title":
