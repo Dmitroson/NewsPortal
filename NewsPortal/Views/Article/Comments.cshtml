@@ -1,0 +1,15 @@
+﻿@model IEnumerable<NewsPortal.Models.Comment>
+
+<p>
+    Comments
+</p>
+<div>
+    @foreach (var comment in Model)
+    {
+        <div>
+            <p>@comment.UserName</p>
+            <p>@comment.PubDate</p>
+            <p>@comment.Text</p>
+        </div>
+    }
+</div>

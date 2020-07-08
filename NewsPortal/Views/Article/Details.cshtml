@@ -44,6 +44,19 @@
         </dd>
 
     </dl>
+    @*<p>
+        Comments
+    </p>
+    <div>
+        @foreach (var comment in Model.Comments.ToList())
+        {
+            <div>
+                <p>@comment.UserName</p>
+                <p>@comment.PubDate</p>
+                <p>@comment.Text</p>
+            </div>
+        }
+    </div>*@
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")
