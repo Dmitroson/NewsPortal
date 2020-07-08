@@ -33,10 +33,15 @@
     <div class="container body-content">
 
         <div class="filtersandsorting">
-            <p>
-                <input type="search" name="q" placeholder="Поиск по сайту">
-                <input type="submit" value="Найти">
-            </p>
+            @using (Html.BeginForm("Index", "Article", FormMethod.Get))
+            {
+                <p>
+                    @Html.TextBox("keywords", "", new { @placeholder = "Поиск" })
+
+                    <input type="submit" value="Найти">
+                </p>
+            }
+
             <form method="post">
                 <p>
                     <div class="btn-group">

@@ -1,5 +1,6 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -9,11 +10,18 @@ namespace NewsPortal.Controllers
     public class ArticleController : Controller
     {
         // GET: Article
-        public ActionResult Index(string sortOrder = "Date", int page = 1)
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filter = "all")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
+
+                if (keywords != "")
+                {
+                    articles = articles.Where(a => a.Title.Contains(keywords)
+                                                || a.Description.Contains(keywords));
+                }
+
                 switch (sortOrder)
                 {
                     case "Title":
@@ -25,6 +33,20 @@ namespace NewsPortal.Controllers
                     default:
                         articles = articles.OrderByDescending(a => a.PubDate);
                         break;
+                }
+
+                switch (filter)
+                {
+                    case "today":
+                        articles = articles.Where(a => a.PubDate == DateTime.Today);
+                        break;
+                    case "yesterday":
+                        articles = articles.Where(a => a.PubDate == DateTime.Today.AddDays(-1));
+                        break;
+                    case "last week":
+                        articles = articles.Where(a => (a.PubDate >= DateTime.Today.AddDays(-7) && a.PubDate <= DateTime.Today));
+                        break;
+
                 }
 
                 var articlesList = articles.ToList();
