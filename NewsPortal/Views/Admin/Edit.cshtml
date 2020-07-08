@@ -8,7 +8,7 @@
 <script src="~/Scripts/ckeditor/ckeditor.js"></script>
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -29,7 +29,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <textarea id="Description" name="Description"></textarea>
+                <textarea id="Description" name="Description">
+                    @Model.Description
+                </textarea>
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 @*CKEditor*@
                 <script>
@@ -41,6 +43,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <img src="@Model.ImageUrl" alt="Image" />
+                <input type="file" name="uploadImage" />
                 @Html.EditorFor(model => model.ImageUrl, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
             </div>

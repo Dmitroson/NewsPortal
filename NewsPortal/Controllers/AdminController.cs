@@ -115,10 +115,17 @@ namespace NewsPortal.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit(Article article)
+        public ActionResult Edit(Article article, HttpPostedFileBase uploadImage)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && uploadImage != null)
             {
+                if(uploadImage.FileName != article.ImageUrl)
+                {
+                    var path = Server.MapPath("~/Images/") + uploadImage.FileName;
+                    uploadImage.SaveAs(path);
+                    article.ImageUrl = "/Images/" + uploadImage.FileName;
+                }
+                
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())
