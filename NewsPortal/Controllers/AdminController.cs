@@ -191,15 +191,19 @@ namespace NewsPortal.Controllers
             }
             return RedirectToAction("Index");
         }
-
         public ActionResult GetComments(int? id)
         {
+            if (id == null)
+            {
+                return View();
+            }
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    return PartialView("~/Views/Comments/PartialViewComments.cshtml", article.Comments);
+                    var comments = article.Comments.ToList();
+                    return PartialView("~/Views/Comments/PartialViewComments.cshtml", comments);
                 }
             }
         }
