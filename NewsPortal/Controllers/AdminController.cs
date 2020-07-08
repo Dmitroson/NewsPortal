@@ -1,8 +1,6 @@
-﻿using Lucene.Net.Analysis;
-using NewsPortal.Models;
+﻿using NewsPortal.Models;
 using NHibernate;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -49,7 +47,7 @@ namespace NewsPortal.Controllers
                         articles = articles.Where(a => a.PubDate == DateTime.Today.AddDays(-1));
                         break;
                     case "last week":
-                        articles = articles.Where(a => a.PubDate >= DateTime.Today.AddDays(-7));
+                        articles = articles.Where(a => (a.PubDate >= DateTime.Today.AddDays(-7) && a.PubDate <= DateTime.Today));
                         break;
 
                 }
