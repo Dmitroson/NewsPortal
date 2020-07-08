@@ -35,7 +35,7 @@ namespace NewsPortal.Controllers
                         articles = articles.OrderBy(a => a.Description);
                         break;
                     default:
-                        articles = articles.OrderBy(a => a.PubDate);
+                        articles = articles.OrderByDescending(a => a.PubDate);
                         break;
                 }
 
