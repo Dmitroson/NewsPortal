@@ -117,9 +117,9 @@ namespace NewsPortal.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(Article article, HttpPostedFileBase uploadImage)
         {
-            if (ModelState.IsValid && uploadImage != null)
+            if (ModelState.IsValid)
             {
-                if(uploadImage.FileName != article.ImageUrl)
+                if(uploadImage != null)
                 {
                     var path = Server.MapPath("~/Images/") + uploadImage.FileName;
                     uploadImage.SaveAs(path);
@@ -134,7 +134,7 @@ namespace NewsPortal.Controllers
                         transaction.Commit();
                     }
                 }
-                return RedirectToAction("Details", article.Id);
+                return RedirectToAction("Index");
             }
             return View(article);
         }
