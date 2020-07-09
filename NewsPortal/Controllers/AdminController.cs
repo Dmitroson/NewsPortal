@@ -13,11 +13,14 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filter = "all")
+        public ActionResult Index(string filterString, string sortOrder = "Date", int page = 1, string keywords = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
+
+                FilterByDate filter = new FilterByDate(filterString);
+
 
                 if (keywords != "")
                 {
@@ -38,19 +41,18 @@ namespace NewsPortal.Controllers
                         break;
                 }
 
-                switch (filter)
-                {
-                    case "today":
-                        articles = articles.Where(a => a.PubDate == DateTime.Today);
-                        break;
-                    case "yesterday":
-                        articles = articles.Where(a => a.PubDate == DateTime.Today.AddDays(-1));
-                        break;
-                    case "last week":
-                        articles = articles.Where(a => (a.PubDate >= DateTime.Today.AddDays(-7) && a.PubDate <= DateTime.Today));
-                        break;
-
-                }
+                //switch (filter)
+                //{
+                //    case "today":
+                //        articles = articles.Where(a => a.PubDate == DateTime.Today);
+                //        break;
+                //    case "yesterday":
+                //        articles = articles.Where(a => a.PubDate == DateTime.Today.AddDays(-1));
+                //        break;
+                //    case "last week":
+                //        articles = articles.Where(a => (a.PubDate >= DateTime.Today.AddDays(-7) && a.PubDate <= DateTime.Today));
+                //        break;
+                //}
 
                 var articlesList = articles.ToList();
                 int pageSize = 10;
@@ -190,6 +192,13 @@ namespace NewsPortal.Controllers
                 }
             }
             return RedirectToAction("Index");
+        }
+
+        private string GetFilterString()
+        {
+            string[] filterString = Request.Form.GetValues("filterString");
+            string result = "";
+            return result;
         }
 
         public ActionResult GetComments(int? id)

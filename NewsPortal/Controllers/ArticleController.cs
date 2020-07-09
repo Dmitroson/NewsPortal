@@ -53,15 +53,15 @@ namespace NewsPortal.Controllers
                 int pageSize = 10;
                 IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
                 PageInfo pageInfo = new PageInfo
-                {
-                    PageNumber = page,
-                    PageSize = pageSize,
-                    TotalItems = articlesList.Count
+                { 
+                    PageNumber = page, 
+                    PageSize = pageSize, 
+                    TotalItems = articlesList.Count 
                 };
                 ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
-                {
-                    Articles = articlesPerPages,
-                    PageInfo = pageInfo
+                { 
+                    Articles = articlesPerPages, 
+                    PageInfo = pageInfo 
                 };
                 return View(articlesViewModel);
             }
