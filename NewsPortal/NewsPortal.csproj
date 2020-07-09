@@ -208,7 +208,7 @@
     <Compile Include="Models\ClassMap\ArticleMap.cs" />
     <Compile Include="Models\ClassMap\CommentMap.cs" />
     <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\FilterByDate.cs" />
+    <Compile Include="Models\DateFilter.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NHibernate\NHibernateHelper.cs" />

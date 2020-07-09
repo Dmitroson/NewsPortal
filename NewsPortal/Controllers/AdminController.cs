@@ -18,19 +18,9 @@ namespace NewsPortal.Controllers
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
-                // Filters.
-                //switch (filter)
-                //{
-                //    case "today":
-                //        articles = articles.Where(a => a.PubDate == DateTime.Today);
-                //        break;
-                //    case "yesterday":
-                //        articles = articles.Where(a => a.PubDate == DateTime.Today.AddDays(-1));
-                //        break;
-                //    case "last week":
-                //        articles = articles.Where(a => (a.PubDate >= DateTime.Today.AddDays(-7) && a.PubDate <= DateTime.Today));
-                //        break;
-                //}
+
+                DateFilter filter = new DateFilter(filterString);
+                articles = filter.FilterByDate(articles);
 
                 // Search.
                 if (keywords != "")
