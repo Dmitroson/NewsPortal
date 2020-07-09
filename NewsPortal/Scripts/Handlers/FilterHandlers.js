@@ -1,7 +1,4 @@
-﻿let filterString = document.getElementById('filterString');
-filterString = loadSessionData();
-
-let filter = document.getElementById('filter');
+﻿let filter = document.getElementById('filter');
 
 filter.addEventListener('click', function () {
     let checkboxToday = document.getElementById('today');
@@ -32,27 +29,29 @@ filter.addEventListener('click', function () {
     } else {
         sessionStorage.setItem('all', '0');
     }
+
+    let filterString = document.getElementById('filterString');
+    filterString.value = loadSessionData();
 });
 
 function loadSessionData() {
-    let filter = {
-        today: Boolean(sessionStorage.getItem('today')),
-        yesterday: Boolean(sessionStorage.getItem('yesterday')),
-        week: Boolean(sessionStorage.getItem('week')),
-        all: Boolean(sessionStorage.getItem('all')),
-    };
+    let today = sessionStorage.getItem('today');
+    let yesterday = sessionStorage.getItem('yesterday');
+    let week = sessionStorage.getItem('week');
+    let all = sessionStorage.getItem('all');
+    let filterString = '';
 
-    if (filter.today)
-        filterString += filter.today + " ";
+    if (today == '1')
+        filterString += 'today ';
 
-    if (filter.yesterday)
-        filterString += filter.yesterday + " ";
+    if (yesterday == '1')
+        filterString += 'yesterday ';
 
-    if (filter.week)
-        filterString += filter.week + " ";
+    if (week == '1')
+        filterString += 'week ';
 
-    if (filter.all)
-        filterString += filter.all + " ";
+    if (all == '1')
+        filterString += 'all ';
 
     return filterString;
 }

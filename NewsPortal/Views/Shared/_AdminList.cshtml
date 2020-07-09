@@ -53,7 +53,7 @@
             </form>
             @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
             {
-                <input type="hidden" id="filterString" />
+                <input type="text" id="filterString" name="filterString" />
                 <p>Фильтры:</p>
                 <p><input type="checkbox" id="today"> today</p>
                 <p><input type="checkbox" id="yesterday"> yesterday</p>
@@ -74,6 +74,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

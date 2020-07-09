@@ -13,12 +13,11 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "")
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filterString = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
-
                 // Filters.
                 //switch (filter)
                 //{
