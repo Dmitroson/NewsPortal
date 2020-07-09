@@ -13,34 +13,13 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string filterString, string sortOrder = "Date", int page = 1, string keywords = "")
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
 
-                FilterByDate filter = new FilterByDate(filterString);
-
-
-                if (keywords != "")
-                {
-                    articles = articles.Where(a => a.Title.Contains(keywords)
-                                                || a.Description.Contains(keywords));
-                }
-
-                switch (sortOrder)
-                {
-                    case "Title":
-                        articles = articles.OrderBy(a => a.Title);
-                        break;
-                    case "Description":
-                        articles = articles.OrderBy(a => a.Description);
-                        break;
-                    default:
-                        articles = articles.OrderByDescending(a => a.PubDate);
-                        break;
-                }
-
+                // Filters.
                 //switch (filter)
                 //{
                 //    case "today":
@@ -53,6 +32,27 @@ namespace NewsPortal.Controllers
                 //        articles = articles.Where(a => (a.PubDate >= DateTime.Today.AddDays(-7) && a.PubDate <= DateTime.Today));
                 //        break;
                 //}
+
+                // Search.
+                if (keywords != "")
+                {
+                    articles = articles.Where(a => a.Title.Contains(keywords)
+                                                || a.Description.Contains(keywords));
+                }
+
+                // Sorting.
+                switch (sortOrder)
+                {
+                    case "Title":
+                        articles = articles.OrderBy(a => a.Title);
+                        break;
+                    case "Description":
+                        articles = articles.OrderBy(a => a.Description);
+                        break;
+                    default:
+                        articles = articles.OrderByDescending(a => a.PubDate);
+                        break;
+                }
 
                 var articlesList = articles.ToList();
                 int pageSize = 10;
@@ -107,6 +107,7 @@ namespace NewsPortal.Controllers
                 var path = Server.MapPath("~/Images/") + uploadImage.FileName;
                 uploadImage.SaveAs(path);
                 article.ImageUrl = "/Images/" + uploadImage.FileName;
+
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())
@@ -196,9 +197,8 @@ namespace NewsPortal.Controllers
 
         private string GetFilterString()
         {
-            string[] filterString = Request.Form.GetValues("filterString");
-            string result = "";
-            return result;
+            string filterString = Request.Form.Get("filterString");
+            return filterString;
         }
 
         public ActionResult GetComments(int? id)

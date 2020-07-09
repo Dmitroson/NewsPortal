@@ -15,30 +15,6 @@ namespace NewsPortal.Models
         public bool ThisWeek { get; private set; }
         public bool All { get; private set; }
 
-        public FilterByDate(string filterString)
-        {
-            //string s = context["today"] as string;
-            //if (s == "1")
-            //{
-            //    Orders.Add(1);
-            //}
-            
-            //if ((string)context.Session["yesterday"] == "1")
-            //{
-            //    Orders.Add(2);
-            //}
-
-            //if ((string)context.Session["week"] == "1")
-            //{
-            //    Orders.Add(3);
-            //}
-
-            //if ((string)context.Session["all"] == "1")
-            //{
-            //    Orders.Add(4);
-            //}
-        }
-
 
     }
 
