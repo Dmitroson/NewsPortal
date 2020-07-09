@@ -107,6 +107,11 @@ namespace NewsPortal.Controllers
                 uploadImage.SaveAs(path);
                 article.ImageUrl = "/Images/" + uploadImage.FileName;
 
+                if (article.PubDate == null)
+                {
+                    article.PubDate = DateTime.Now;
+                }
+
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())

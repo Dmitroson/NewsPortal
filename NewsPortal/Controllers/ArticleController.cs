@@ -14,7 +14,7 @@ namespace NewsPortal.Controllers
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                var articles = session.Query<Article>();
+                var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);
 
                 if (keywords != "")
                 {
