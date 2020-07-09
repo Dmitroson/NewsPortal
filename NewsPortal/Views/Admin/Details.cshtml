@@ -58,5 +58,6 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 <p>
-    @Html.Action("GetComments",Model.Id)
+    @Html.Action("GetComments", Model.Id)
+    @Html.ActionLink("Create", "Create", "Comment")
 </p>
