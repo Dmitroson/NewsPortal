@@ -13,23 +13,18 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filterString = "")
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filter = "all")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
 
-                DateFilter filter = new DateFilter(filterString);
-                articles = filter.FilterByDate(articles);
-
-                // Search.
                 if (keywords != "")
                 {
                     articles = articles.Where(a => a.Title.Contains(keywords)
                                                 || a.Description.Contains(keywords));
                 }
 
-                // Sorting.
                 switch (sortOrder)
                 {
                     case "Title":
@@ -41,6 +36,20 @@ namespace NewsPortal.Controllers
                     default:
                         articles = articles.OrderByDescending(a => a.PubDate);
                         break;
+                }
+
+                switch (filter)
+                {
+                    case "today":
+                        articles = articles.Where(a => a.PubDate == DateTime.Today);
+                        break;
+                    case "yesterday":
+                        articles = articles.Where(a => a.PubDate == DateTime.Today.AddDays(-1));
+                        break;
+                    case "last week":
+                        articles = articles.Where(a => (a.PubDate >= DateTime.Today.AddDays(-7) && a.PubDate <= DateTime.Today));
+                        break;
+
                 }
 
                 var articlesList = articles.ToList();
@@ -96,12 +105,6 @@ namespace NewsPortal.Controllers
                 var path = Server.MapPath("~/Images/") + uploadImage.FileName;
                 uploadImage.SaveAs(path);
                 article.ImageUrl = "/Images/" + uploadImage.FileName;
-
-                if (article.PubDate == null)
-                {
-                    article.PubDate = DateTime.Now;
-                }
-
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())
@@ -188,23 +191,42 @@ namespace NewsPortal.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        private string GetFilterString()
-        {
-            string filterString = Request.Form.Get("filterString");
-            return filterString;
-        }
-
-        public ActionResult GetComments(int? id)
+        public ActionResult GetComments(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    return PartialView("~/Views/Comments/PartialViewComments.cshtml", article.Comments);
+                    return PartialView("~/Views/Comments/CommentsPartialView.cshtml", article.Comments.ToList());
                 }
             }
+        }
+
+        public ActionResult CreateComment()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment(Comment comment, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        var article = session.Get<Article>(id);
+                        article.Comments.Add(comment);
+                        session.Update(article);
+                        transaction.Commit();
+                        return View("Details", article);                        
+                    }
+                }
+            }
+            return View(comment);
         }
     }
 }
