@@ -191,21 +191,42 @@ namespace NewsPortal.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult GetComments(int? id)
+        public ActionResult GetComments(int id)
         {
-            if (id == null)
-            {
-                return View();
-            }
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    var comments = article.Comments.ToList();
-                    return PartialView("~/Views/Comments/PartialViewComments.cshtml", comments);
+                    return PartialView("~/Views/Comments/CommentsPartialView.cshtml", article.Comments.ToList());
                 }
             }
+        }
+
+        public ActionResult CreateComment()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment(Comment comment, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        var article = session.Get<Article>(id);
+                        article.Comments.Add(comment);
+                        session.Update(article);
+                        transaction.Commit();
+                        return View("Details", article);                        
+                    }
+                }
+            }
+            return View(comment);
         }
     }
 }

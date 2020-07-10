@@ -619,8 +619,9 @@
     <Content Include="Views\Admin\Details.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Article\Comments.cshtml" />
-    <Content Include="Views\Comments\PartialViewComments.cshtml" />
-    <Content Include="Views\Comment\Create.cshtml" />
+    <Content Include="Views\Comments\CommentsPartialView.cshtml" />
+    <Content Include="Views\Comment\CreateComment.cshtml" />
+    <Content Include="Views\Admin\CreateComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -59,20 +59,20 @@ namespace NewsPortal.Controllers
             }
         }
 
-        
-        //public ActionResult GetComments(int articleId)
-        //{
-        //    using (ISession session = NHibernateHelper.OpenSession())
-        //    {
-        //        using (ITransaction transaction = session.BeginTransaction())
-        //        {
-        //            var comments = session.Query<Comment>()
-        //                                  .Where(c => c.Article.Id == articleId)
-        //                                  .ToList();
-        //            transaction.Commit();
-        //            return PartialView("Comments", comments);
-        //        }
-        //    }
-        //}
+
+        public ActionResult GetComments(int articleId)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    var comments = session.Query<Comment>()
+                                          .Where(c => c.Article.Id == articleId)
+                                          .ToList();
+                    transaction.Commit();
+                    return  PartialView("Comments",comments);
+                }
+            }
+        }
     }
 }
