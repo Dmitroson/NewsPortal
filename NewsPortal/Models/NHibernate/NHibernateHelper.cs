@@ -18,7 +18,7 @@ public class NHibernateHelper
             .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Article>())
             .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
             .BuildSessionFactory();
-
+        
         return sessionFactory.OpenSession();
     }
 }
