@@ -196,7 +196,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -208,6 +207,7 @@
     <Compile Include="Models\ClassMap\ArticleMap.cs" />
     <Compile Include="Models\ClassMap\CommentMap.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\DateFilter.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NHibernate\NHibernateHelper.cs" />
@@ -564,6 +564,7 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\ckeditor\vendor\promise.js" />
+    <Content Include="Scripts\Handlers\FilterHandlers.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -585,9 +586,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />

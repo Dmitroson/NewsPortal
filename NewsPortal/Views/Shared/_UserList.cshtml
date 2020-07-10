@@ -33,10 +33,15 @@
     <div class="container body-content">
 
         <div class="filtersandsorting">
-            <p>
-                <input type="search" name="q" placeholder="Поиск по сайту">
-                <input type="submit" value="Найти">
-            </p>
+            @using (Html.BeginForm("Index", "Article", FormMethod.Get))
+            {
+                <p>
+                    @Html.TextBox("keywords", "", new { @placeholder = "Поиск" })
+
+                    <input type="submit" value="Найти">
+                </p>
+            }
+
             <form method="post">
                 <p>
                     <div class="btn-group">
@@ -51,14 +56,17 @@
                     </div>
                 </p>
             </form>
-            <form action="~/Views/Admin/Index.cshtml">
-                <p>Filters</p>
-                <p><input type="checkbox" name="a" value="today"> today</p>
-                <p><input type="checkbox" name="a" value="yesterday"> yesterday</p>
-                <p><input type="checkbox" name="a" value="this week"> this week</p>
-                <p><input type="checkbox" name="a" value="all" checked> all</p>
-                <input type="submit" value="Search" />
-            </form>
+            @using (Html.BeginForm("Index", "Article", FormMethod.Get))
+            {
+                <input type="hidden" id="filterString" name="filterString" />
+                <p>Фильтры:</p>
+                <p><input type="checkbox" id="today"> today</p>
+                <p><input type="checkbox" id="yesterday"> yesterday</p>
+                <p><input type="checkbox" id="week"> this week</p>
+                <p><input type="checkbox" id="all"> all</p>
+                <input type="submit" id="filter" value="Фильтровать" />
+                <script src="~/Scripts/Handlers/FilterHandlers.js"></script>
+            }
         </div>
         @RenderBody()
         <!--<hr />-->
@@ -70,6 +78,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("Scripts", required: false)
+    @RenderSection("scripts", required: false)
 </body>
 </html>

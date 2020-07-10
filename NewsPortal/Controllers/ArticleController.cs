@@ -1,5 +1,6 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -9,11 +10,21 @@ namespace NewsPortal.Controllers
     public class ArticleController : Controller
     {
         // GET: Article
-        public ActionResult Index(string sortOrder = "Date", int page = 1)
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filterString = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                var articles = session.Query<Article>();
+                var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);
+
+                DateFilter filter = new DateFilter(filterString);
+                articles = filter.FilterByDate(articles);
+
+                if (keywords != "")
+                {
+                    articles = articles.Where(a => a.Title.Contains(keywords)
+                                                || a.Description.Contains(keywords));
+                }
+
                 switch (sortOrder)
                 {
                     case "Title":
@@ -31,15 +42,15 @@ namespace NewsPortal.Controllers
                 int pageSize = 10;
                 IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
                 PageInfo pageInfo = new PageInfo
-                {
-                    PageNumber = page,
-                    PageSize = pageSize,
-                    TotalItems = articlesList.Count
+                { 
+                    PageNumber = page, 
+                    PageSize = pageSize, 
+                    TotalItems = articlesList.Count 
                 };
                 ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
-                {
-                    Articles = articlesPerPages,
-                    PageInfo = pageInfo
+                { 
+                    Articles = articlesPerPages, 
+                    PageInfo = pageInfo 
                 };
                 return View(articlesViewModel);
             }
