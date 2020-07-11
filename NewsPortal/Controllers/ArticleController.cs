@@ -14,7 +14,7 @@ namespace NewsPortal.Controllers
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);
+                var articles = session.Query<Article>().Where(a => a.PubDate.Value <= DateTime.Now && a.Visibility == true);
 
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
@@ -70,7 +70,6 @@ namespace NewsPortal.Controllers
             }
         }
 
-
         public ActionResult GetComments(int articleId)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -81,7 +80,7 @@ namespace NewsPortal.Controllers
                                           .Where(c => c.Article.Id == articleId)
                                           .ToList();
                     transaction.Commit();
-                    return  PartialView("Comments",comments);
+                    return PartialView("Comments",comments);
                 }
             }
         }

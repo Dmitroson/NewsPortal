@@ -55,29 +55,3 @@ function loadSessionData() {
 
     return filterString;
 }
-
-
-
-//checkboxYesterday.addEventListener('click', function () {
-//    if (checkboxYesterday.checked) {
-//        sessionStorage.setItem('yesterday', '1');
-//    } else {
-//        sessionStorage.setItem('yesterday', '0');
-//    }
-//});
-
-//checkboxWeek.addEventListener('click', function () {
-//    if (checkboxWeek.checked) {
-//        sessionStorage.setItem('week', '1');
-//    } else {
-//        sessionStorage.setItem('week', '0');
-//    }
-//});
-
-//checkboxAll.addEventListener('click', function () {
-//    if (checkboxAll.checked) {
-//        sessionStorage.setItem('all', '1');
-//    } else {
-//        sessionStorage.setItem('all', '0');
-//    }
-//});
