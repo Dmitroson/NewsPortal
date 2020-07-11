@@ -208,8 +208,9 @@ namespace NewsPortal.Controllers
                     using (ITransaction transaction = session.BeginTransaction())
                     {
                         var article = session.Get<Article>(id);
+                        comment.Article = article;
+                        session.Save(comment);
                         article.Comments.Add(comment);
-                        session.Update(article);
                         transaction.Commit();
                         return View("Details", article);                        
                     }
