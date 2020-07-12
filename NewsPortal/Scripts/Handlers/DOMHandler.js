@@ -23,7 +23,7 @@
 }
 
 function isFilterActive() {
-    let checkboxes = document.getElementsByTagName('input');
+    let checkboxes = document.querySelectorAll("input[type=checkbox]");
     for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             return true;
@@ -40,7 +40,5 @@ function fillSearchString() {
 
 document.addEventListener("DOMContentLoaded", function () {
     showCheckedItems();
-    if (isFilterActive()) {
-        fillSearchString();
-    }
+    fillSearchString();
 });

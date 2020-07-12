@@ -13,12 +13,14 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string searchString = "", string filterString = "")
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string parameters = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
 
+                ParseParams(parameters, out string searchString, out string filterString);
+                
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
 
@@ -55,6 +57,7 @@ namespace NewsPortal.Controllers
                     Articles = articlesPerPages,
                     PageInfo = pageInfo 
                 };
+                //Response.Redirect(Request.);
                 return View(articlesViewModel);
             }
         }
@@ -223,6 +226,37 @@ namespace NewsPortal.Controllers
                 }
             }
             return View(comment);
+        }
+
+        private void ParseParams(string paramsString, out string searchString, out string filterString)
+        {
+            searchString = "";
+            filterString = "";
+            string[] paramsArray = paramsString.Split('&');
+
+            switch (paramsArray.Length)
+            {
+                case 1:
+                    int foundIndex = paramsArray[0].IndexOf("=");
+                    if (paramsArray[0].Contains("searchString"))
+                    {
+                        searchString = paramsArray[0].Substring(foundIndex + 1);
+                        filterString = "";
+                    }
+                    else
+                    {
+                        filterString = paramsArray[0].Substring(foundIndex + 1);
+                        searchString = "";
+                    }
+                    break;
+                case 2:
+                    int foundIndex1 = paramsArray[0].IndexOf("=");
+                    searchString = paramsArray[0].Substring(foundIndex1 + 1);
+
+                    int foundIndex2 = paramsArray[1].IndexOf("=");
+                    filterString = paramsArray[1].Substring(foundIndex2 + 1);
+                    break;
+            }
         }
     }
 }
