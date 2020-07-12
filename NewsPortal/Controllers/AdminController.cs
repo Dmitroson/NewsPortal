@@ -13,7 +13,7 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filterString = "")
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string searchString = "", string filterString = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -22,10 +22,10 @@ namespace NewsPortal.Controllers
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
 
-                if (keywords != "")
+                if (searchString != "")
                 {
-                    articles = articles.Where(a => a.Title.Contains(keywords)
-                                                || a.Description.Contains(keywords));
+                    articles = articles.Where(a => a.Title.Contains(searchString)
+                                                || a.Description.Contains(searchString));
                 }
 
                 switch (sortOrder)

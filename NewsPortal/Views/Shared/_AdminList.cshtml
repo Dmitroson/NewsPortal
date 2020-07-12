@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Cache-Control" content="private">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,6 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,12 +28,14 @@
     </div>
     <div class="container body-content">
         <div class="filtersandsorting">
+
             @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
             {
                 <p>
-                    @Html.TextBox("keywords", "", new { @placeholder = "Поиск" })
+                    <input type="search" id="searchString" name="searchString" value="" placeholder="Поиск" />
+                    @*@Html.TextBox("searchString", "", new { @placeholder = "Поиск" })*@
 
-                    <input type="submit" value="Найти">
+                    <input type="submit" id="searchButton" value="Найти">
                 </p>
             }
 
@@ -75,6 +77,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/Handlers/FilterHandlers.js");
     @Scripts.Render("~/Scripts/Handlers/DOMHandler.js");
+    @Scripts.Render("~/Scripts/Handlers/SearchHandlers.js");
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -22,4 +22,25 @@
         checkboxAll.checked = true;
 }
 
-document.addEventListener("DOMContentLoaded", showCheckedItems());
+function isFilterActive() {
+    let checkboxes = document.getElementsByTagName('input');
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            return true;
+        }
+        return false;
+    }
+}
+
+function fillSearchString() {
+    let searchField = document.getElementById('searchString');
+    let searchString = sessionStorage.getItem('searchString');
+    searchField.value = searchString;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    showCheckedItems();
+    if (isFilterActive()) {
+        fillSearchString();
+    }
+});
