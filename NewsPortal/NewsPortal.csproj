@@ -620,6 +620,7 @@
     <Content Include="Views\Comments\CommentsPartialView.cshtml" />
     <Content Include="Views\Comment\CreateComment.cshtml" />
     <Content Include="Views\Admin\CreateComment.cshtml" />
+    <Content Include="Views\Comments\CreateCommentsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -191,6 +191,7 @@ namespace NewsPortal.Controllers
             }
             return RedirectToAction("Index");
         }
+
         public ActionResult GetComments(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -205,7 +206,7 @@ namespace NewsPortal.Controllers
 
         public ActionResult CreateComment()
         {
-            return View();
+            return PartialView("~/Views/Comments/CreateCommentsPartial.cshtml"); 
         }
 
         [HttpPost]
@@ -219,11 +220,13 @@ namespace NewsPortal.Controllers
                     using (ITransaction transaction = session.BeginTransaction())
                     {
                         var article = session.Get<Article>(id);
+                        comment.PubDate = DateTime.Now;
                         comment.Article = article;
                         session.Save(comment);
                         article.Comments.Add(comment);
                         transaction.Commit();
-                        return View("Details", article);                        
+                        Response.Redirect(Request.RawUrl);
+                        //return View("Details", article);                        
                     }
                 }
             }

@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<NewsPortal.Models.Comment>
-    <ul>
-        @foreach (var t in Model)
-        {
-            <li>@t.PubDate</li>
-            <li>@t.Text</li>
-            <li>@t.UserName</li>
-        }
-    </ul>
+<link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+@foreach (var t in Model)
+{
+    <article class="comment">
+        <div class="commentuser">@t.UserName</div>
+        <div class="commentdate">@t.PubDate</div>
+        <div class="commenttext">@t.Text</div>
+    </article>
+}
+
