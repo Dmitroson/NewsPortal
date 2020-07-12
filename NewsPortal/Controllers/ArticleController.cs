@@ -14,7 +14,7 @@ namespace NewsPortal.Controllers
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                var articles = session.Query<Article>().Where(a => a.PubDate.Value <= DateTime.Now && a.Visibility == true);
+                var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);
 
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
@@ -70,19 +70,46 @@ namespace NewsPortal.Controllers
             }
         }
 
-        public ActionResult GetComments(int articleId)
+
+        public ActionResult GetComments(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    var comments = session.Query<Comment>()
-                                          .Where(c => c.Article.Id == articleId)
-                                          .ToList();
-                    transaction.Commit();
-                    return PartialView("Comments",comments);
+                    var article = session.Get<Article>(id);
+                    return PartialView("~/Views/Comments/CommentsPartialView.cshtml", article.Comments.ToList());
                 }
             }
+        }
+
+        public ActionResult CreateComment()
+        {
+            return PartialView("~/Views/Comments/CreateCommentsPartial.cshtml");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment(Comment comment, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ISession session = NHibernateHelper.OpenSession())
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        var article = session.Get<Article>(id);
+                        comment.PubDate = DateTime.Now;
+                        comment.Article = article;
+                        session.Save(comment);
+                        article.Comments.Add(comment);
+                        transaction.Commit();
+                        Response.Redirect(Request.RawUrl);
+                        //return View("Details", article);                        
+                    }
+                }
+            }
+            return View(comment);
         }
     }
 }

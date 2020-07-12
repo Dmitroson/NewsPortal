@@ -73,3 +73,22 @@ table {
 img{
     max-width:300px; 
 }
+
+.commentuser{
+    display:inline-block;
+    font-weight:bold;
+}
+
+.commentdate {
+    display: inline-block;
+}
+
+.commenttext{
+    margin-left:5%;
+}
+
+.comment{
+    border:1px solid blue;
+    width:50%;
+    margin:2%;
+}

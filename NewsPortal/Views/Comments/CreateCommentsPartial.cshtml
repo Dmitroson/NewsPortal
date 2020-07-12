@@ -1,12 +1,5 @@
 ﻿@model NewsPortal.Models.Comment
 
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-<h2>Create</h2>
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -32,14 +25,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PubDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PubDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PubDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -47,6 +32,3 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to Article", "Details")
-</div>

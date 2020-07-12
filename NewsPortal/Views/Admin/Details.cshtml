@@ -52,12 +52,15 @@
         </dd>
 
     </dl>
+
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
 <p>
+    @Html.Action("CreateComment" )
     @Html.Action("GetComments", new { id = Model.Id })
-    @Html.ActionLink("CreateComment", "CreateComment", new { Model.Id })
 </p>
