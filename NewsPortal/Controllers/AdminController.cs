@@ -13,11 +13,14 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filter = "all")
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filterString = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
+
+                DateFilter filter = new DateFilter(filterString);
+                articles = filter.FilterByDate(articles);
 
                 if (keywords != "")
                 {
@@ -38,20 +41,6 @@ namespace NewsPortal.Controllers
                         break;
                 }
 
-                switch (filter)
-                {
-                    case "today":
-                        articles = articles.Where(a => a.PubDate == DateTime.Today);
-                        break;
-                    case "yesterday":
-                        articles = articles.Where(a => a.PubDate == DateTime.Today.AddDays(-1));
-                        break;
-                    case "last week":
-                        articles = articles.Where(a => (a.PubDate >= DateTime.Today.AddDays(-7) && a.PubDate <= DateTime.Today));
-                        break;
-
-                }
-
                 var articlesList = articles.ToList();
                 int pageSize = 10;
                 IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
@@ -63,7 +52,7 @@ namespace NewsPortal.Controllers
                 };
                 ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
                 { 
-                    Articles = articlesPerPages, 
+                    Articles = articlesPerPages,
                     PageInfo = pageInfo 
                 };
                 return View(articlesViewModel);
@@ -105,6 +94,12 @@ namespace NewsPortal.Controllers
                 var path = Server.MapPath("~/Images/") + uploadImage.FileName;
                 uploadImage.SaveAs(path);
                 article.ImageUrl = "/Images/" + uploadImage.FileName;
+
+                if (article.PubDate == null)
+                {
+                    article.PubDate = DateTime.Now;
+                }
+
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())
