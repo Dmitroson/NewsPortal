@@ -13,7 +13,7 @@ namespace NewsPortal.Models.ClassMap
             Map(a => a.ImageUrl);
             Map(a => a.Visibility);
             Map(a => a.PubDate);
-            HasMany(a => a.Comments).Inverse();
+            HasMany(a => a.Comments).Inverse().Cascade.All();
         }
     }
 }

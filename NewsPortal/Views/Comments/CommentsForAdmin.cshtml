@@ -1,0 +1,12 @@
+﻿@model IEnumerable<NewsPortal.Models.Comment>
+<link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+@foreach (var t in Model)
+{
+    <article class="comment">
+        <div class="commentuser">@t.UserName</div>
+        <div class="commentdate">@t.PubDate</div>
+        <div class="commenttext">@t.Text</div>
+    </article>
+    @Html.ActionLink("DeleteComment", "DeleteComment", new { id = t.Id} )
+}
+

@@ -618,10 +618,10 @@
     <Content Include="Views\Admin\Details.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Article\Comments.cshtml" />
-    <Content Include="Views\Comments\CommentsPartialView.cshtml" />
-    <Content Include="Views\Comment\CreateComment.cshtml" />
+    <Content Include="Views\Comments\CommentsList.cshtml" />
     <Content Include="Views\Admin\CreateComment.cshtml" />
-    <Content Include="Views\Comments\CreateCommentsPartial.cshtml" />
+    <Content Include="Views\Comments\CreateComments.cshtml" />
+    <Content Include="Views\Comments\CommentsForAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

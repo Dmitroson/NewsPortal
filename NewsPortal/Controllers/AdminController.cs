@@ -1,7 +1,10 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
+using NHibernate.Mapping;
+using NHibernate.Util;
 using System;
 using System.Collections.Generic;
+using System.Deployment.Internal;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -180,6 +183,12 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
+                    var comments = session.Query<Comment>()
+                                            .Where(c => c.Article.Id == id);
+                    foreach(var c in comments)
+                    {
+                        session.Delete(c);
+                    }
                     session.Delete(article);
                     transaction.Commit();
                 }
@@ -194,14 +203,14 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    return PartialView("~/Views/Comments/CommentsPartialView.cshtml", article.Comments.ToList());
+                    return PartialView("~/Views/Comments/CommentsForAdmin.cshtml", article.Comments.ToList());
                 }
             }
         }
 
         public ActionResult CreateComment()
         {
-            return PartialView("~/Views/Comments/CreateCommentsPartial.cshtml"); 
+            return PartialView("~/Views/Comments/CreateComments.cshtml"); 
         }
 
         [HttpPost]
@@ -219,6 +228,7 @@ namespace NewsPortal.Controllers
                         comment.Article = article;
                         session.Save(comment);
                         article.Comments.Add(comment);
+                        session.Save(article);
                         transaction.Commit();
                         Response.Redirect(Request.RawUrl);
                         //return View("Details", article);                        
@@ -226,6 +236,22 @@ namespace NewsPortal.Controllers
                 }
             }
             return View(comment);
+        }
+
+        public RedirectToRouteResult DeleteComment(int id)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+
+                    var comment = session.Get<Comment>(id);
+                    int articleId = comment.Article.Id;
+                    session.Delete(comment);
+                    transaction.Commit();
+                    return RedirectToRoute(new { controller = "Admin", action = "Details", id = articleId.ToString() });
+                }
+            }
         }
     }
 }
