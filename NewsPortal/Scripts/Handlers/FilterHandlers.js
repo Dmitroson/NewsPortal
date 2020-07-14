@@ -1,6 +1,6 @@
-﻿let filter = document.getElementById('filter');
+﻿let form = document.getElementById('form');
 
-filter.addEventListener('click', function () {
+form.addEventListener('submit', function () {
     let checkboxToday = document.getElementById('today');
     let checkboxYesterday = document.getElementById('yesterday');
     let checkboxWeek = document.getElementById('week');
@@ -30,11 +30,21 @@ filter.addEventListener('click', function () {
         sessionStorage.setItem('all', '0');
     }
 
-    let filterString = document.getElementById('filterString');
-    filterString.value = loadSessionData();
+    let searchString = document.getElementById('searchString');
+
+    sessionStorage.setItem('searchString', searchString.value);
+
+    let params = document.getElementById('params');
+    params.value = loadSessionData();
 });
 
 function loadSessionData() {
+    let params = '';
+
+    let searchString = document.getElementById('searchString').value;
+    if (searchString != '')
+        params += 'searchString=' + searchString;
+
     let today = sessionStorage.getItem('today');
     let yesterday = sessionStorage.getItem('yesterday');
     let week = sessionStorage.getItem('week');
@@ -53,5 +63,13 @@ function loadSessionData() {
     if (all == '1')
         filterString += 'all ';
 
-    return filterString;
+    if (filterString != '') {
+        if (params != '') {
+            params += '&filterString=' + filterString;
+        } else {
+            params += 'filterString=' + filterString;
+        }
+    }
+
+    return params;
 }

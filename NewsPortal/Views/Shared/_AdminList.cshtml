@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Cache-Control" content="private">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,6 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,16 +28,18 @@
     </div>
     <div class="container body-content">
         <div class="filtersandsorting">
-            @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
+
+            @using (Html.BeginForm("Index", "Admin", FormMethod.Get, htmlAttributes: new { @id = "form" }))
             {
+                <input type="text" id="params" name="parameters" />
                 <p>
-                    @Html.TextBox("keywords", "", new { @placeholder = "Поиск" })
+                    <input type="search" id="searchString" value="" placeholder="Поиск" />
 
-                    <input type="submit" value="Найти">
+                    <input type="submit" class="changerParams" id="searchButton" value="Найти">
                 </p>
-            }
 
-            <form method="post">
+
+
                 <p>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,16 +52,15 @@
                         </div>
                     </div>
                 </p>
-            </form>
-            @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
-            {
-                <input type="hidden" id="filterString" name="filterString" />
+
                 <p>Фильтры:</p>
                 <p><input type="checkbox" id="today"> today</p>
                 <p><input type="checkbox" id="yesterday"> yesterday</p>
                 <p><input type="checkbox" id="week"> this week</p>
                 <p><input type="checkbox" id="all"> all</p>
-                <input type="submit" id="filter" value="Фильтровать" />
+                <input type="submit" class="changerParams" id="filter" value="Фильтровать" />
+
+                <input type="text" value="" id="check" />
             }
 
         </div>
