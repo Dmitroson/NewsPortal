@@ -13,14 +13,15 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
+        [HttpGet]
         public ActionResult Index(string sortOrder = "Date", int page = 1, string parameters = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                ParseParams(parameters, out string searchString, out string filterString);
-
                 var articles = session.Query<Article>();
 
+                ParseParams(parameters, out string searchString, out string filterString);
+                
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
 
@@ -37,9 +38,9 @@ namespace NewsPortal.Controllers
                 IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
                 PageInfo pageInfo = new PageInfo
                 { 
-                    PageNumber = page, 
-                    PageSize = pageSize, 
-                    TotalItems = articlesList.Count 
+                    PageNumber = page,
+                    PageSize = pageSize,
+                    TotalItems = articlesList.Count
                 };
                 ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
                 { 
@@ -51,6 +52,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -65,6 +67,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -105,6 +108,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -147,6 +151,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -171,12 +176,6 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    var comments = session.Query<Comment>()
-                                            .Where(c => c.Article.Id == id);
-                    foreach(var c in comments)
-                    {
-                        session.Delete(c);
-                    }
                     session.Delete(article);
                     transaction.Commit();
                 }
@@ -184,6 +183,7 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public ActionResult GetComments(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -191,11 +191,12 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    return PartialView("~/Views/Comments/CommentsForAdmin.cshtml", article.Comments.ToList());
+                    return PartialView("~/Views/Comments/CommentsList.cshtml", article.Comments.ToList());
                 }
             }
         }
 
+        [HttpGet]
         public ActionResult CreateComment()
         {
             return PartialView("~/Views/Comments/CreateComments.cshtml"); 
@@ -216,29 +217,12 @@ namespace NewsPortal.Controllers
                         comment.Article = article;
                         session.Save(comment);
                         article.Comments.Add(comment);
-                        session.Save(article);
                         transaction.Commit();
                         Response.Redirect(Request.RawUrl);                      
                     }
                 }
             }
             return View(comment);
-        }
-
-        public RedirectToRouteResult DeleteComment(int id)
-        {
-            using (ISession session = NHibernateHelper.OpenSession())
-            {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-
-                    var comment = session.Get<Comment>(id);
-                    int articleId = comment.Article.Id;
-                    session.Delete(comment);
-                    transaction.Commit();
-                    return RedirectToRoute(new { controller = "Admin", action = "Details", id = articleId.ToString() });
-                }
-            }
         }
 
         private IQueryable<Article> Sort(IQueryable<Article> articles, string order)

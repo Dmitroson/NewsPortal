@@ -18,6 +18,8 @@ namespace NewsPortal.Controllers
 
                 var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);
 
+                ParseParams(parameters, out string searchString, out string filterString);
+
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
 
