@@ -191,7 +191,7 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    return PartialView("~/Views/Comments/CommentsList.cshtml", article.Comments.ToList());
+                    return PartialView("~/Views/Comments/CommentsForAdmin.cshtml", article.Comments.ToList());
                 }
             }
         }
