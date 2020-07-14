@@ -23,7 +23,7 @@
 }
 
 function isFilterActive() {
-    let checkboxes = document.querySelectorAll("input[type=checkbox]");
+    let checkboxes = document.querySelectorAll("input[type='checkbox']");
     for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             return true;
@@ -32,13 +32,6 @@ function isFilterActive() {
     }
 }
 
-function fillSearchString() {
-    let searchField = document.getElementById('searchString');
-    let searchString = sessionStorage.getItem('searchString');
-    searchField.value = searchString;
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     showCheckedItems();
-    fillSearchString();
 });

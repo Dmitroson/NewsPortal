@@ -1,10 +1,7 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
-using NHibernate.Mapping;
-using NHibernate.Util;
 using System;
 using System.Collections.Generic;
-using System.Deployment.Internal;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -16,42 +13,34 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filterString = "")
+        [HttpGet]
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string parameters = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 var articles = session.Query<Article>();
 
+                ParseParams(parameters, out string searchString, out string filterString);
+                
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
 
-                if (keywords != "")
+                if (searchString != "")
                 {
-                    articles = articles.Where(a => a.Title.Contains(keywords)
-                                                || a.Description.Contains(keywords));
+                    articles = articles.Where(a => a.Title.Contains(searchString)
+                                                || a.Description.Contains(searchString));
                 }
 
-                switch (sortOrder)
-                {
-                    case "Title":
-                        articles = articles.OrderBy(a => a.Title);
-                        break;
-                    case "Description":
-                        articles = articles.OrderBy(a => a.Description);
-                        break;
-                    default:
-                        articles = articles.OrderByDescending(a => a.PubDate);
-                        break;
-                }
+                articles = Sort(articles, sortOrder);
 
                 var articlesList = articles.ToList();
                 int pageSize = 10;
                 IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
                 PageInfo pageInfo = new PageInfo
                 { 
-                    PageNumber = page, 
-                    PageSize = pageSize, 
-                    TotalItems = articlesList.Count 
+                    PageNumber = page,
+                    PageSize = pageSize,
+                    TotalItems = articlesList.Count
                 };
                 ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
                 { 
@@ -63,6 +52,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -77,6 +67,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -117,6 +108,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -159,6 +151,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -183,12 +176,6 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    var comments = session.Query<Comment>()
-                                            .Where(c => c.Article.Id == id);
-                    foreach(var c in comments)
-                    {
-                        session.Delete(c);
-                    }
                     session.Delete(article);
                     transaction.Commit();
                 }
@@ -196,6 +183,7 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public ActionResult GetComments(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -203,14 +191,15 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    return PartialView("~/Views/Comments/CommentsForAdmin.cshtml", article.Comments.ToList());
+                    return PartialView("~/Views/Comments/CommentsPartialView.cshtml", article.Comments.ToList());
                 }
             }
         }
 
+        [HttpGet]
         public ActionResult CreateComment()
         {
-            return PartialView("~/Views/Comments/CreateComments.cshtml"); 
+            return PartialView("~/Views/Comments/CreateCommentsPartial.cshtml"); 
         }
 
         [HttpPost]
@@ -228,29 +217,59 @@ namespace NewsPortal.Controllers
                         comment.Article = article;
                         session.Save(comment);
                         article.Comments.Add(comment);
-                        session.Save(article);
                         transaction.Commit();
-                        Response.Redirect(Request.RawUrl);
-                        //return View("Details", article);                        
+                        Response.Redirect(Request.RawUrl);                      
                     }
                 }
             }
             return View(comment);
         }
 
-        public RedirectToRouteResult DeleteComment(int id)
+        private IQueryable<Article> Sort(IQueryable<Article> articles, string order)
         {
-            using (ISession session = NHibernateHelper.OpenSession())
+            switch (order)
             {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
+                case "Title":
+                    articles = articles.OrderBy(a => a.Title);
+                    break;
+                case "Description":
+                    articles = articles.OrderBy(a => a.Description);
+                    break;
+                default:
+                    articles = articles.OrderByDescending(a => a.PubDate);
+                    break;
+            }
+            return articles;
+        }
 
-                    var comment = session.Get<Comment>(id);
-                    int articleId = comment.Article.Id;
-                    session.Delete(comment);
-                    transaction.Commit();
-                    return RedirectToRoute(new { controller = "Admin", action = "Details", id = articleId.ToString() });
-                }
+        private void ParseParams(string paramsString, out string searchString, out string filterString)
+        {
+            searchString = "";
+            filterString = "";
+            string[] paramsArray = paramsString.Split('&');
+
+            switch (paramsArray.Length)
+            {
+                case 1:
+                    int foundIndex = paramsArray[0].IndexOf("=");
+                    if (paramsArray[0].Contains("searchString"))
+                    {
+                        searchString = paramsArray[0].Substring(foundIndex + 1);
+                        filterString = "";
+                    }
+                    else
+                    {
+                        filterString = paramsArray[0].Substring(foundIndex + 1);
+                        searchString = "";
+                    }
+                    break;
+                case 2:
+                    int foundIndex1 = paramsArray[0].IndexOf("=");
+                    searchString = paramsArray[0].Substring(foundIndex1 + 1);
+
+                    int foundIndex2 = paramsArray[1].IndexOf("=");
+                    filterString = paramsArray[1].Substring(foundIndex2 + 1);
+                    break;
             }
         }
     }

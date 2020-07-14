@@ -1,6 +1,24 @@
-﻿let form = document.getElementById('form');
+﻿let searchButton = document.getElementById('searchButton');
 
-form.addEventListener('submit', function () {
+searchButton.addEventListener('click', function () {
+    saveCheckboxesToSessionData();
+
+    let searchString = document.getElementById('searchString');
+    sessionStorage.setItem('searchString', searchString.value);
+    let params = document.getElementById('params');
+    params.value = loadSessionData();
+});
+
+let filter = document.getElementById('filter');
+
+filter.addEventListener('click', function () {
+    saveCheckboxesToSessionData();
+    let params = document.getElementById('params');
+    params.value = loadSessionData();
+});
+
+
+function saveCheckboxesToSessionData(){
     let checkboxToday = document.getElementById('today');
     let checkboxYesterday = document.getElementById('yesterday');
     let checkboxWeek = document.getElementById('week');
@@ -29,14 +47,25 @@ form.addEventListener('submit', function () {
     } else {
         sessionStorage.setItem('all', '0');
     }
+}
 
-    let searchString = document.getElementById('searchString');
+function saveSorting() {
+    let dateOrder = document.getElementById('date');
+    let titleOrder = document.getElementById('title');
+    let descriptionOrder = document.getElementById('description');
 
-    sessionStorage.setItem('searchString', searchString.value);
+    dateOrder.addEventListener('click', function () {
+        sessionStorage.setItem('sortOrder', 'date');
+    });
 
-    let params = document.getElementById('params');
-    params.value = loadSessionData();
-});
+    titleOrder.addEventListener('click', function () {
+        sessionStorage.setItem('sortOrder', 'title');
+    });
+
+    descriptionOrder.addEventListener('click', function () {
+        sessionStorage.setItem('sortOrder', 'description');
+    });
+}
 
 function loadSessionData() {
     let params = '';
