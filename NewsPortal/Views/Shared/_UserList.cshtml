@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content body-content-index">
 
         <div class="filtersandsorting">
             @using (Html.BeginForm("Index", "Article", FormMethod.Get))
@@ -73,8 +73,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/Handlers/FilterHandlers.js");
-    @Scripts.Render("~/Scripts/Handlers/DOMHandler.js");
+    @Scripts.Render("~/Scripts/Handlers/FilterHandlers.js")
+    @Scripts.Render("~/Scripts/Handlers/DOMHandler.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
