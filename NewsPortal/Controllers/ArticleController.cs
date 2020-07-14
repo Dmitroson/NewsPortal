@@ -69,14 +69,14 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    return PartialView("~/Views/Comments/CommentsPartialView.cshtml", article.Comments.ToList());
+                    return PartialView("~/Views/Comments/CommentsList.cshtml", article.Comments.ToList());
                 }
             }
         }
 
         public ActionResult CreateComment()
         {
-            return PartialView("~/Views/Comments/CreateCommentsPartial.cshtml");
+            return PartialView("~/Views/Comments/CreateComments.cshtml");
         }
 
         [HttpPost]

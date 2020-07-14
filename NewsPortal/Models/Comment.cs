@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NewsPortal.Models
 {
-    public class Comment: IEnumerable<Comment>
+    public class Comment
     {
         public virtual int Id { get; set; }
         public virtual string Text { get; set; }
@@ -12,14 +12,6 @@ namespace NewsPortal.Models
         public virtual DateTime? PubDate { get; set; }
         public virtual Article Article { get; set; }
 
-        public virtual IEnumerator<Comment> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
