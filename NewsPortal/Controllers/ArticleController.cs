@@ -14,9 +14,9 @@ namespace NewsPortal.Controllers
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);
-
                 ParseParams(parameters, out string searchString, out string filterString);
+
+                var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);
 
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
@@ -95,8 +95,7 @@ namespace NewsPortal.Controllers
                         session.Save(comment);
                         article.Comments.Add(comment);
                         transaction.Commit();
-                        Response.Redirect(Request.RawUrl);
-                        //return View("Details", article);                        
+                        Response.Redirect(Request.RawUrl);                  
                     }
                 }
             }

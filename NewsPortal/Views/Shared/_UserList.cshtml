@@ -26,45 +26,37 @@
             </div>
         </div>
     </div>
-    <div class="container body-content body-content-index">
+    <div class="container body-content">
 
         <div class="filtersandsorting">
             @using (Html.BeginForm("Index", "Article", FormMethod.Get))
             {
+                <input type="hidden" id="params" name="parameters" />
                 <p>
-                    @Html.TextBox("keywords", "", new { @placeholder = "Поиск" })
-
-                    <input type="submit" value="Найти">
+                    <input type="text" id="searchString" value="" placeholder="Поиск" />
+                    <input type="submit" class="changerParams" id="searchButton" value="Найти">
                 </p>
-            }
 
-            <form method="post">
-                <p>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Сортировать по
-                        </button>
-                        <div class="dropdown-menu">
-                            @Html.ActionLink("Date", "Index", new { sortOrder = "Date" })
-                            @Html.ActionLink("Title", "Index", new { sortOrder = "Title" })
-                            @Html.ActionLink("Description", "Index", new { sortOrder = "Description" })
-                        </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Сортировать по
+                    </button>
+                    <div class="dropdown-menu">
+                        @Html.ActionLink("Date", "Index", new { sortOrder = "Date", parameters = Request.QueryString["parameters"] })
+                        @Html.ActionLink("Title", "Index", new { sortOrder = "Title", parameters = Request.QueryString["parameters"] })
+                        @Html.ActionLink("Description", "Index", new { sortOrder = "Description", parameters = Request.QueryString["parameters"] })
                     </div>
-                </p>
-            </form>
-            @using (Html.BeginForm("Index", "Article", FormMethod.Get))
-            {
-                <input type="hidden" id="filterString" name="filterString" />
+                </div>
+
                 <p>Фильтры:</p>
                 <p><input type="checkbox" id="today"> today</p>
                 <p><input type="checkbox" id="yesterday"> yesterday</p>
                 <p><input type="checkbox" id="week"> this week</p>
                 <p><input type="checkbox" id="all"> all</p>
-                <input type="submit" id="filter" value="Фильтровать" />
+                <input type="submit" class="changerParams" id="filter" value="Фильтровать" />
             }
         </div>
         @RenderBody()
-        <!--<hr />-->
     </div>
 
     <footer>
@@ -73,7 +65,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/Handlers/FilterHandlers.js")
+    @Scripts.Render("~/Scripts/Handlers/ParamsHandlers.js")
     @Scripts.Render("~/Scripts/Handlers/DOMHandler.js")
     @RenderSection("scripts", required: false)
 </body>

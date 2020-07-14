@@ -18,7 +18,7 @@ filter.addEventListener('click', function () {
 });
 
 
-function saveCheckboxesToSessionData(){
+function saveCheckboxesToSessionData() {
     let checkboxToday = document.getElementById('today');
     let checkboxYesterday = document.getElementById('yesterday');
     let checkboxWeek = document.getElementById('week');
