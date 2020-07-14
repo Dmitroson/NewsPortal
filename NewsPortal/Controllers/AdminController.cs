@@ -13,6 +13,7 @@ namespace NewsPortal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
+        [HttpGet]
         public ActionResult Index(string sortOrder = "Date", int page = 1, string parameters = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -30,39 +31,28 @@ namespace NewsPortal.Controllers
                                                 || a.Description.Contains(searchString));
                 }
 
-                switch (sortOrder)
-                {
-                    case "Title":
-                        articles = articles.OrderBy(a => a.Title);
-                        break;
-                    case "Description":
-                        articles = articles.OrderBy(a => a.Description);
-                        break;
-                    default:
-                        articles = articles.OrderByDescending(a => a.PubDate);
-                        break;
-                }
+                articles = Sort(articles, sortOrder);
 
                 var articlesList = articles.ToList();
                 int pageSize = 10;
                 IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
                 PageInfo pageInfo = new PageInfo
                 { 
-                    PageNumber = page, 
-                    PageSize = pageSize, 
-                    TotalItems = articlesList.Count 
+                    PageNumber = page,
+                    PageSize = pageSize,
+                    TotalItems = articlesList.Count
                 };
                 ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
                 { 
                     Articles = articlesPerPages,
                     PageInfo = pageInfo 
                 };
-                //Response.Redirect(Request.);
                 return View(articlesViewModel);
             }
         }
 
         // GET: Admin/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -77,6 +67,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -117,6 +108,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -159,6 +151,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -190,6 +183,7 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public ActionResult GetComments(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -202,6 +196,7 @@ namespace NewsPortal.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult CreateComment()
         {
             return PartialView("~/Views/Comments/CreateCommentsPartial.cshtml"); 
@@ -223,12 +218,28 @@ namespace NewsPortal.Controllers
                         session.Save(comment);
                         article.Comments.Add(comment);
                         transaction.Commit();
-                        Response.Redirect(Request.RawUrl);
-                        //return View("Details", article);                        
+                        Response.Redirect(Request.RawUrl);                      
                     }
                 }
             }
             return View(comment);
+        }
+
+        private IQueryable<Article> Sort(IQueryable<Article> articles, string order)
+        {
+            switch (order)
+            {
+                case "Title":
+                    articles = articles.OrderBy(a => a.Title);
+                    break;
+                case "Description":
+                    articles = articles.OrderBy(a => a.Description);
+                    break;
+                default:
+                    articles = articles.OrderByDescending(a => a.PubDate);
+                    break;
+            }
+            return articles;
         }
 
         private void ParseParams(string paramsString, out string searchString, out string filterString)

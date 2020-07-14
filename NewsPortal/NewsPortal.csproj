@@ -565,7 +565,7 @@
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\ckeditor\vendor\promise.js" />
     <Content Include="Scripts\Handlers\DOMHandler.js" />
-    <Content Include="Scripts\Handlers\FilterHandlers.js" />
+    <Content Include="Scripts\Handlers\ParamsHandlers.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
