@@ -1,10 +1,7 @@
 ﻿using NewsPortal.Models;
 using NHibernate;
-using NHibernate.Mapping;
-using NHibernate.Util;
 using System;
 using System.Collections.Generic;
-using System.Deployment.Internal;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -93,6 +90,7 @@ namespace NewsPortal.Controllers
                 {
                     article.PubDate = DateTime.Now;
                 }
+                article.PubDate.Value.AddHours(-3);
 
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
@@ -135,7 +133,9 @@ namespace NewsPortal.Controllers
                     uploadImage.SaveAs(path);
                     article.ImageUrl = "/Images/" + uploadImage.FileName;
                 }
-                
+
+                article.PubDate.Value.AddHours(-3);
+
                 using (ISession session = NHibernateHelper.OpenSession())
                 {
                     using (ITransaction transaction = session.BeginTransaction())
@@ -174,12 +174,6 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    var comments = session.Query<Comment>()
-                                            .Where(c => c.Article.Id == id);
-                    foreach(var c in comments)
-                    {
-                        session.Delete(c);
-                    }
                     session.Delete(article);
                     transaction.Commit();
                 }
@@ -221,8 +215,7 @@ namespace NewsPortal.Controllers
                         article.Comments.Add(comment);
                         session.Save(article);
                         transaction.Commit();
-                        Response.Redirect(Request.RawUrl);
-                        //return View("Details", article);                        
+                        Response.Redirect(Request.RawUrl);                       
                     }
                 }
             }
