@@ -1,6 +1,24 @@
-﻿let filter = document.getElementById('filter');
+﻿let searchButton = document.getElementById('searchButton');
+
+searchButton.addEventListener('click', function () {
+    saveCheckboxesToSessionData();
+
+    let searchString = document.getElementById('searchString');
+    sessionStorage.setItem('searchString', searchString.value);
+    let params = document.getElementById('params');
+    params.value = loadSessionData();
+});
+
+let filter = document.getElementById('filter');
 
 filter.addEventListener('click', function () {
+    saveCheckboxesToSessionData();
+    let params = document.getElementById('params');
+    params.value = loadSessionData();
+});
+
+
+function saveCheckboxesToSessionData() {
     let checkboxToday = document.getElementById('today');
     let checkboxYesterday = document.getElementById('yesterday');
     let checkboxWeek = document.getElementById('week');
@@ -29,12 +47,33 @@ filter.addEventListener('click', function () {
     } else {
         sessionStorage.setItem('all', '0');
     }
+}
 
-    let filterString = document.getElementById('filterString');
-    filterString.value = loadSessionData();
-});
+function saveSorting() {
+    let dateOrder = document.getElementById('date');
+    let titleOrder = document.getElementById('title');
+    let descriptionOrder = document.getElementById('description');
+
+    dateOrder.addEventListener('click', function () {
+        sessionStorage.setItem('sortOrder', 'date');
+    });
+
+    titleOrder.addEventListener('click', function () {
+        sessionStorage.setItem('sortOrder', 'title');
+    });
+
+    descriptionOrder.addEventListener('click', function () {
+        sessionStorage.setItem('sortOrder', 'description');
+    });
+}
 
 function loadSessionData() {
+    let params = '';
+
+    let searchString = document.getElementById('searchString').value;
+    if (searchString != '')
+        params += 'searchString=' + searchString;
+
     let today = sessionStorage.getItem('today');
     let yesterday = sessionStorage.getItem('yesterday');
     let week = sessionStorage.getItem('week');
@@ -53,5 +92,13 @@ function loadSessionData() {
     if (all == '1')
         filterString += 'all ';
 
-    return filterString;
+    if (filterString != '') {
+        if (params != '') {
+            params += '&filterString=' + filterString;
+        } else {
+            params += 'filterString=' + filterString;
+        }
+    }
+
+    return params;
 }
