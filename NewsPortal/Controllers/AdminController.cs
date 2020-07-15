@@ -202,7 +202,7 @@ namespace NewsPortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public void CreateComment(Comment comment, int id)
+        public void CreateComment(Comment comment)
         {
             if (ModelState.IsValid)
             {
@@ -210,11 +210,11 @@ namespace NewsPortal.Controllers
                 {
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        var article = session.Get<Article>(id);
+                        //var article = session.Get<Article>(id);
                         comment.PubDate = DateTime.Now;
-                        comment.Article = article;
+                        //comment.Article = article;
                         session.Save(comment);
-                        article.Comments.Add(comment);
+                        //article.Comments.Add(comment);
                         transaction.Commit();
                         Response.Redirect(Request.RawUrl);
                     }
