@@ -619,7 +619,6 @@
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Article\Comments.cshtml" />
     <Content Include="Views\Comments\CommentsList.cshtml" />
-    <Content Include="Views\Admin\CreateComment.cshtml" />
     <Content Include="Views\Comments\CreateComments.cshtml" />
     <Content Include="Views\Comments\CommentsForAdmin.cshtml" />
   </ItemGroup>
