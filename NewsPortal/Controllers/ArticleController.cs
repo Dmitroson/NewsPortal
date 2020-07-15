@@ -81,7 +81,7 @@ namespace NewsPortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment(Comment comment, int id)
+        public void CreateComment(Comment comment, int id)
         {
             if (ModelState.IsValid)
             {
@@ -95,11 +95,10 @@ namespace NewsPortal.Controllers
                         session.Save(comment);
                         article.Comments.Add(comment);
                         transaction.Commit();
-                        Response.Redirect(Request.RawUrl);                  
+                        Response.Redirect(Request.RawUrl);
                     }
                 }
             }
-            return View(comment);
         }
 
         private IQueryable<Article> Sort(IQueryable<Article> articles, string order)

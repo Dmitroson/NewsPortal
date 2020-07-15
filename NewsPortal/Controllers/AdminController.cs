@@ -183,7 +183,6 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public ActionResult GetComments(int id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
@@ -191,20 +190,19 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    return PartialView("~/Views/Comments/CommentsList.cshtml", article.Comments.ToList());
+                    return PartialView("~/Views/Comments/CommentsForAdmin.cshtml", article.Comments.ToList());
                 }
             }
         }
 
-        [HttpGet]
         public ActionResult CreateComment()
         {
-            return PartialView("~/Views/Comments/CreateComments.cshtml"); 
+            return PartialView("~/Views/Comments/CreateComments.cshtml");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment(Comment comment, int id)
+        public void CreateComment(Comment comment, int id)
         {
             if (ModelState.IsValid)
             {
@@ -218,11 +216,26 @@ namespace NewsPortal.Controllers
                         session.Save(comment);
                         article.Comments.Add(comment);
                         transaction.Commit();
-                        Response.Redirect(Request.RawUrl);                      
+                        Response.Redirect(Request.RawUrl);
                     }
                 }
             }
-            return View(comment);
+        }
+
+        public RedirectToRouteResult DeleteComment(int id)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+
+                    var comment = session.Get<Comment>(id);
+                    int articleId = comment.Article.Id;
+                    session.Delete(comment);
+                    transaction.Commit();
+                    return RedirectToRoute(new { controller = "Admin", action = "Details", id = articleId.ToString() });
+                }
+            }
         }
 
         private IQueryable<Article> Sort(IQueryable<Article> articles, string order)

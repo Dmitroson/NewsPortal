@@ -195,7 +195,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
-    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -617,9 +616,7 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Details.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
-    <Content Include="Views\Article\Comments.cshtml" />
     <Content Include="Views\Comments\CommentsList.cshtml" />
-    <Content Include="Views\Admin\CreateComment.cshtml" />
     <Content Include="Views\Comments\CreateComments.cshtml" />
     <Content Include="Views\Comments\CommentsForAdmin.cshtml" />
   </ItemGroup>

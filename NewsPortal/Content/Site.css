@@ -82,25 +82,21 @@ textarea {
     }
 }
 
-.commentuser{
-    display:inline-block;
-    font-weight:bold;
+.commentuser {
+    display: inline-block;
+    font-weight: bold;
 }
 
 .commentdate {
     display: inline-block;
 }
 
-.commenttext{
-    margin-left:5%;
+.commenttext {
+    margin-left: 5%;
 }
 
-.comment{
-    border:1px solid blue;
-    width:50%;
-    margin:2%;
-}
-
-.btn-group > .btn:first-child {
-    margin-left: 30em !important;
+.comment {
+    border: 1px solid blue;
+    width: 50%;
+    margin: 2%;
 }
