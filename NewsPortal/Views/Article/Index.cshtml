@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_UserList.cshtml";
 }
 
-<h2>Index</h2>
+    <h2>Articles</h2>
 
 <table class="table">
     @foreach (var item in Model.Articles)
@@ -14,12 +14,17 @@
         <tr>
             <td>
                 <img src="@item.ImageUrl" alt="Image" />
-                @Html.DisplayFor(modelItem => item.Title)
-                @Html.DisplayFor(modelItem => item.PubDate)
-                @Html.Raw(item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                <div class="article-text">
+                    <a href="@Url.Action("Details", new { id = item.Id })" class="article-title">
+                        @Html.DisplayFor(modelItem => item.Title)
+                        </a>
+                        <div class="article-desc">
+                            @Html.Raw(item.Description)
+                        </div>
+                        <div class="article-time">
+                           @item.PubDate.Value.AddHours(3)
+                        </div>
+</div>
             </td>
         </tr>
     }

@@ -26,34 +26,45 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content-list">
 
         <div class="filtersandsorting">
             @using (Html.BeginForm("Index", "Article", FormMethod.Get))
             {
                 <input type="hidden" id="params" name="parameters" />
-                <p>
+                <p class="search">
                     <input type="text" id="searchString" value="" placeholder="Поиск" />
-                    <input type="submit" class="changerParams" id="searchButton" value="Найти">
+                    <input type="submit" class="changerParams" id="searchButton" value="">
                 </p>
 
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Сортировать по
                     </button>
-                    <div class="dropdown-menu">
-                        @Html.ActionLink("Date", "Index", new { sortOrder = "Date", parameters = Request.QueryString["parameters"] })
-                        @Html.ActionLink("Title", "Index", new { sortOrder = "Title", parameters = Request.QueryString["parameters"] })
+                    <ul class="dropdown-menu">
+                        <li class="sorting">
+                            @Html.ActionLink("Date", "Index", new { sortOrder = "Date", parameters = Request.QueryString["parameters"] })
+                        </li>
+                        <li class="sorting">
+                            @Html.ActionLink("Title", "Index", new { sortOrder = "Title", parameters = Request.QueryString["parameters"] })
+                        </li>
+                        <li class="sorting">
                         @Html.ActionLink("Description", "Index", new { sortOrder = "Description", parameters = Request.QueryString["parameters"] })
-                    </div>
+                        </li>
+                    </ul>
                 </div>
-
-                <p>Фильтры:</p>
-                <p><input type="checkbox" id="today"> today</p>
-                <p><input type="checkbox" id="yesterday"> yesterday</p>
-                <p><input type="checkbox" id="week"> this week</p>
-                <p><input type="checkbox" id="all"> all</p>
-                <input type="submit" class="changerParams" id="filter" value="Фильтровать" />
+                <div class="filter-list">
+                    <p>Фильтры:</p>
+                    <ul class="filters">                                             
+                        <li><input type="checkbox" id="today"> today</li>
+                        <li><input type="checkbox" id="yesterday"> yesterday</li>
+                        <li><input type="checkbox" id="week"> this week</li>
+                        <li><input type="checkbox" id="all"> all</li>
+                        <li>
+                            <input type="submit" class="changerParams" id="filter" value="Фильтровать" />
+                        </li>
+                    </ul>
+                </div>
             }
         </div>
         @RenderBody()

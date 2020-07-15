@@ -20,7 +20,7 @@
             <td>
                 <img src="@item.ImageUrl" alt="Image" />
                 @Html.DisplayFor(modelItem => item.Title)
-                @Html.DisplayFor(modelItem => item.PubDate)
+                @item.PubDate.Value.AddHours(3)
                 @Html.Raw(item.Description)
                 @Html.DisplayFor(modelItem => item.Visibility)
             </td>
