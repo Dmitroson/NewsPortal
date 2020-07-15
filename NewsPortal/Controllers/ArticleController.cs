@@ -111,5 +111,53 @@ namespace NewsPortal.Controllers
             }
             return View(comment);
         }
+
+        private IQueryable<Article> Sort(IQueryable<Article> articles, string order)
+        {
+            switch (order)
+            {
+                case "Title":
+                    articles = articles.OrderBy(a => a.Title);
+                    break;
+                case "Description":
+                    articles = articles.OrderBy(a => a.Description);
+                    break;
+                default:
+                    articles = articles.OrderByDescending(a => a.PubDate);
+                    break;
+            }
+            return articles;
+        }
+
+        private void ParseParams(string paramsString, out string searchString, out string filterString)
+        {
+            searchString = "";
+            filterString = "";
+            string[] paramsArray = paramsString.Split('&');
+
+            switch (paramsArray.Length)
+            {
+                case 1:
+                    int foundIndex = paramsArray[0].IndexOf("=");
+                    if (paramsArray[0].Contains("searchString"))
+                    {
+                        searchString = paramsArray[0].Substring(foundIndex + 1);
+                        filterString = "";
+                    }
+                    else
+                    {
+                        filterString = paramsArray[0].Substring(foundIndex + 1);
+                        searchString = "";
+                    }
+                    break;
+                case 2:
+                    int foundIndex1 = paramsArray[0].IndexOf("=");
+                    searchString = paramsArray[0].Substring(foundIndex1 + 1);
+
+                    int foundIndex2 = paramsArray[1].IndexOf("=");
+                    filterString = paramsArray[1].Substring(foundIndex2 + 1);
+                    break;
+            }
+        }
     }
 }
