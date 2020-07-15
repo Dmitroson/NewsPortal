@@ -1,6 +1,5 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
     /*background: #a0a0a0 !important;*/
 }
 
@@ -10,12 +9,17 @@ footer {
     padding: 2em;
     color: white;
     clear: right;
+    margin-top: 2%;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 30%;
+    padding-left: 20%;
+    /*color: white;*/
+}
+
+.body-content-index {
+    padding-left: 0;
     /*color: white;*/
 }
 
@@ -53,42 +57,46 @@ textarea {
     text-align: center;
 }
 
-table {
-    width: 75% !important;
-    clear: right;
-    display:inline;
-    margin: auto!important;
+@media (min-device-width: 1200px) {
+    table {
+        clear: right;
+        display: inline;
+        margin: auto !important;
+    }
 }
 
-input[type=search] {
+/*input[type=search] {
     background: #3eb5f1;
     border: none;
+}*/
+
+@media (min-device-width: 501px) {
+    img {
+        max-width: 300px;
+    }
 }
 
-
-.body-content{
-    padding-right:0%!important;
+@media (max-device-width: 500px) {
+    img {
+        max-width: 200px;
+    }
 }
 
-img{
-    max-width:300px; 
-}
-
-.commentuser{
-    display:inline-block;
-    font-weight:bold;
+.commentuser {
+    display: inline-block;
+    font-weight: bold;
 }
 
 .commentdate {
     display: inline-block;
 }
 
-.commenttext{
-    margin-left:5%;
+.commenttext {
+    margin-left: 5%;
 }
 
-.comment{
-    border:1px solid blue;
-    width:50%;
-    margin:2%;
+.comment {
+    border: 1px solid blue;
+    width: 50%;
+    margin: 2%;
 }

@@ -10,47 +10,38 @@ namespace NewsPortal.Controllers
     public class ArticleController : Controller
     {
         // GET: Article
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string keywords = "", string filterString = "")
+        public ActionResult Index(string sortOrder = "Date", int page = 1, string parameters = "")
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
+                ParseParams(parameters, out string searchString, out string filterString);
+
                 var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);
 
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
 
-                if (keywords != "")
+                if (searchString != "")
                 {
-                    articles = articles.Where(a => a.Title.Contains(keywords)
-                                                || a.Description.Contains(keywords));
+                    articles = articles.Where(a => a.Title.Contains(searchString)
+                                                || a.Description.Contains(searchString));
                 }
 
-                switch (sortOrder)
-                {
-                    case "Title":
-                        articles = articles.OrderBy(a => a.Title);
-                        break;
-                    case "Description":
-                        articles = articles.OrderBy(a => a.Description);
-                        break;
-                    default:
-                        articles = articles.OrderByDescending(a => a.PubDate);
-                        break;
-                }
+                articles = Sort(articles, sortOrder);
 
                 var articlesList = articles.ToList();
                 int pageSize = 10;
                 IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
                 PageInfo pageInfo = new PageInfo
-                { 
-                    PageNumber = page, 
-                    PageSize = pageSize, 
-                    TotalItems = articlesList.Count 
+                {
+                    PageNumber = page,
+                    PageSize = pageSize,
+                    TotalItems = articlesList.Count
                 };
                 ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
-                { 
-                    Articles = articlesPerPages, 
-                    PageInfo = pageInfo 
+                {
+                    Articles = articlesPerPages,
+                    PageInfo = pageInfo
                 };
                 return View(articlesViewModel);
             }

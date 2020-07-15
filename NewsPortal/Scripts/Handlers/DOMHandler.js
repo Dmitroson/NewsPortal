@@ -22,4 +22,16 @@
         checkboxAll.checked = true;
 }
 
-document.addEventListener("DOMContentLoaded", showCheckedItems());
+function isFilterActive() {
+    let checkboxes = document.querySelectorAll("input[type='checkbox']");
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            return true;
+        }
+        return false;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    showCheckedItems();
+});
