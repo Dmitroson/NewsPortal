@@ -18,6 +18,11 @@ namespace NewsPortal.Controllers
 
                 var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
 
+                //foreach(var article in articles)
+                //{
+
+                //}
+
                 DateFilter filter = new DateFilter(filterString);
                 articles = filter.FilterByDate(articles);
 
@@ -68,7 +73,8 @@ namespace NewsPortal.Controllers
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     var article = session.Get<Article>(id);
-                    return PartialView("~/Views/Comments/CommentsList.cshtml", article.Comments.ToList());
+                    var comments = article.Comments.ToList();
+                    return PartialView("~/Views/Comments/CommentsForAdmin.cshtml", comments);
                 }
             }
         }
@@ -89,7 +95,7 @@ namespace NewsPortal.Controllers
                     using (ITransaction transaction = session.BeginTransaction())
                     {
                         var article = session.Get<Article>(id);
-                        comment.PubDate = DateTime.Now;
+                        comment.PubDate = DateTime.Now.AddHours(-3);
                         comment.Article = article;
                         session.Save(comment);
                         article.Comments.Add(comment);
