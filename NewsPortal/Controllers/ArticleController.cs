@@ -74,7 +74,7 @@ namespace NewsPortal.Controllers
                 {
                     var article = session.Get<Article>(id);
                     var comments = article.Comments.ToList();
-                    return PartialView("~/Views/Comments/CommentsForAdmin.cshtml", comments);
+                    return PartialView("~/Views/Comments/CommentsList.cshtml", comments);
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace NewsPortal.Controllers
                     using (ITransaction transaction = session.BeginTransaction())
                     {
                         var article = session.Get<Article>(id);
-                        comment.PubDate = DateTime.Now.AddHours(-3);
+                        comment.PubDate = DateTime.Now;
                         comment.Article = article;
                         session.Save(comment);
                         article.Comments.Add(comment);

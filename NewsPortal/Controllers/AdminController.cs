@@ -210,7 +210,7 @@ namespace NewsPortal.Controllers
                     using (ITransaction transaction = session.BeginTransaction())
                     {
                         var article = session.Get<Article>(id);
-                        comment.PubDate = DateTime.Now.AddHours(-3);
+                        comment.PubDate = DateTime.Now;
                         comment.Article = article;
                         session.Save(comment);
                         article.Comments.Add(comment);
