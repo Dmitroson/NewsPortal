@@ -33,5 +33,7 @@ function isFilterActive() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    showCheckedItems();
+    let url = location.href.toString();
+    if (url.includes('parameters'))
+        showCheckedItems();
 });
