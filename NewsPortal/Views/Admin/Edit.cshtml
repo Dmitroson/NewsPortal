@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    string PubDate = Model.PubDate.Value.ToString("s").Remove(16);
+    string PubDate = Model.PubDate.Value.AddHours(3).ToString("s").Remove(16);
 }
 
 <script src="~/Scripts/ckeditor/ckeditor.js"></script>

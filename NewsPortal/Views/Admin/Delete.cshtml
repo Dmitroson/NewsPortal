@@ -45,7 +45,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PubDate)
+            @Model.PubDate.Value.AddHours(3)
         </dd>
 
     </dl>
