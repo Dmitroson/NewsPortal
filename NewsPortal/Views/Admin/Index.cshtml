@@ -6,34 +6,38 @@
     Layout = "~/Views/Shared/_AdminList.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Articles</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
 <table class="table">
-
     @foreach (var item in Model.Articles)
     {
-        <tr>
-            <td>
-                <img src="@item.ImageUrl" alt="Image" />
-                @Html.DisplayFor(modelItem => item.Title)
-                @item.PubDate.Value.AddHours(3)
-                @Html.Raw(item.Description)
-                @Html.DisplayFor(modelItem => item.Visibility)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            <img src="@item.ImageUrl" alt="Image" />
+            <div class="article-text">
+                <a href="@Url.Action("Details", new { id = item.Id })" class="article-title">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </a>
+                <div class="article-desc">
+                    @Html.Raw(item.Description)
+                </div>
+                <div class="article-time">
+                    @item.PubDate.Value.AddHours(3)
+                </div>
+            </div>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
     }
 
 </table>
-
 <br />
 <div class="btn-group">
     @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
