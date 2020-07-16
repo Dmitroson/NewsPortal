@@ -220,3 +220,31 @@ img {
     font-size: 11px;
     line-height: 15px;
 }
+
+.title-details{
+    margin-left: 25%;
+    margin-top: 30px;
+}
+
+.title-details:hover {
+    margin-left: 25%;
+    margin-top: 30px;
+}
+
+.details-img {
+    max-width: 400px;
+    max-height: 400px;
+}
+
+.details-desc {
+    width: 400px;
+    margin-top:5%;
+}
+
+.details-date {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 15px;
+}

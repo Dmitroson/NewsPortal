@@ -5,38 +5,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+    <h2 class="article-title title-details">
+        @Html.DisplayFor(model => model.Title)
+    </h2>
 
 <div>
-    <h4>Article</h4>
-    <hr />
+
     <dl class="dl-horizontal">
 
         <dd>
-            <img src="@Model.ImageUrl" alt="image" />
+            <img src="@Model.ImageUrl" alt="image" class="details-img" />
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
+        <dd class="article-desc details-desc">
             @Html.Raw(Model.Description)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PubDate)
-        </dt>
-
-        <dd>
+        <dd class="details-date">
             @Model.PubDate.Value.AddHours(3)
         </dd>
 
