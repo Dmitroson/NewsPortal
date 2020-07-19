@@ -1,4 +1,4 @@
-﻿using NewsPortal.Models;
+﻿using Business.Models;
 using System;
 using System.Text;
 using System.Web;

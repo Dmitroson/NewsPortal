@@ -1,4 +1,4 @@
-﻿@model NewsPortal.Models.Article
+﻿@model Business.Models.Article
 
 @{
     ViewBag.Title = "Edit";
@@ -12,7 +12,7 @@
 @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Article</h4>
         <hr />

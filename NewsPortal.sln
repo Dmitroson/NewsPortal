@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsPortal", "NewsPortal\NewsPortal.csproj", "{CA5CAB73-DFC7-4688-80DB-F8968DD0620D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{9F44E825-E6D4-4B1E-A669-5602ABE5E9AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernate.DAL", "NHibernate.DAL\NHibernate.DAL.csproj", "{DD6ABA5B-EC5F-4FF5-BD8C-E7D3F7F0DE05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{CA5CAB73-DFC7-4688-80DB-F8968DD0620D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA5CAB73-DFC7-4688-80DB-F8968DD0620D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA5CAB73-DFC7-4688-80DB-F8968DD0620D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F44E825-E6D4-4B1E-A669-5602ABE5E9AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F44E825-E6D4-4B1E-A669-5602ABE5E9AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F44E825-E6D4-4B1E-A669-5602ABE5E9AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F44E825-E6D4-4B1E-A669-5602ABE5E9AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD6ABA5B-EC5F-4FF5-BD8C-E7D3F7F0DE05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD6ABA5B-EC5F-4FF5-BD8C-E7D3F7F0DE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD6ABA5B-EC5F-4FF5-BD8C-E7D3F7F0DE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD6ABA5B-EC5F-4FF5-BD8C-E7D3F7F0DE05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

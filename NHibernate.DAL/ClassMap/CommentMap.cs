@@ -1,6 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
+using Business.Models;
 
-namespace NewsPortal.Models.ClassMap
+namespace NHibernate.DAL.ClassMap
 {
     public class CommentMap : ClassMap<Comment>
     {

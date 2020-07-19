@@ -1,4 +1,4 @@
-﻿@model NewsPortal.Models.Article
+﻿@model Business.Models.Article
 
 @{
     ViewBag.Title = "Details";
@@ -59,5 +59,5 @@
 
 <p>
     @Html.Action("CreateComment")
-    @Html.Action("GetComments", new { id = Model.Id })
+    @Html.Action("GetComments", new { articleId = Model.Id })
 </p>

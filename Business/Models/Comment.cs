@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 
-namespace NewsPortal.Models
+namespace Business.Models
 {
     public class Comment
     {
@@ -11,7 +9,5 @@ namespace NewsPortal.Models
         public virtual string UserName { get; set; }
         public virtual DateTime? PubDate { get; set; }
         public virtual Article Article { get; set; }
-
-       
     }
 }

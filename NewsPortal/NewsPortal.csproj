@@ -195,23 +195,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
-    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ArticleIndexViewModel.cs" />
-    <Compile Include="Models\ClassMap\ArticleMap.cs" />
-    <Compile Include="Models\ClassMap\CommentMap.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\DateFilter.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\NHibernate\NHibernateHelper.cs" />
-    <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -241,6 +233,13 @@
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\NewsPortal20200705224151 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -576,13 +575,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -622,7 +614,6 @@
     <Content Include="Views\Comments\CommentsForAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
@@ -637,6 +628,19 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj">
+      <Project>{9f44e825-e6d4-4b1e-a669-5602abe5e9ac}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NHibernate.DAL\NHibernate.DAL.csproj">
+      <Project>{dd6aba5b-ec5f-4ff5-bd8c-e7d3f7f0de05}</Project>
+      <Name>NHibernate.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

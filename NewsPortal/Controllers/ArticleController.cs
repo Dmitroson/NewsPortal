@@ -1,5 +1,6 @@
-﻿using NewsPortal.Models;
-using NHibernate;
+﻿using Business.Models;
+using NewsPortal.Models;
+using NHibernate.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,74 +10,60 @@ namespace NewsPortal.Controllers
 {
     public class ArticleController : Controller
     {
+        UnitOfWork unity;
+
+        public ArticleController()
+        {
+            unity = new UnitOfWork();
+        }
+
         // GET: Article
         public ActionResult Index(string sortOrder = "Date", int page = 1, string parameters = "")
         {
-            using (ISession session = NHibernateHelper.OpenSession())
+            ParseParams(parameters, out string searchString, out string filterString);
+
+            var articles = unity.Articles.GetAll().Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
+
+            DateFilter filter = new DateFilter(filterString);
+            articles = filter.FilterByDate(articles);
+
+            if (searchString != "")
             {
-                ParseParams(parameters, out string searchString, out string filterString);
-
-                var articles = session.Query<Article>().Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
-
-                //foreach(var article in articles)
-                //{
-
-                //}
-
-                DateFilter filter = new DateFilter(filterString);
-                articles = filter.FilterByDate(articles);
-
-                if (searchString != "")
-                {
-                    articles = articles.Where(a => a.Title.Contains(searchString)
-                                                || a.Description.Contains(searchString));
-                }
-
-                articles = Sort(articles, sortOrder);
-
-                var articlesList = articles.ToList();
-                int pageSize = 10;
-                IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
-                PageInfo pageInfo = new PageInfo
-                {
-                    PageNumber = page,
-                    PageSize = pageSize,
-                    TotalItems = articlesList.Count
-                };
-                ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
-                {
-                    Articles = articlesPerPages,
-                    PageInfo = pageInfo
-                };
-                return View(articlesViewModel);
+                articles = articles.Where(a => a.Title.Contains(searchString)
+                                            || a.Description.Contains(searchString));
             }
+
+            articles = Sort(articles, sortOrder);
+
+            var articlesList = articles.ToList();
+            int pageSize = 10;
+            IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = articlesList.Count
+            };
+            ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
+            {
+                Articles = articlesPerPages,
+                PageInfo = pageInfo
+            };
+            return View(articlesViewModel);
         }
 
         // GET: Article/Details/5
         public ActionResult Details(int id)
         {
-            using (ISession session = NHibernateHelper.OpenSession())
-            {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    var article = session.Get<Article>(id);
-                    transaction.Commit();
-                    return View(article);
-                }
-            }
+            var article = unity.Articles.Get(id);
+            return View(article);
         }
 
         public ActionResult GetComments(int id)
         {
-            using (ISession session = NHibernateHelper.OpenSession())
-            {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    var article = session.Get<Article>(id);
-                    var comments = article.Comments.ToList();
-                    return PartialView("~/Views/Comments/CommentsList.cshtml", comments);
-                }
-            }
+            var article = unity.Articles.Get(id);
+            var comments = article.Comments.ToList();
+            return PartialView("~/Views/Comments/CommentsList.cshtml", comments);
         }
 
         public ActionResult CreateComment()
@@ -90,19 +77,12 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (ISession session = NHibernateHelper.OpenSession())
-                {
-                    using (ITransaction transaction = session.BeginTransaction())
-                    {
-                        var article = session.Get<Article>(id);
-                        comment.PubDate = DateTime.Now;
-                        comment.Article = article;
-                        session.Save(comment);
-                        article.Comments.Add(comment);
-                        transaction.Commit();
-                        Response.Redirect(Request.RawUrl);                      
-                    }
-                }
+                var article = unity.Articles.Get(id);
+                comment.PubDate = DateTime.Now;
+                comment.Article = article;
+                article.Comments.Add(comment);
+                unity.Comments.Create(comment);
+                Response.Redirect(Request.RawUrl);
             }
             return View(comment);
         }

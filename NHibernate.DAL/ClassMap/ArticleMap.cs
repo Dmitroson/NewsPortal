@@ -1,6 +1,7 @@
-﻿using FluentNHibernate.Mapping;
+﻿using Business.Models;
+using FluentNHibernate.Mapping;
 
-namespace NewsPortal.Models.ClassMap
+namespace NHibernate.DAL.ClassMap
 {
     public class ArticleMap : ClassMap<Article>
     {

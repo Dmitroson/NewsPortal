@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace NewsPortal.Models
+namespace Business.Models
 {
     public class DateFilter
     {
