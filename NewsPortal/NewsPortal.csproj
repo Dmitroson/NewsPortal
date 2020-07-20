@@ -200,10 +200,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\PagingHelpers.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ArticleIndexViewModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\ArticleIndexViewModel.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -638,6 +637,10 @@
     <ProjectReference Include="..\Business\Business.csproj">
       <Project>{9f44e825-e6d4-4b1e-a669-5602abe5e9ac}</Project>
       <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EF.DAL\EF.DAL.csproj">
+      <Project>{95c4a5e1-ac34-471f-aa06-840e91e2dbec}</Project>
+      <Name>EF.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\NHibernate.DAL\NHibernate.DAL.csproj">
       <Project>{dd6aba5b-ec5f-4ff5-bd8c-e7d3f7f0de05}</Project>
