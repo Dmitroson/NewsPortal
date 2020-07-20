@@ -1,10 +1,10 @@
 ﻿using Business.Interfaces;
 using Business.Models;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace Business.Servises
+namespace Business.Services
 {
     public class Service : IService
     {
@@ -58,7 +58,6 @@ namespace Business.Servises
 
         public void DeleteComment(int id)
         {
-            var comment = unity.Comments.Get(id);
             unity.Comments.Delete(id);
         }
 
@@ -145,6 +144,26 @@ namespace Business.Servises
                     filterString = paramsArray[1].Substring(foundIndex2 + 1);
                     break;
             }
+        }
+
+        public ArticlesIndex MakePaging(IQueryable<Article> articles, int page)
+        {
+            var articlesList = articles.ToList();
+            int pageSize = 10;
+
+            IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = articlesList.Count
+            };
+            ArticlesIndex articlesIndex = new ArticlesIndex
+            {
+                Articles = articlesPerPages,
+                PageInfo = pageInfo
+            };
+            return articlesIndex;
         }
     }
 }

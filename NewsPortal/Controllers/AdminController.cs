@@ -1,13 +1,10 @@
 ﻿using Business.Models;
 using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using Business.Servises;
+using Business.Services;
 
 namespace NewsPortal.Controllers
 {
@@ -32,20 +29,11 @@ namespace NewsPortal.Controllers
             articles = service.Search(articles, searchString);
             articles = service.Sort(articles, sortOrder);
 
-            var articlesList = articles.ToList();
-            int pageSize = 10;
-            IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo
-            {
-                PageNumber = page,
-                PageSize = pageSize,
-                TotalItems = articlesList.Count
-            };
-            ArticleIndexViewModel articlesViewModel = new ArticleIndexViewModel
-            {
-                Articles = articlesPerPages,
-                PageInfo = pageInfo
-            };
+            var articlesIndex = service.MakePaging(articles, page);
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ArticlesIndex, ArticleIndexViewModel>());
+            var mapper = new Mapper(config);
+            var articlesViewModel = mapper.Map<ArticleIndexViewModel>(articlesIndex);
+
             return View(articlesViewModel);
         }
 

@@ -36,14 +36,14 @@ namespace Business.Models
 
             if (Options.Contains(ThisWeekOption))
             {
-                result = articles.Where(a => a.PubDate.Value.Date >= DateTime.Today.Date.AddDays(-7) && 
+                result = articles.Where(a => a.PubDate.Value.Date >= DateTime.Today.Date.AddDays(-7) &&
                                              a.PubDate.Value.Date <= DateTime.Today.Date);
                 return result;
             }
 
             if (Options.Contains(YesterdayOption) && Options.Contains(TodayOption))
             {
-                result = articles.Where(a => a.PubDate.Value.Date == DateTime.Today.Date.AddDays(-1) || 
+                result = articles.Where(a => a.PubDate.Value.Date == DateTime.Today.Date.AddDays(-1) ||
                                              a.PubDate.Value.Date == DateTime.Today.Date);
                 return result;
             }
