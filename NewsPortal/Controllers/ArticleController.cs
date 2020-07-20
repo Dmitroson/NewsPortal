@@ -32,10 +32,11 @@ namespace NewsPortal.Controllers
             }
             HttpCookie cookie = Request.Cookies["lang"];
             if (cookie != null)
+            {
                 cookie.Value = lang;
+            }
             else
             {
-
                 cookie = new HttpCookie("lang");
                 cookie.HttpOnly = false;
                 cookie.Value = lang;
@@ -46,7 +47,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Article
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string parameters = "")
+        public ActionResult Index(int sortOrder = 1, int page = 1, string parameters = "")
         {
             var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
 

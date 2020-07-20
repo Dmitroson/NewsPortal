@@ -17,13 +17,13 @@
             </button>
             <ul class="dropdown-menu">
                 <li class="sorting">
-                    @Html.ActionLink("Date", "Index", new { sortOrder = "Date", parameters = Request.QueryString["parameters"] })
+                    @Html.ActionLink("Date", "Index", new { sortOrder = 1, parameters = Request.QueryString["parameters"] })
                 </li>
                 <li class="sorting">
-                    @Html.ActionLink("Title", "Index", new { sortOrder = "Title", parameters = Request.QueryString["parameters"] })
+                    @Html.ActionLink("Title", "Index", new { sortOrder = 2, parameters = Request.QueryString["parameters"] })
                 </li>
                 <li class="sorting">
-                    @Html.ActionLink("Description", "Index", new { sortOrder = "Description", parameters = Request.QueryString["parameters"] })
+                    @Html.ActionLink("Description", "Index", new { sortOrder = 3, parameters = Request.QueryString["parameters"] })
                 </li>
             </ul>
         </div>
