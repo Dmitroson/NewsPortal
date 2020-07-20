@@ -87,14 +87,16 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid && uploadImage != null)
             {
-                DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/Images/"));
+                var imageUrl = "/Images/";
+                var path = Server.MapPath(imageUrl);
+
+                DirectoryInfo dir = new DirectoryInfo(path);
                 if (!dir.Exists)
                     dir.Create();
 
-                var path = Server.MapPath("~/Images/") + uploadImage.FileName;
+                path += uploadImage.FileName;
                 uploadImage.SaveAs(path);
-                article.ImageUrl = "/Images/" + uploadImage.FileName;
-
+                article.ImageUrl = imageUrl + uploadImage.FileName;
                 
                 service.CreateArticle(article);
 
@@ -120,9 +122,10 @@ namespace NewsPortal.Controllers
             {
                 if (uploadImage != null)
                 {
-                    var path = Server.MapPath("~/Images/") + uploadImage.FileName;
+                    var imageUrl = "/Images/" + uploadImage.FileName;
+                    var path = Server.MapPath(imageUrl);
                     uploadImage.SaveAs(path);
-                    article.ImageUrl = "/Images/" + uploadImage.FileName;
+                    article.ImageUrl = imageUrl;
                 }
 
                 service.UpdateArticle(article);
