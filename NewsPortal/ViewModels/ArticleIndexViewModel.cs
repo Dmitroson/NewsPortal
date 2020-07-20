@@ -1,7 +1,7 @@
 ﻿using Business.Models;
 using System.Collections.Generic;
 
-namespace NewsPortal.Models
+namespace NewsPortal.ViewModels
 {
     public class ArticleIndexViewModel
     {

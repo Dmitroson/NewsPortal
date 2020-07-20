@@ -1,5 +1,5 @@
 ﻿using Business.Models;
-using NewsPortal.Models;
+using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
 using System.Collections.Generic;
 using System.IO;
@@ -78,6 +78,7 @@ namespace NewsPortal.Controllers
                 uploadImage.SaveAs(path);
                 article.ImageUrl = "/Images/" + uploadImage.FileName;
 
+                
                 service.CreateArticle(article);
 
                 return RedirectToAction("Index");

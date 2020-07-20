@@ -1,5 +1,5 @@
 ﻿using Business.Models;
-using NewsPortal.Models;
+using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
 using System;
 using System.Collections.Generic;
