@@ -5,6 +5,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using Business.Services;
+using AutoMapper;
 
 namespace NewsPortal.Controllers
 {
