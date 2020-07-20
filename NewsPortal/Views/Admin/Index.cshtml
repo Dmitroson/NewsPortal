@@ -2,14 +2,14 @@
 @using NewsPortal.Helpers;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = @Resources.Resource.Articles;
     Layout = "~/Views/Shared/_AdminList.cshtml";
 }
 
 <h2>Articles</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(Resources.Resource.Create_New, "Create")
 </p>
 
 <table class="table">
@@ -31,8 +31,8 @@
             </div>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink(@Resources.Resource.Edit, "Edit", new { id = item.Id }) |
+            @Html.ActionLink(@Resources.Resource.Delete, "Delete", new { id = item.Id })
         </td>
     </tr>
     }

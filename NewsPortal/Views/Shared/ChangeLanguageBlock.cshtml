@@ -1,0 +1,15 @@
+﻿@{
+    string controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+}
+
+<div>
+    @using (Html.BeginForm("ChangeCulture", controllerName))
+    {
+        <select name="lang">
+            <option disabled selected>@Resources.Resource.ChooseLang</option>
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+        </select>
+        <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
+    }
+</div>

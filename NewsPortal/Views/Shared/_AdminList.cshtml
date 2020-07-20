@@ -22,50 +22,14 @@
                     <li>@Html.ActionLink("HomePage(Admin)", "Index", "Admin")</li>
                 </ul>
 
+                @Html.Partial("ChangeLanguageBlock");
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content-list">
-        <div class="filtersandsorting">
-            @using (Html.BeginForm("Index", "Article", FormMethod.Get))
-            {
-                <input type="hidden" id="params" name="parameters" />
-                <p class="search">
-                    <input type="text" id="searchString" value="" placeholder="Поиск" />
-                    <input type="submit" class="changerParams" id="searchButton" value="">
-                </p>
-
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Сортировать по
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="sorting">
-                            @Html.ActionLink("Date", "Index", new { sortOrder = "Date", parameters = Request.QueryString["parameters"] })
-                        </li>
-                        <li class="sorting">
-                            @Html.ActionLink("Title", "Index", new { sortOrder = "Title", parameters = Request.QueryString["parameters"] })
-                        </li>
-                        <li class="sorting">
-                            @Html.ActionLink("Description", "Index", new { sortOrder = "Description", parameters = Request.QueryString["parameters"] })
-                        </li>
-                    </ul>
-                </div>
-                <div class="filter-list">
-                    <p>Фильтры:</p>
-                    <ul class="filters">
-                        <li><input type="checkbox" id="today"> today</li>
-                        <li><input type="checkbox" id="yesterday"> yesterday</li>
-                        <li><input type="checkbox" id="week"> this week</li>
-                        <li><input type="checkbox" id="all"> all</li>
-                        <li>
-                            <input type="submit" class="changerParams" id="filter" value="Фильтровать" />
-                        </li>
-                    </ul>
-                </div>
-            }
-        </div>
+        @Html.Partial("FilterSortingSearch");
         @RenderBody()
     </div>
 

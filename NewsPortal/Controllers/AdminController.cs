@@ -6,10 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using Business.Services;
 using AutoMapper;
+using MultilingualSite.Filters;
+using System.Collections.Generic;
+using System;
 
 namespace NewsPortal.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Culture]
     public class AdminController : Controller
     {
         private Service service;
@@ -17,6 +21,29 @@ namespace NewsPortal.Controllers
         public AdminController()
         {
             service = new Service(new UnitOfWork());
+        }
+
+        public ActionResult ChangeCulture(string lang)
+        {
+            string returnUrl = Request.UrlReferrer.AbsolutePath;
+            List<string> cultures = new List<string>() { "ru", "en" };
+            if (!cultures.Contains(lang))
+            {
+                lang = "ru";
+            }
+            HttpCookie cookie = Request.Cookies["lang"];
+            if (cookie != null)
+                cookie.Value = lang;   
+            else
+            {
+
+                cookie = new HttpCookie("lang");
+                cookie.HttpOnly = false;
+                cookie.Value = lang;
+                cookie.Expires = DateTime.Now.AddYears(1);
+            }
+            Response.Cookies.Add(cookie);
+            return Redirect(returnUrl);
         }
 
         // GET: Admin
