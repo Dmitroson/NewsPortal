@@ -1,15 +1,19 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using MultilingualSite.Filters;
 using NewsPortal.ViewModels;
 
 namespace NewsPortal.Controllers
 {
     [Authorize]
+    [Culture]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -17,6 +21,29 @@ namespace NewsPortal.Controllers
 
         public ManageController()
         {
+        }
+
+        public ActionResult ChangeCulture(string lang)
+        {
+            string returnUrl = Request.UrlReferrer.AbsolutePath;
+            List<string> cultures = new List<string>() { "ru", "en" };
+            if (!cultures.Contains(lang))
+            {
+                lang = "ru";
+            }
+            HttpCookie cookie = Request.Cookies["lang"];
+            if (cookie != null)
+                cookie.Value = lang;
+            else
+            {
+
+                cookie = new HttpCookie("lang");
+                cookie.HttpOnly = false;
+                cookie.Value = lang;
+                cookie.Expires = DateTime.Now.AddYears(1);
+            }
+            Response.Cookies.Add(cookie);
+            return Redirect(returnUrl);
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
