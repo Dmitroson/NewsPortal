@@ -34,7 +34,10 @@ namespace Business.Servises
             {
                 article.PubDate = DateTime.Now;
             }
-            article.PubDate.Value.AddHours(-3);
+            else
+            {
+                article.PubDate = article.PubDate.Value.AddHours(-3);
+            }
 
             unity.Articles.Create(article);
         }
@@ -68,7 +71,7 @@ namespace Business.Servises
 
         public void UpdateArticle(Article article)
         {
-            article.PubDate.Value.AddHours(-3);
+            article.PubDate = article.PubDate.Value.AddHours(-3);
             unity.Articles.Update(article); ;
         }
 
