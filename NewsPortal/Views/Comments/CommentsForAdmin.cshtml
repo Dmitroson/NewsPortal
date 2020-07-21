@@ -9,6 +9,7 @@
         <div class="commentdate">@comment.PubDate.Value.AddHours(3)</div>
         <div class="commenttext">@comment.Text</div>
     </article>
-    @Html.ActionLink("DeleteComment", "DeleteComment", new { id = comment.Id} )
+         @Html.ActionLink("DeleteComment", "DeleteComment", new { id = comment.Id} )
+   
 }
 
