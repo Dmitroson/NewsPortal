@@ -92,14 +92,17 @@ namespace NewsPortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment(Comment comment, int id)
+        public ActionResult CreateComment(CommentViewModel commentViewModel, int id)
         {
             if (ModelState.IsValid)
             {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<CommentViewModel, Comment>());
+                var mapper = new Mapper(config);
+                var comment = mapper.Map<Comment>(commentViewModel);
                 service.CreateComment(comment, id);
                 Response.Redirect(Request.RawUrl);
             }
-            return View(comment);
+            return View(commentViewModel);
         }
     }
 }

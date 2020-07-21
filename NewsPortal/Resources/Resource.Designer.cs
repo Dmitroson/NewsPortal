@@ -196,7 +196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Здраствуйте.
+        ///   Ищет локализованную строку, похожую на Здравствуйте.
         /// </summary>
         public static string Welcome {
             get {
