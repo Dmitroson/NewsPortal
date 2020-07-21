@@ -15,9 +15,17 @@ namespace NewsPortal
 
             routes.MapRoute(
                 name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Article", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "DefaultForLanguage",
                 url: "{cult}/{controller}/{action}/{id}",
                 defaults: new { cult = "ru", controller = "Article", action = "Index", id = UrlParameter.Optional }
             );
+
+            
         }
     }
 }
