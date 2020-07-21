@@ -211,6 +211,7 @@
     </Compile>
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ArticleIndexViewModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs">

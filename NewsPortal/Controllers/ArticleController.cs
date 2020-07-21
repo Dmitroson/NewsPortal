@@ -45,9 +45,18 @@ namespace NewsPortal.Controllers
             return RedirectToAction("", new { cult = lang });
         }
 
+        private void checkLang(string req)
+        {
+            if (req == "en")
+            {
+                ChangeCulture("en");
+            }
+        }
+
         // GET: Article
         public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
+            checkLang(Request.QueryString["cult"]);
             var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
 
             articles = service.Filter(articles, filterString);
@@ -65,6 +74,7 @@ namespace NewsPortal.Controllers
         // GET: Article/Details/5
         public ActionResult Details(int id)
         {
+            checkLang(Request.QueryString["cult"]);
             var article = service.GetArticle(id);
             return View(article);
         }

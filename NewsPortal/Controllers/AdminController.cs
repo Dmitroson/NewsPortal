@@ -25,7 +25,6 @@ namespace NewsPortal.Controllers
 
         public ActionResult ChangeCulture(string lang)
         {
-            string returnUrl = Request.UrlReferrer.AbsolutePath;
             List<string> cultures = new List<string>() { "ru", "en" };
             if (!cultures.Contains(lang))
             {
@@ -35,7 +34,7 @@ namespace NewsPortal.Controllers
             if (cookie != null)
             {
                 cookie.Value = lang;
-            }   
+            }
             else
             {
                 cookie = new HttpCookie("lang");
@@ -44,12 +43,21 @@ namespace NewsPortal.Controllers
                 cookie.Expires = DateTime.Now.AddYears(1);
             }
             Response.Cookies.Add(cookie);
-            return Redirect(returnUrl);
+            return RedirectToAction("", new { cult = lang });
+        }
+
+        private void checkLang(string req)
+        {
+            if (req == "en")
+            {
+                ChangeCulture("en");
+            }
         }
 
         // GET: Admin
         public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
+            checkLang(Request.QueryString["cult"]);
             var articles = service.Articles;
 
             articles = service.Filter(articles, filterString);
@@ -67,6 +75,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Details/5
         public ActionResult Details(int id)
         {
+            checkLang(Request.QueryString["cult"]);
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -74,6 +83,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Create
         public ActionResult Create()
         {
+            checkLang(Request.QueryString["cult"]);
             return View();
         }
 
@@ -106,6 +116,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
+            checkLang(Request.QueryString["cult"]);
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -136,6 +147,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
+            checkLang(Request.QueryString["cult"]);
             var article = service.GetArticle(id);
             return View(article);
         }

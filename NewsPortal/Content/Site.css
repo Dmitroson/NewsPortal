@@ -277,8 +277,13 @@ img {
     resize: none;
 }
 
-
 .language-block {
     background: #4574ec;
     height: 100%;
+}
+
+.icon-sort {
+    height: 20px;
+    width: 20px;
+    background: https://ru.freepik.com/free-icon/arrows-up-and-down-filled-triangles_781948.htm;
 }
