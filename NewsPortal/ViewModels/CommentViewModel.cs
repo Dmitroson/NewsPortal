@@ -1,13 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Business.Models;
 
 namespace NewsPortal.ViewModels
 {
     public class CommentViewModel
     {
         [Required]
-        public virtual string Text { get; set; }
+        [Display(Name = "Text")]
+        public string Text { get; set; }
+        
         [Required]
-        public virtual string UserName { get; set; }
+        [Display(Name = "Nickname")]
+        public string UserName { get; set; }
     }
 }
