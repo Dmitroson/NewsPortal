@@ -46,11 +46,9 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Article
-        public ActionResult Index(int sortOrder = 1, int page = 1, string parameters = "")
+        public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
             var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
-
-            service.ParseParams(parameters, out string searchString, out string filterString);
 
             articles = service.Filter(articles, filterString);
             articles = service.Search(articles, searchString);
