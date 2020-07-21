@@ -1,15 +1,18 @@
 ﻿@{
-    string controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    string values = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    string actionName = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
 }
 
-<div>
-    @using (Html.BeginForm("ChangeCulture", controllerName))
-    {
-        <select name="lang">
-            <option disabled selected>@Resources.Resource.ChooseLang</option>
-            <option value="ru">Русский</option>
-            <option value="en">English</option>
-        </select>
-        <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
-    }
-</div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Изменть язык
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                @Html.ActionLink("Date", "ChangeCulture", new { lang = "ru" })
+            </li>
+            <li>
+                @Html.ActionLink("Title", "ChangeCulture", new { lang = "en" })
+            </li>
+        </ul>
+    </div>

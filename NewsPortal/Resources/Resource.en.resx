@@ -120,6 +120,9 @@
   <data name="Articles" xml:space="preserve">
     <value>Articles</value>
   </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Back to list</value>
+  </data>
   <data name="ChooseLang" xml:space="preserve">
     <value>Choose language</value>
   </data>

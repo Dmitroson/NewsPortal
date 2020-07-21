@@ -17,7 +17,7 @@
             <img src="@Model.ImageUrl" alt="image" class="details-img" />
         </dd>
 
-        <dd class="article-desc details-desc">
+        <dd class="article-del-desc details-desc">
             @Html.Raw(Model.Description)
         </dd>
 
@@ -30,7 +30,7 @@
 </div>
 
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(Resources.Resource.BackToList, "Index")
 </p>
 
 <p>

@@ -20,9 +20,9 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("HomePage(Users)", "Index", "Article")</li>
                     <li>@Html.ActionLink("HomePage(Admins)", "Index", "Admin")</li>
+                    <li>@Html.Partial("ChangeLanguageBlock")</li>
                 </ul>
 
-                @Html.Partial("ChangeLanguageBlock")
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
