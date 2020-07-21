@@ -57,7 +57,7 @@ namespace NewsPortal.Controllers
         // GET: Admin
         public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
-            checkLang(Request.QueryString["cult"]);
+            checkLang(Request.RequestContext.RouteData.Values["cult"].ToString());
             var articles = service.Articles;
 
             articles = service.Filter(articles, filterString);
@@ -75,7 +75,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Details/5
         public ActionResult Details(int id)
         {
-            checkLang(Request.QueryString["cult"]);
+            checkLang(Request.RequestContext.RouteData.Values["cult"].ToString());
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -83,7 +83,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Create
         public ActionResult Create()
         {
-            checkLang(Request.QueryString["cult"]);
+            checkLang(Request.RequestContext.RouteData.Values["cult"].ToString());
             return View();
         }
 
@@ -116,7 +116,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
-            checkLang(Request.QueryString["cult"]);
+            checkLang(Request.RequestContext.RouteData.Values["cult"].ToString());
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -147,7 +147,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
-            checkLang(Request.QueryString["cult"]);
+            checkLang(Request.RequestContext.RouteData.Values["cult"].ToString());
             var article = service.GetArticle(id);
             return View(article);
         }
