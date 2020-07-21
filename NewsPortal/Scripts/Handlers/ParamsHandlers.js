@@ -1,12 +1,16 @@
-﻿let searchButton = document.getElementById('searchButton');
+﻿let searchForm = document.getElementById('searchForm');
 
-searchButton.addEventListener('click', function () {
+searchForm.addEventListener('submit', function () {
     saveCheckboxesToSessionData();
-
-    let searchString = document.getElementById('searchString');
-    sessionStorage.setItem('searchString', searchString.value);
-    let params = document.getElementById('params');
-    params.value = loadSessionData();
+    let filterStringFromSessionData = loadSessionData();
+    
+    if (filterStringFromSessionData != '') {
+        let filterInput = document.createElement('input');
+        filterInput.type = 'hidden';
+        filterInput.name = 'filterString';
+        filterInput.value = filterStringFromSessionData;
+        searchForm.appendChild(filterInput);
+    }
 });
 
 let filter = document.getElementById('filter');
@@ -68,12 +72,6 @@ function saveSorting() {
 }
 
 function loadSessionData() {
-    let params = '';
-
-    let searchString = document.getElementById('searchString').value;
-    if (searchString != '')
-        params += 'searchString=' + searchString;
-
     let today = sessionStorage.getItem('today');
     let yesterday = sessionStorage.getItem('yesterday');
     let week = sessionStorage.getItem('week');
@@ -92,13 +90,5 @@ function loadSessionData() {
     if (all == '1')
         filterString += 'all ';
 
-    if (filterString != '') {
-        if (params != '') {
-            params += '&filterString=' + filterString;
-        } else {
-            params += 'filterString=' + filterString;
-        }
-    }
-
-    return params;
+    return filterString;
 }

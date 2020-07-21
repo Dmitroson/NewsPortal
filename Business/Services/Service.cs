@@ -98,18 +98,18 @@ namespace Business.Services
             return articles;
         }
 
-        public IQueryable<Article> Sort(IQueryable<Article> articles, string order)
+        public IQueryable<Article> Sort(IQueryable<Article> articles, int order)
         {
             switch (order)
             {
-                case "Title":
+                case (int)SortOrder.Date:
+                    articles = articles.OrderByDescending(a => a.PubDate);
+                    break;
+                case (int)SortOrder.Title:
                     articles = articles.OrderBy(a => a.Title);
                     break;
-                case "Description":
+                case (int)SortOrder.Description:
                     articles = articles.OrderBy(a => a.Description);
-                    break;
-                default:
-                    articles = articles.OrderByDescending(a => a.PubDate);
                     break;
             }
             return articles;
@@ -164,6 +164,13 @@ namespace Business.Services
                 PageInfo = pageInfo
             };
             return articlesIndex;
+        }
+
+        internal enum SortOrder
+        {
+            Date = 1,
+            Title,
+            Description
         }
     }
 }

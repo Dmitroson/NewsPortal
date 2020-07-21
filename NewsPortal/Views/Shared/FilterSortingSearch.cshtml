@@ -1,39 +1,43 @@
 ﻿@{
     string controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    string currentFilterString = Request.QueryString["filterString"];
+    string currentSearchString = Request.QueryString["searchString"];
 }
 
 <div class="filtersandsorting">
+    @using (Html.BeginForm("Index", controllerName, FormMethod.Get, new { @id = "searchForm" }))
+    {
+    <p class="search">
+        <input type="text" id="searchString" name="searchString" value="" placeholder="Поиск" />
+        <input type="submit" id="searchButton" value="">
+    </p>
+    }
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Сортировать по
+        </button>
+        <ul class="dropdown-menu">
+            <li class="sorting">
+                @Html.ActionLink("Date", "Index", new { sortOrder = 1, filterString = currentFilterString, searchString = currentSearchString })
+            </li>
+            <li class="sorting">
+                @Html.ActionLink("Title", "Index", new { sortOrder = 2, filterString = currentFilterString, searchString = currentSearchString })
+            </li>
+            <li class="sorting">
+                @Html.ActionLink("Description", "Index", new { sortOrder = 3, filterString = currentFilterString, searchString = currentSearchString })
+            </li>
+        </ul>
+    </div>
     @using (Html.BeginForm("Index", controllerName, FormMethod.Get))
     {
-        <input type="hidden" id="params" name="parameters" />
-        <p class="search">
-            <input type="text" id="searchString" value="" placeholder="Поиск" />
-            <input type="submit" class="changerParams" id="searchButton" value="">
-        </p>
-
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Сортировать по
-            </button>
-            <ul class="dropdown-menu">
-                <li class="sorting">
-                    @Html.ActionLink("Date", "Index", new { sortOrder = "Date", parameters = Request.QueryString["parameters"] })
-                </li>
-                <li class="sorting">
-                    @Html.ActionLink("Title", "Index", new { sortOrder = "Title", parameters = Request.QueryString["parameters"] })
-                </li>
-                <li class="sorting">
-                    @Html.ActionLink("Description", "Index", new { sortOrder = "Description", parameters = Request.QueryString["parameters"] })
-                </li>
-            </ul>
-        </div>
         <div class="filter-list">
+            <input type="hidden" name="filterString" id="params" value="" />
             <p>Фильтры:</p>
             <ul class="filters">
-                <li><input type="checkbox" id="today"> today</li>
-                <li><input type="checkbox" id="yesterday"> yesterday</li>
-                <li><input type="checkbox" id="week"> this week</li>
-                <li><input type="checkbox" id="all"> all</li>
+                <li><input type="checkbox" id="today"> сегодня</li>
+                <li><input type="checkbox" id="yesterday"> вчера</li>
+                <li><input type="checkbox" id="week"> последние 7 дней</li>
+                <li><input type="checkbox" id="all"> всё время</li>
                 <li>
                     <input type="submit" class="changerParams" id="filter" value="Фильтровать" />
                 </li>

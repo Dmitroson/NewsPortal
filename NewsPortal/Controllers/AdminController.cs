@@ -33,10 +33,11 @@ namespace NewsPortal.Controllers
             }
             HttpCookie cookie = Request.Cookies["lang"];
             if (cookie != null)
-                cookie.Value = lang;   
+            {
+                cookie.Value = lang;
+            }   
             else
             {
-
                 cookie = new HttpCookie("lang");
                 cookie.HttpOnly = false;
                 cookie.Value = lang;
@@ -47,11 +48,9 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin
-        public ActionResult Index(string sortOrder = "Date", int page = 1, string parameters = "")
+        public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
             var articles = service.Articles;
-
-            service.ParseParams(parameters, out string searchString, out string filterString);
 
             articles = service.Filter(articles, filterString);
             articles = service.Search(articles, searchString);
@@ -86,14 +85,16 @@ namespace NewsPortal.Controllers
         {
             if (ModelState.IsValid && uploadImage != null)
             {
-                DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/Images/"));
+                var imageUrl = "/Images/";
+                var path = Server.MapPath(imageUrl);
+
+                DirectoryInfo dir = new DirectoryInfo(path);
                 if (!dir.Exists)
                     dir.Create();
 
-                var path = Server.MapPath("~/Images/") + uploadImage.FileName;
+                path += uploadImage.FileName;
                 uploadImage.SaveAs(path);
-                article.ImageUrl = "/Images/" + uploadImage.FileName;
-
+                article.ImageUrl = imageUrl + uploadImage.FileName;
                 
                 service.CreateArticle(article);
 
@@ -119,9 +120,10 @@ namespace NewsPortal.Controllers
             {
                 if (uploadImage != null)
                 {
-                    var path = Server.MapPath("~/Images/") + uploadImage.FileName;
+                    var imageUrl = "/Images/" + uploadImage.FileName;
+                    var path = Server.MapPath(imageUrl);
                     uploadImage.SaveAs(path);
-                    article.ImageUrl = "/Images/" + uploadImage.FileName;
+                    article.ImageUrl = imageUrl;
                 }
 
                 service.UpdateArticle(article);

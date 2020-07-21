@@ -36,7 +36,9 @@ namespace NewsPortal.Controllers
             }
             HttpCookie cookie = Request.Cookies["lang"];
             if (cookie != null)
+            {
                 cookie.Value = lang;
+            }
             else
             {
                 cookie = new HttpCookie("lang");
