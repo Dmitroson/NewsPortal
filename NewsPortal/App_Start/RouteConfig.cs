@@ -18,7 +18,6 @@ namespace NewsPortal
                 url: "{cult}/{controller}/{action}/{id}",
                 defaults: new { cult = "ru", controller = "Article", action = "Index", id = UrlParameter.Optional }
             );
-
         }
     }
 }
