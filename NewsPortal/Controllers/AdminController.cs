@@ -23,41 +23,6 @@ namespace NewsPortal.Controllers
             service = new Service(new UnitOfWork());
         }
 
-        public ActionResult ChangeCulture(string language)
-        {
-            List<string> cultures = new List<string>() { "ru", "en" };
-            if (!cultures.Contains(language))
-            {
-                language = "ru";
-            }
-            HttpCookie cookie = Request.Cookies["lang"];
-            if (cookie != null)
-            {
-                cookie.Value = language;
-            }
-            else
-            {
-                cookie = new HttpCookie("lang");
-                cookie.HttpOnly = false;
-                cookie.Value = language;
-                cookie.Expires = DateTime.Now.AddYears(1);
-            }
-            Response.Cookies.Add(cookie);
-            return RedirectToAction("", new { lang = language });
-        }
-
-        public void ChangeLanguage(string currentLanguage)
-        {
-            if (currentLanguage == "en")
-            {
-                ChangeCulture("en");
-            }
-            else
-            {
-                ChangeCulture("ru");
-            }
-        }
-
         // GET: Admin
         public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
@@ -164,6 +129,41 @@ namespace NewsPortal.Controllers
         {
             service.DeleteArticle(id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ChangeCulture(string language)
+        {
+            List<string> cultures = new List<string>() { "ru", "en" };
+            if (!cultures.Contains(language))
+            {
+                language = "ru";
+            }
+            HttpCookie cookie = Request.Cookies["lang"];
+            if (cookie != null)
+            {
+                cookie.Value = language;
+            }
+            else
+            {
+                cookie = new HttpCookie("lang");
+                cookie.HttpOnly = false;
+                cookie.Value = language;
+                cookie.Expires = DateTime.Now.AddYears(1);
+            }
+            Response.Cookies.Add(cookie);
+            return RedirectToAction("", new { lang = language });
+        }
+
+        public void ChangeLanguage(string currentLanguage)
+        {
+            if (currentLanguage == "en")
+            {
+                ChangeCulture("en");
+            }
+            else
+            {
+                ChangeCulture("ru");
+            }
         }
     }
 }
