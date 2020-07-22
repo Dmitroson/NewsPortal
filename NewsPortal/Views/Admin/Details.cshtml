@@ -58,6 +58,6 @@
 </p>
 
 <p>
-    @Html.Action("CreateComment")
-    @Html.Action("GetComments", new { articleId = Model.Id })
+    @Html.Action("Create", "Comment", new { articleId = Model.Id })
+    @Html.Action("CommentsList", "Comment", new { articleId = Model.Id })
 </p>

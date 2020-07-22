@@ -2,6 +2,10 @@
 
 <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
 
+@{
+    string controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+}
+
 @foreach (var comment in Model)
 {
     <article class="comment">
@@ -9,4 +13,8 @@
         <div class="commentdate">@comment.PubDate.Value.AddHours(3).ToString("dd.MM.yyyy hh:mm")</div>
         <div class="commenttext">@comment.Text</div>
     </article>
+    if (controllerName == "Admin")
+    {
+        @Html.ActionLink("Delete Comment", "Delete", new { controller = "Comment", id = comment.Id })
+    }
 }
