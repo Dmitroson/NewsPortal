@@ -46,11 +46,15 @@ namespace NewsPortal.Controllers
             return RedirectToAction("", new { lang = language });
         }
 
-        private void ChangeLanguage(string currentLanguage)
+        public void ChangeLanguage(string currentLanguage)
         {
             if (currentLanguage == "en")
             {
                 ChangeCulture("en");
+            }
+            else
+            {
+                ChangeCulture("ru");
             }
         }
 
