@@ -15,30 +15,30 @@
 <table class="table">
     @foreach (var item in Model.Articles)
     {
-    <tr>
-        <td>
-            <img src="@item.ImageUrl" alt="Image" />
-            <div class="article-text">
-                <a href="@Url.Action("Details", new { id = item.Id })" class="article-title">
-                    @Html.DisplayFor(modelItem => item.Title)
-                </a>
-                <div class="article-desc">
-                    @Html.Raw(item.Description)
+        <tr>
+            <td>
+                <img src="@item.ImageUrl" alt="Image" />
+                <div class="article-text">
+                    <a href="@Url.Action("Details", new { id = item.Id })" class="article-title">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </a>
+                    <div class="article-desc">
+                        @Html.Raw(item.Description)
+                    </div>
+                    <div class="article-time">
+                        @item.PubDate.Value.AddHours(3)
+                    </div>
                 </div>
-                <div class="article-time">
-                    @item.PubDate.Value.AddHours(3)
-                </div>
-            </div>
-        </td>
-        <td>
-            @Html.ActionLink(@Resources.Resource.Edit, "Edit", new { id = item.Id }) |
-            @Html.ActionLink(@Resources.Resource.Delete, "Delete", new { id = item.Id })
-        </td>
-    </tr>
+            </td>
+            <td>
+                @Html.ActionLink(@Resources.Resource.Edit, "Edit", new { id = item.Id }) |
+                @Html.ActionLink(@Resources.Resource.Delete, "Delete", new { id = item.Id })
+            </td>
+        </tr>
     }
 
 </table>
 <br />
 <div class="btn-group">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+    @Html.Partial("Paging", Model)
 </div>

@@ -1,0 +1,22 @@
+﻿@model NewsPortal.ViewModels.ArticleIndexViewModel
+@using NewsPortal.Helpers;
+
+@{
+    string currentFilterString = Request.QueryString["filterString"];
+    string currentSearchString = Request.QueryString["searchString"];
+    string currentSortOrder = Request.QueryString["sortOrder"];
+}
+
+@if (Model.PageInfo.TotalPages > 1)
+{
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index",
+        new
+            {
+                page = x,
+                filterString = currentFilterString,
+                searchString = currentSearchString,
+                sortOrder = currentSortOrder
+            }
+        )
+    )
+}

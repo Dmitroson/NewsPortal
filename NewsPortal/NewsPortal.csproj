@@ -301,6 +301,7 @@
     <Content Include="Views\Shared\ChangeLanguageBlock.cshtml" />
     <Content Include="Views\Comment\Create.cshtml" />
     <Content Include="Views\Comment\CommentsList.cshtml" />
+    <Content Include="Views\Shared\Paging.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

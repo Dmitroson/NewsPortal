@@ -19,12 +19,18 @@ namespace NewsPortal
                 defaults: new { lang = "ru", controller = "Account", action = "Login" }
             );
 
+            //routes.MapRoute(
+            //    name: "Index",
+            //    url: "{controller}/Index",
+            //    defaults: new { lang = "ru", controller = "Article", action = "Index" }
+            //);
+
             routes.MapRoute(
                 name: "Default",
                 url: "{lang}/{controller}/{action}/{id}",
                 defaults: new { lang = "ru", controller = "Article", action = "Index", id = UrlParameter.Optional }
             );
-
+ 
         }
     }
 }
