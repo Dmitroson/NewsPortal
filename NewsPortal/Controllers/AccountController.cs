@@ -49,17 +49,8 @@ namespace NewsPortal.Controllers
             return RedirectToAction("", new { lang = language });
         }
 
-        private void checkLang(string req)
-        {
-            if (req == "en")
-            {
-                ChangeCulture("en");
-            }
-        }
-
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
-            checkLang(Request.RequestContext.RouteData.Values["cult"].ToString());
             UserManager = userManager;
             SignInManager = signInManager;
         }
