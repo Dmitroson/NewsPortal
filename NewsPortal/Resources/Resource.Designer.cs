@@ -178,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на ОставьтеКомментарий.
+        ///   Ищет локализованную строку, похожую на Оставьте комментарий.
         /// </summary>
         public static string LeaveComment {
             get {

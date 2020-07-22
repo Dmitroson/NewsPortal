@@ -71,7 +71,7 @@ namespace Business.Services
         public void UpdateArticle(Article article)
         {
             article.PubDate = article.PubDate.Value.AddHours(-3);
-            unity.Articles.Update(article); ;
+            unity.Articles.Update(article);
         }
 
         public int GetArticleIdByCommentId(int id)
