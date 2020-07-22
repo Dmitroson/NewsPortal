@@ -246,6 +246,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Filters\CultureAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -299,6 +300,9 @@
     <Content Include="Web.config" />
     <Content Include="Views\Shared\FilterSortingSearch.cshtml" />
     <Content Include="Views\Shared\ChangeLanguageBlock.cshtml" />
+    <Content Include="Views\Comment\Create.cshtml" />
+    <Content Include="Views\Comment\CommentsList.cshtml" />
+    <Content Include="Views\Shared\Paging.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -674,9 +678,6 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Details.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
-    <Content Include="Views\Comments\CommentsList.cshtml" />
-    <Content Include="Views\Comments\CreateComments.cshtml" />
-    <Content Include="Views\Comments\CommentsForAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ErrorLog\Debug\" />

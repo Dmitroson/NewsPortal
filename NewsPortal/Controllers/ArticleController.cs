@@ -52,6 +52,10 @@ namespace NewsPortal.Controllers
             {
                 ChangeCulture("en");
             }
+            else
+            {
+                ChangeCulture("ru");
+            }
         }
 
         // GET: Article

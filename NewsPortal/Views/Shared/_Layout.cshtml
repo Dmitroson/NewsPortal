@@ -22,12 +22,12 @@
                     <li>@Html.ActionLink("HomePage(Users)", "Index", "Article")</li>
                     <li>@Html.ActionLink("HomePage(Admin)", "Index", "Admin")</li>
                 </ul>
+                @Html.Partial("ChangeLanguageBlock")
             </div>
         </div>
     </div>
     <div class="container body-content">
 
-        @Html.Partial("ChangeLanguageBlock")
         @RenderBody()
         <!--<hr />-->
 

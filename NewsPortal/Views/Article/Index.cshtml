@@ -32,5 +32,5 @@
 </table>
 <br />
 <div class="btn-group pages">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+    @Html.Partial("Paging", Model)
 </div>

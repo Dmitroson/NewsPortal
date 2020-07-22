@@ -46,11 +46,15 @@ namespace NewsPortal.Controllers
             return RedirectToAction("", new { lang = language });
         }
 
-        private void ChangeLanguage(string currentLanguage)
+        public void ChangeLanguage(string currentLanguage)
         {
             if (currentLanguage == "en")
             {
                 ChangeCulture("en");
+            }
+            else
+            {
+                ChangeCulture("ru");
             }
         }
 
@@ -160,39 +164,6 @@ namespace NewsPortal.Controllers
         {
             service.DeleteArticle(id);
             return RedirectToAction("Index");
-        }
-
-        public ActionResult GetComments(int articleId)
-        {
-            var comments = service.GetComments(articleId);
-            return PartialView("~/Views/Comments/CommentsForAdmin.cshtml", comments);
-        }
-
-        public ActionResult CreateComment()
-        {
-            return PartialView("~/Views/Comments/CreateComments.cshtml");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateComment(CommentViewModel commentViewModel, int id)
-        {
-            if (ModelState.IsValid)
-            {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<CommentViewModel, Comment>());
-                var mapper = new Mapper(config);
-                var comment = mapper.Map<Comment>(commentViewModel);
-                service.CreateComment(comment, id);
-                Response.Redirect(Request.RawUrl);
-            }
-            return View(commentViewModel);
-        }
-
-        public ActionResult DeleteComment(int id)
-        {
-            var articleId = service.GetArticleIdByCommentId(id);
-            service.DeleteComment(id);
-            return RedirectToRoute(new { controller = "Admin", action = "Details", id = articleId.ToString() });
         }
     }
 }
