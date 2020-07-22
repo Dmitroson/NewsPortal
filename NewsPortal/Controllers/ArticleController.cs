@@ -2,6 +2,7 @@
 using Business.Models;
 using Business.Services;
 using MultilingualSite.Filters;
+using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
 using System;
@@ -56,6 +57,18 @@ namespace NewsPortal.Controllers
         // GET: Article
         public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
+            try
+            {
+                LoggerHelper.WriteDebug(null, "Debug ");
+                LoggerHelper.WriteWarning(null, "Warning ");
+            }
+            catch (Exception e)
+            {
+                LoggerHelper.WriteError(e, "Error");
+                LoggerHelper.WriteFatal(e, "Fatal");
+                LoggerHelper.WriteVerbose(e, "Verbose");
+                throw; 
+            }
             ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
             var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
 

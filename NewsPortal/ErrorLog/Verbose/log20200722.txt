@@ -1,0 +1,9 @@
+2020-07-22 18:35:26.464 +03:00 [VRB] Verbose
+System.NotImplementedException: Метод или операция не реализована.
+   в NewsPortal.Controllers.ArticleController.Index(String searchString, Int32 sortOrder, String filterString, Int32 page) в D:\ASP.Net\NewsPortalAlfa\NewsPortal\NewsPortal\Controllers\ArticleController.cs:строка 64
+2020-07-22 18:35:48.535 +03:00 [VRB] Verbose
+System.NotImplementedException: Метод или операция не реализована.
+   в NewsPortal.Controllers.ArticleController.Index(String searchString, Int32 sortOrder, String filterString, Int32 page) в D:\ASP.Net\NewsPortalAlfa\NewsPortal\NewsPortal\Controllers\ArticleController.cs:строка 64
+2020-07-22 18:37:21.321 +03:00 [VRB] Verbose
+System.NotImplementedException: Метод или операция не реализована.
+   в NewsPortal.Controllers.ArticleController.Index(String searchString, Int32 sortOrder, String filterString, Int32 page) в D:\ASP.Net\NewsPortalAlfa\NewsPortal\NewsPortal\Controllers\ArticleController.cs:строка 64

@@ -116,7 +116,7 @@
       <HintPath>..\packages\Serilog.Sinks.Async.1.1.0\lib\net45\Serilog.Sinks.Async.dll</HintPath>
     </Reference>
     <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.Sinks.File.3.2.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+      <HintPath>..\packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
     <Reference Include="Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.RollingFile.3.3.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
@@ -251,6 +251,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\LoggerHelper.cs" />
     <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Resources\Resource.en.Designer.cs">
       <DependentUpon>Resource.en.resx</DependentUpon>
@@ -678,6 +679,11 @@
     <Content Include="Views\Comments\CommentsForAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ErrorLog\Debug\" />
+    <Folder Include="ErrorLog\Error\" />
+    <Folder Include="ErrorLog\Fatal\" />
+    <Folder Include="ErrorLog\Verbose\" />
+    <Folder Include="ErrorLog\Warning\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
