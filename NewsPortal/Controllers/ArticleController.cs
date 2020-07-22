@@ -22,32 +22,32 @@ namespace NewsPortal.Controllers
             service = new Service(new UnitOfWork());
         }
 
-        public ActionResult ChangeCulture(string lang)
+        public ActionResult ChangeCulture(string language)
         {
             List<string> cultures = new List<string>() { "ru", "en" };
-            if (!cultures.Contains(lang))
+            if (!cultures.Contains(language))
             {
-                lang = "ru";
+                language = "ru";
             }
             HttpCookie cookie = Request.Cookies["lang"];
             if (cookie != null)
             {
-                cookie.Value = lang;
+                cookie.Value = language;
             }
             else
             {
                 cookie = new HttpCookie("lang");
                 cookie.HttpOnly = false;
-                cookie.Value = lang;
+                cookie.Value = language;
                 cookie.Expires = DateTime.Now.AddYears(1);
             }
             Response.Cookies.Add(cookie);
-            return RedirectToAction("", new { cult = lang });
+            return RedirectToAction("", new { lang = language });
         }
 
-        public void checkLang(string req)
+        public void ChangeLanguage(string currentLanguage)
         {
-            if (req == "en")
+            if (currentLanguage == "en")
             {
                 ChangeCulture("en");
             }
@@ -56,7 +56,7 @@ namespace NewsPortal.Controllers
         // GET: Article
         public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
-            checkLang(Request.RequestContext.RouteData.Values["cult"].ToString());
+            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
             var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
 
             articles = service.Filter(articles, filterString);
@@ -74,7 +74,7 @@ namespace NewsPortal.Controllers
         // GET: Article/Details/5
         public ActionResult Details(int id)
         {
-            checkLang(Request.RequestContext.RouteData.Values["cult"].ToString());
+            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
             var article = service.GetArticle(id);
             return View(article);
         }

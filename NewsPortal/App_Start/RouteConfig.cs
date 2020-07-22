@@ -14,10 +14,17 @@ namespace NewsPortal
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
-                url: "{cult}/{controller}/{action}/{id}",
-                defaults: new { cult = "ru", controller = "Article", action = "Index", id = UrlParameter.Optional }
+                name: "Login",
+                url: "Account/Login",
+                defaults: new { lang = "ru", controller = "Account", action = "Login" }
             );
+
+            routes.MapRoute(
+                name: "Default",
+                url: "{lang}/{controller}/{action}/{id}",
+                defaults: new { lang = "ru", controller = "Article", action = "Index", id = UrlParameter.Optional }
+            );
+
         }
     }
 }

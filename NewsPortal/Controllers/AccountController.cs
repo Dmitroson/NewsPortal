@@ -26,28 +26,27 @@ namespace NewsPortal.Controllers
         {
         }
 
-        public ActionResult ChangeCulture(string lang)
+        public ActionResult ChangeCulture(string language)
         {
-            string returnUrl = Request.UrlReferrer.AbsolutePath;
             List<string> cultures = new List<string>() { "ru", "en" };
-            if (!cultures.Contains(lang))
+            if (!cultures.Contains(language))
             {
-                lang = "ru";
+                language = "ru";
             }
             HttpCookie cookie = Request.Cookies["lang"];
             if (cookie != null)
             {
-                cookie.Value = lang;
+                cookie.Value = language;
             }
             else
             {
                 cookie = new HttpCookie("lang");
                 cookie.HttpOnly = false;
-                cookie.Value = lang;
+                cookie.Value = language;
                 cookie.Expires = DateTime.Now.AddYears(1);
             }
             Response.Cookies.Add(cookie);
-            return Redirect(returnUrl);
+            return RedirectToAction("", new { lang = language });
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -89,7 +88,6 @@ namespace NewsPortal.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]

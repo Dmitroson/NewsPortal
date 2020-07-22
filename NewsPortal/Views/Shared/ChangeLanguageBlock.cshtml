@@ -1,18 +1,14 @@
-﻿@{
-    string values = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
-    string actionName = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
-}
-
-    <div class="btn-group">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Изменить язык
-        </button>
-        <ul class="dropdown-menu">
-            <li>
-                @Html.ActionLink("ru", "ChangeCulture", new { lang = "ru" })
-            </li>
-            <li>
-                @Html.ActionLink("en", "ChangeCulture", new { lang = "en" })
-            </li>
-        </ul>
-    </div>
+﻿
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Изменить язык
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            @Html.ActionLink("ru", "ChangeCulture", new { language = "ru" })
+        </li>
+        <li>
+            @Html.ActionLink("en", "ChangeCulture", new { language = "en" })
+        </li>
+    </ul>
+</div>
