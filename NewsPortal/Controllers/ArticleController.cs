@@ -23,6 +23,34 @@ namespace NewsPortal.Controllers
             service = new Service(new UnitOfWork());
         }
 
+        // GET: Article
+        public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
+        {
+            WriteLogs();
+            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
+
+            var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
+
+            articles = service.Filter(articles, filterString);
+            articles = service.Search(articles, searchString);
+            articles = service.Sort(articles, sortOrder);
+
+            var articlesIndex = service.MakePaging(articles, page);
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ArticlesIndex, ArticleIndexViewModel>());
+            var mapper = new Mapper(config);
+            var articlesViewModel = mapper.Map<ArticleIndexViewModel>(articlesIndex);
+
+            return View(articlesViewModel);
+        }
+
+        // GET: Article/Details/5
+        public ActionResult Details(int id)
+        {
+            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
+            var article = service.GetArticle(id);
+            return View(article);
+        }
+
         public ActionResult ChangeCulture(string language)
         {
             List<string> cultures = new List<string>() { "ru", "en" };
@@ -58,8 +86,7 @@ namespace NewsPortal.Controllers
             }
         }
 
-        // GET: Article
-        public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
+        void WriteLogs()
         {
             try
             {
@@ -71,55 +98,8 @@ namespace NewsPortal.Controllers
                 LoggerHelper.WriteError(e, "Error");
                 LoggerHelper.WriteFatal(e, "Fatal");
                 LoggerHelper.WriteVerbose(e, "Verbose");
-                throw; 
+                throw;
             }
-            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
-            var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
-
-            articles = service.Filter(articles, filterString);
-            articles = service.Search(articles, searchString);
-            articles = service.Sort(articles, sortOrder);
-
-            var articlesIndex = service.MakePaging(articles, page);
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<ArticlesIndex, ArticleIndexViewModel>());
-            var mapper = new Mapper(config);
-            var articlesViewModel = mapper.Map<ArticleIndexViewModel>(articlesIndex);
-
-            return View(articlesViewModel);
-        }
-
-        // GET: Article/Details/5
-        public ActionResult Details(int id)
-        {
-            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
-            var article = service.GetArticle(id);
-            return View(article);
-        }
-
-        public ActionResult GetComments(int articleId)
-        {
-            var comments = service.GetComments(articleId);
-            return PartialView("~/Views/Comments/CommentsList.cshtml", comments);
-        }
-
-        public ActionResult CreateComment()
-        {
-            return PartialView("~/Views/Comments/CreateComments.cshtml");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateComment(CommentViewModel commentViewModel, int id)
-        {
-            if (ModelState.IsValid)
-            {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<CommentViewModel, Comment>());
-                var mapper = new Mapper(config);
-                var comment = mapper.Map<Comment>(commentViewModel);
-                service.CreateComment(comment, id);
-                Response.Redirect(Request.RawUrl);
-            }
-            return View(commentViewModel);
         }
     }
 }
