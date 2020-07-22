@@ -8,24 +8,24 @@
     @using (Html.BeginForm("Index", controllerName, FormMethod.Get, new { @id = "searchForm" }))
     {
     <p class="search">
-        <input type="text" id="searchString" name="searchString" value="" placeholder="Поиск" />
+        <input type="text" id="searchString" name="searchString" value="" placeholder= @Resources.Resource.Search />
         <input type="submit" id="searchButton" value="">
     </p>
     }
     <div class="btn-group">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Сортировать по
+            @Resources.Resource.Sort
             <img src="https://img.icons8.com/carbon-copy/100/000000/sort-down.png" style="width:20px" />
         </button>
         <ul class="dropdown-menu">
             <li class="sorting">
-                @Html.ActionLink("Date", "Index", new { sortOrder = 1, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByDate, "Index", new { sortOrder = 1, filterString = currentFilterString, searchString = currentSearchString })
             </li>
             <li class="sorting">
-                @Html.ActionLink("Title", "Index", new { sortOrder = 2, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByTitle, "Index", new { sortOrder = 2, filterString = currentFilterString, searchString = currentSearchString })
             </li>
             <li class="sorting">
-                @Html.ActionLink("Description", "Index", new { sortOrder = 3, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByDescription, "Index", new { sortOrder = 3, filterString = currentFilterString, searchString = currentSearchString })
             </li>
         </ul>
     </div>
@@ -33,14 +33,14 @@
     {
         <div class="filter-list">
             <input type="hidden" name="filterString" id="params" value="" />
-            <p>Фильтры:</p>
+            <p>@Resources.Resource.Filters:</p>
             <ul class="filters">
-                <li><input type="checkbox" id="today"> сегодня</li>
-                <li><input type="checkbox" id="yesterday"> вчера</li>
-                <li><input type="checkbox" id="week"> последние 7 дней</li>
-                <li><input type="checkbox" id="all"> всё время</li>
+                <li><input type="checkbox" id="today"> @Resources.Resource.Today</li>
+                <li><input type="checkbox" id="yesterday"> @Resources.Resource.Yesterday</li>
+                <li><input type="checkbox" id="week"> @Resources.Resource.LastDays</li>
+                <li><input type="checkbox" id="all"> @Resources.Resource.All </li>
                 <li>
-                    <input type="submit" class="changerParams" id="filter" value="Фильтровать" />
+                    <input type="submit" class="changerParams" id="filter" value=@Resources.Resource.Filter />
                 </li>
             </ul>
         </div>

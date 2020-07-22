@@ -109,14 +109,16 @@ img {
 
 .commentdate {
     display: inline-block;
+    font-size: 10px;
 }
 
 .commenttext {
-    margin-left: 5%;
+    margin-left: 10%;
+    resize: none;
+    width: 100%;
 }
 
 .comment {
-    border: 1px solid blue;
     width: 50%;
     margin: 2%;
 }
@@ -180,7 +182,7 @@ img {
 
 .filter-list {
     border: 1px solid #4574ec;
-    height: 220px;
+    height: 240px;
     width: 175px;
     padding-right: 20px;
     margin-top: 10px;
@@ -286,4 +288,8 @@ img {
     height: 20px;
     width: 20px;
     background: https://ru.freepik.com/free-icon/arrows-up-and-down-filled-triangles_781948.htm;
+}
+
+.changerParams {
+    margin: 10px;
 }

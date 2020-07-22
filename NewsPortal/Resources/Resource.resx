@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="All" xml:space="preserve">
+    <value>Всё время</value>
+  </data>
   <data name="Articles" xml:space="preserve">
     <value>Новости</value>
   </data>
@@ -144,8 +147,17 @@
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фильтровать</value>
+  </data>
   <data name="Filters" xml:space="preserve">
     <value>Фильтры</value>
+  </data>
+  <data name="LastDays" xml:space="preserve">
+    <value>Последние 7 дней</value>
+  </data>
+  <data name="LeaveComment" xml:space="preserve">
+    <value>ОставьтеКомментарий</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Выполнить вход</value>
@@ -153,16 +165,37 @@
   <data name="LogOut" xml:space="preserve">
     <value>Выйти</value>
   </data>
+  <data name="Nickname" xml:space="preserve">
+    <value>Никнейм</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Регистрация</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Найти</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
   <data name="Sort" xml:space="preserve">
     <value>Сортировать по</value>
   </data>
+  <data name="SortByDate" xml:space="preserve">
+    <value>Дате</value>
+  </data>
+  <data name="SortByDescription" xml:space="preserve">
+    <value>Описанию</value>
+  </data>
+  <data name="SortByTitle" xml:space="preserve">
+    <value>Заголовку</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Здравствуйте</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Вчера</value>
   </data>
 </root>

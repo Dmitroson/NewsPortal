@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
   <data name="Articles" xml:space="preserve">
     <value>Articles</value>
   </data>
@@ -144,8 +147,17 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>
+  </data>
+  <data name="LastDays" xml:space="preserve">
+    <value>Last 7 days</value>
+  </data>
+  <data name="LeaveComment" xml:space="preserve">
+    <value>LeaveComment</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
@@ -153,16 +165,37 @@
   <data name="LogOut" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="Nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="Sort" xml:space="preserve">
     <value>Sort by</value>
   </data>
+  <data name="SortByDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="SortByDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="SortByTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
   </data>
 </root>
