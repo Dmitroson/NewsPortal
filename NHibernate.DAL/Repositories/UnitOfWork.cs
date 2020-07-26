@@ -31,7 +31,5 @@ namespace NHibernate.DAL.Repositories
                 return commentRepository;
             }
         }
-
-        void IUnitOfWork.Save() { }
     }
 }

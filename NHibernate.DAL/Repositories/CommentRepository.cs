@@ -7,6 +7,7 @@ namespace NHibernate.DAL.Repositories
     public class CommentRepository : IRepository<Comment>
     {
         private ISession session;
+
         public CommentRepository(ISession session)
         {
             this.session = session;
@@ -51,7 +52,5 @@ namespace NHibernate.DAL.Repositories
                 transaction.Commit();
             }
         }
-
-        void IRepository<Comment>.Save() { }
     }
 }

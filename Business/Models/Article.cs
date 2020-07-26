@@ -11,11 +11,11 @@ namespace Business.Models
         public virtual string ImageUrl { get; set; }
         public virtual bool Visibility { get; set; }
         public virtual DateTime? PubDate { get; set; }
-        public virtual ISet<Comment> Comments { get; set; }
+        public virtual List<Comment> Comments { get; set; }
 
         public Article()
         {
-            Comments = new HashSet<Comment>();
+            Comments = new List<Comment>();
         }
     }
 }

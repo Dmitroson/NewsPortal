@@ -1,5 +1,6 @@
 ﻿using Business.Interfaces;
 using Business.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NHibernate.DAL.Repositories
@@ -22,7 +23,7 @@ namespace NHibernate.DAL.Repositories
         public Article Get(int id)
         {
             var article = session.Get<Article>(id);
-
+            //article.Comments = session.Query<Comment>().Where(c => c.Article.Id == id) as ISet<Comment>;
             return article;
         }
 
@@ -53,7 +54,5 @@ namespace NHibernate.DAL.Repositories
                 transaction.Commit();
             }
         }
-
-        public void Save() { }
     }
 }

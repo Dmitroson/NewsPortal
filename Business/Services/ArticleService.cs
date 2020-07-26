@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace Business.Services
 {
-    public class Service : IService
+    public class ArticleService
     {
         private IUnitOfWork unity;
 
-        public Service(IUnitOfWork unitOfWork)
+        public ArticleService(IUnitOfWork unitOfWork)
         {
             unity = unitOfWork;
         }
@@ -42,43 +42,15 @@ namespace Business.Services
             unity.Articles.Create(article);
         }
 
-        public void CreateComment(Comment comment, int articleId)
-        {
-            var article = unity.Articles.Get(articleId);
-            comment.PubDate = DateTime.Now;
-            comment.Article = article;
-            article.Comments.Add(comment);
-            unity.Comments.Create(comment);
-        }
-
         public void DeleteArticle(int id)
         {
             unity.Articles.Delete(id);
-        }
-
-        public void DeleteComment(int id)
-        {
-            unity.Comments.Delete(id);
-        }
-
-        public IEnumerable<Comment> GetComments(int articleId)
-        {
-            var article = unity.Articles.Get(articleId);
-            var comments = article.Comments.ToList();
-            return comments;
         }
 
         public void UpdateArticle(Article article)
         {
             article.PubDate = article.PubDate.Value.AddHours(-3);
             unity.Articles.Update(article);
-        }
-
-        public int GetArticleIdByCommentId(int id)
-        {
-            var comment = unity.Comments.Get(id);
-            var articleId = comment.Article.Id;
-            return articleId;
         }
 
         public IQueryable<Article> Filter(IQueryable<Article> articles, string filterString)

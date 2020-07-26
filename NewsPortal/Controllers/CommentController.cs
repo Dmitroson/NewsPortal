@@ -9,11 +9,11 @@ namespace NewsPortal.Controllers
 {
     public class CommentController : Controller
     {
-        private Service service;
+        private CommentService service;
 
         public CommentController()
         {
-            service = new Service(new UnitOfWork());
+            service = new CommentService(new UnitOfWork());
         }
 
         // GET: Comment
