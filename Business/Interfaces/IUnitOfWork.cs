@@ -6,7 +6,5 @@ namespace Business.Interfaces
     {
         IRepository<Article> Articles { get; }
         IRepository<Comment> Comments { get; }
-
-        void Save();
     }
 }

@@ -16,18 +16,18 @@ namespace NewsPortal.Controllers
     [Culture]
     public class ArticleController : Controller
     {
-        private Service service;
-
+        private ArticleService service;
+         
         public ArticleController()
         {
-            service = new Service(new UnitOfWork());
+            service = new ArticleService(new UnitOfWork());
         }
 
         // GET: Article
         public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
             WriteLogs("user entered the site");
-            ChangeCulture(Request.RequestContext.RouteData.Values["lang"].ToString());
+            ChangeLanguage();
 
             var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
 
@@ -39,14 +39,14 @@ namespace NewsPortal.Controllers
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ArticlesIndex, ArticleIndexViewModel>());
             var mapper = new Mapper(config);
             var articlesViewModel = mapper.Map<ArticleIndexViewModel>(articlesIndex);
-
+            
             return View(articlesViewModel);
         }
 
         // GET: Article/Details/5
         public ActionResult Details(int id)
         {
-            ChangeCulture(Request.RequestContext.RouteData.Values["lang"].ToString());
+            ChangeLanguage();
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -72,6 +72,19 @@ namespace NewsPortal.Controllers
             }
             Response.Cookies.Add(cookie);
             return RedirectToAction("", new { lang = language });
+        }
+
+        public void ChangeLanguage()
+        {
+            var currentLanguage = Request.RequestContext.RouteData.Values["lang"].ToString();
+            if (currentLanguage == "en")
+            {
+                ChangeCulture("en");
+            }
+            else
+            {
+                ChangeCulture("ru");
+            }
         }
 
         void WriteLogs(string message)
