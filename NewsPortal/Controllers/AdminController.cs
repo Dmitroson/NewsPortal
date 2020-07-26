@@ -2,6 +2,7 @@
 using Business.Models;
 using Business.Services;
 using MultilingualSite.Filters;
+using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
 using System;
@@ -26,7 +27,8 @@ namespace NewsPortal.Controllers
         // GET: Admin
         public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
-            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
+            WriteLogs("admin entered the site");
+            ChangeCulture(Request.RequestContext.RouteData.Values["lang"].ToString());
             var articles = service.Articles;
 
             articles = service.Filter(articles, filterString);
@@ -44,7 +46,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Details/5
         public ActionResult Details(int id)
         {
-            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
+            ChangeCulture(Request.RequestContext.RouteData.Values["lang"].ToString());
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -52,7 +54,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Create
         public ActionResult Create()
         {
-            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
+            ChangeCulture(Request.RequestContext.RouteData.Values["lang"].ToString());
             return View();
         }
 
@@ -85,7 +87,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
-            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
+            ChangeCulture(Request.RequestContext.RouteData.Values["lang"].ToString());
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -116,7 +118,7 @@ namespace NewsPortal.Controllers
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
-            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
+            ChangeCulture(Request.RequestContext.RouteData.Values["lang"].ToString());
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -154,15 +156,18 @@ namespace NewsPortal.Controllers
             return RedirectToAction("", new { lang = language });
         }
 
-        public void ChangeLanguage(string currentLanguage)
+        void WriteLogs(string message)
         {
-            if (currentLanguage == "en")
+            try
             {
-                ChangeCulture("en");
+                LoggerHelper.WriteDebug(null, message);
             }
-            else
+            catch (Exception e)
             {
-                ChangeCulture("ru");
+                LoggerHelper.WriteError(e, "When" + message);
+                LoggerHelper.WriteFatal(e, "When" + message);
+                LoggerHelper.WriteVerbose(e, "When" + message);
+                throw;
             }
         }
     }

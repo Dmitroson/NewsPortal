@@ -26,8 +26,8 @@ namespace NewsPortal.Controllers
         // GET: Article
         public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
         {
-            WriteLogs();
-            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
+            WriteLogs("user entered the site");
+            ChangeCulture(Request.RequestContext.RouteData.Values["lang"].ToString());
 
             var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
 
@@ -46,7 +46,7 @@ namespace NewsPortal.Controllers
         // GET: Article/Details/5
         public ActionResult Details(int id)
         {
-            ChangeLanguage(Request.RequestContext.RouteData.Values["lang"].ToString());
+            ChangeCulture(Request.RequestContext.RouteData.Values["lang"].ToString());
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -74,30 +74,17 @@ namespace NewsPortal.Controllers
             return RedirectToAction("", new { lang = language });
         }
 
-        public void ChangeLanguage(string currentLanguage)
-        {
-            if (currentLanguage == "en")
-            {
-                ChangeCulture("en");
-            }
-            else
-            {
-                ChangeCulture("ru");
-            }
-        }
-
-        void WriteLogs()
+        void WriteLogs(string message)
         {
             try
             {
-                LoggerHelper.WriteDebug(null, "Debug ");
-                LoggerHelper.WriteWarning(null, "Warning ");
+                LoggerHelper.WriteDebug(null, message);
             }
             catch (Exception e)
             {
-                LoggerHelper.WriteError(e, "Error");
-                LoggerHelper.WriteFatal(e, "Fatal");
-                LoggerHelper.WriteVerbose(e, "Verbose");
+                LoggerHelper.WriteError(e, "When" + message);
+                LoggerHelper.WriteFatal(e, "When" + message);
+                LoggerHelper.WriteVerbose(e, "When" + message);
                 throw;
             }
         }

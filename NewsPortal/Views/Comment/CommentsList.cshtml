@@ -15,6 +15,6 @@
     </article>
     if (controllerName == "Admin")
     {
-        @Html.ActionLink("Delete Comment", "Delete", new { controller = "Comment", id = comment.Id })
+        @Html.ActionLink(Resources.Resource.DelComment, "Delete", new { controller = "Comment", id = comment.Id })
     }
 }

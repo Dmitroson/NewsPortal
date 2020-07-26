@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_AdminList.cshtml";
 }
 
-<h2>Articles</h2>
+<h2>@Resources.Resource.Articles</h2>
 
 <p>
     @Html.ActionLink(Resources.Resource.Create_New, "Create")
@@ -39,6 +39,6 @@
 
 </table>
 <br />
-<div class="btn-group">
+<div class="btn-group pages">
     @Html.Partial("Paging", Model)
 </div>

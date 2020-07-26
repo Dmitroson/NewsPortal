@@ -138,8 +138,14 @@
   <data name="Create New" xml:space="preserve">
     <value>Create new article</value>
   </data>
+  <data name="DelComment" xml:space="preserve">
+    <value>Delete comment</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
@@ -152,6 +158,9 @@
   </data>
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
   </data>
   <data name="LastDays" xml:space="preserve">
     <value>Last 7 days</value>
@@ -168,8 +177,14 @@
   <data name="Nickname" xml:space="preserve">
     <value>Nickname</value>
   </data>
+  <data name="PubDate" xml:space="preserve">
+    <value>Pub date</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
@@ -189,8 +204,17 @@
   <data name="SortByTitle" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="SureDelete" xml:space="preserve">
+    <value>Are you sure you want to delete article?</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
   <data name="Today" xml:space="preserve">
     <value>Today</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Visibility</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>

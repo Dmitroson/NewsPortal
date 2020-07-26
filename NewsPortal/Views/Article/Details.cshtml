@@ -5,29 +5,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h2 class="article-title title-details">
-        @Html.DisplayFor(model => model.Title)
-    </h2>
+    <div>
 
-<div>
+        <h2 class="article-title title-details">
+            @Html.DisplayFor(model => model.Title)
+        </h2>
 
-    <dl class="dl-horizontal">
+        <dl class="dl-horizontal">
 
-        <dd>
-            <img src="@Model.ImageUrl" alt="image" class="details-img" />
-        </dd>
+            <dd class="details-article">
 
-        <dd class="article-del-desc details-desc">
-            @Html.Raw(Model.Description)
-        </dd>
+                <img src="@Model.ImageUrl" alt="image" class="details-img" />
 
-        <dd class="details-date">
-            @Model.PubDate.Value.AddHours(3)
-        </dd>
+                <div class="article-del-desc details-desc">
+                    @Html.Raw(Model.Description)
+                </div>
 
-    </dl>
+            </dd>
 
-</div>
+            <dd class="details-date">
+                @Model.PubDate.Value.AddHours(3)
+            </dd>
+
+        </dl>
+
+    </div>
 
 <p>
     @Html.ActionLink(Resources.Resource.BackToList, "Index")

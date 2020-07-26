@@ -34,15 +34,16 @@
         <div class="filter-list">
             <input type="hidden" name="filterString" id="params" value="" />
             <p>@Resources.Resource.Filters:</p>
-            <ul class="filters">
-                <li><input type="checkbox" id="today"> @Resources.Resource.Today</li>
-                <li><input type="checkbox" id="yesterday"> @Resources.Resource.Yesterday</li>
-                <li><input type="checkbox" id="week"> @Resources.Resource.LastDays</li>
-                <li><input type="checkbox" id="all"> @Resources.Resource.All </li>
-                <li>
+            <form class="filters">
+                <p class="filter-checkbox"><input type="checkbox" id="today"> @Resources.Resource.Today</p>
+                <p class="filter-checkbox"><input type="checkbox" id="yesterday"> @Resources.Resource.Yesterday</p>
+                <p class="filter-checkbox"><input type="checkbox" id="week"> @Resources.Resource.LastDays</p>
+                <p class="filter-checkbox"><input type="checkbox" id="all"> @Resources.Resource.All </p>
+
+                <p>
                     <input type="submit" class="changerParams" id="filter" value=@Resources.Resource.Filter />
-                </li>
-            </ul>
+                </p>
+            </form>
         </div>
     }
 </div>

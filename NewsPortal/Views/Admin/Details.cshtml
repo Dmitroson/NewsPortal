@@ -5,55 +5,46 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Details</h2>
+    <div>
 
-<div>
-    <h4>Article</h4>
-    <hr />
-    <dl class="dl-horizontal">
-
-        <dd>
-            <img src="@Model.ImageUrl" alt="image" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
+        <h2 class="article-title title-details">
             @Html.DisplayFor(model => model.Title)
-        </dd>
+        </h2>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+        <dl class="dl-horizontal">
 
-        <dd class="article-del-desc">
-            @Html.Raw(Model.Description)
-        </dd>
+            <dd class="details-article">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Visibility)
-        </dt>
+                <img src="@Model.ImageUrl" alt="image" class="details-img" />
 
-        <dd>
-            @Html.DisplayFor(model => model.Visibility)
-        </dd>
+                <div class="article-del-desc details-desc">
+                    @Html.Raw(Model.Description)
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PubDate)
-        </dt>
+            </dd>
 
-        <dd>
-            @Model.PubDate.Value.AddHours(3)
-        </dd>
+            <dt>
+                @Resources.Resource.Visibility
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.Visibility)
+            </dd>
 
-</div>
+            <dt>
+                @Resources.Resource.PubDate
+            </dt>
+
+            <dd>
+                @Model.PubDate.Value.AddHours(3)
+            </dd>
+
+        </dl>
+
+    </div>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = Model.Id }) |
     @Html.ActionLink(Resources.Resource.BackToList, "Index")
 </p>
 
