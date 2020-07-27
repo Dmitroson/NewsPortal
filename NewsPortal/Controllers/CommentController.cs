@@ -43,6 +43,13 @@ namespace NewsPortal.Controllers
             return View(commentViewModel);
         }
 
+        public ActionResult SureDelete(Comment comment)
+        {
+            if (comment != null)
+                return PartialView("Delete", comment);
+            return HttpNotFound();
+        }
+
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
