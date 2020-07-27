@@ -17,10 +17,8 @@ namespace Business.Services
 
         public void CreateComment(Comment comment, int articleId)
         {
-            var article = unity.Articles.Get(articleId);
             comment.PubDate = DateTime.Now;
-            comment.Article = article;
-            article.Comments.Add(comment);
+            comment.ArticleId = articleId;
             unity.Comments.Create(comment);
         }
 
@@ -31,16 +29,14 @@ namespace Business.Services
 
         public IEnumerable<Comment> GetComments(int articleId)
         {
-            var article = unity.Articles.Get(articleId);
-            article.Comments = unity.Comments.GetAll().Where(c => c.Article.Id == articleId).ToList<Comment>();
-            var comments = article.Comments;
+            var comments = unity.Comments.GetAll().Where(c => c.ArticleId == articleId);
             return comments;
         }
 
         public int GetArticleIdByCommentId(int id)
         {
             var comment = unity.Comments.Get(id);
-            var articleId = comment.Article.Id;
+            var articleId = comment.ArticleId;
             return articleId;
         }
     }

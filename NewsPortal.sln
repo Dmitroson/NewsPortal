@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Busine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHibernate.DAL", "NHibernate.DAL\NHibernate.DAL.csproj", "{DD6ABA5B-EC5F-4FF5-BD8C-E7D3F7F0DE05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.DAL", "EF.DAL\EF.DAL.csproj", "{95C4A5E1-AC34-471F-AA06-840E91E2DBEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.DAL", "EF.DAL\EF.DAL.csproj", "{95C4A5E1-AC34-471F-AA06-840E91E2DBEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

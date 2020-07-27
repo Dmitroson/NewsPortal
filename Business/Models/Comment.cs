@@ -4,10 +4,10 @@ namespace Business.Models
 {
     public class Comment
     {
-        public virtual int Id { get; set; }
-        public virtual string Text { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual DateTime? PubDate { get; set; }
-        public virtual Article Article { get; set; }
+        public int Id { get; set; }
+        public string Text { get; set; }
+        public string UserName { get; set; }
+        public DateTime? PubDate { get; set; }
+        public int ArticleId { get; set; }
     }
 }

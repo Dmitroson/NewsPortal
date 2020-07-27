@@ -5,13 +5,13 @@ namespace Business.Models
 {
     public class Article
     {
-        public virtual int Id { get; set; }
-        public virtual string Title { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string ImageUrl { get; set; }
-        public virtual bool Visibility { get; set; }
-        public virtual DateTime? PubDate { get; set; }
-        public virtual List<Comment> Comments { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public bool Visibility { get; set; }
+        public DateTime? PubDate { get; set; }
+        public IList<Comment> Comments { get; set; }
 
         public Article()
         {

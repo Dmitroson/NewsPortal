@@ -23,7 +23,6 @@ namespace NHibernate.DAL.Repositories
         public Article Get(int id)
         {
             var article = session.Get<Article>(id);
-            //article.Comments = session.Query<Comment>().Where(c => c.Article.Id == id) as ISet<Comment>;
             return article;
         }
 
@@ -50,6 +49,11 @@ namespace NHibernate.DAL.Repositories
             using (ITransaction transaction = session.BeginTransaction())
             {
                 var article = session.Get<Article>(id);
+                var comments = session.Query<Comment>().Where(c => c.ArticleId == id).ToList();
+                foreach(var comment in comments)
+                {
+                    session.Delete(comment);
+                }
                 session.Delete(article);
                 transaction.Commit();
             }

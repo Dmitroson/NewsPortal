@@ -12,7 +12,7 @@ namespace NHibernate.DAL.ClassMap
             Map(c => c.Text);
             Map(c => c.UserName);
             Map(c => c.PubDate);
-            References(c => c.Article).Cascade.SaveUpdate();
+            Map(c => c.ArticleId);
         }
     }
 }
