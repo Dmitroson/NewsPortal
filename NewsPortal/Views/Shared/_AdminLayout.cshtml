@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="container body-content">
-        
+
 
         @RenderBody()
 
@@ -39,8 +39,9 @@
         <p>&copy; @DateTime.Now.Year</p>
     </footer>
 
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

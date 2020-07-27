@@ -297,12 +297,14 @@
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Scripts\Popup.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\FilterSortingSearch.cshtml" />
     <Content Include="Views\Shared\ChangeLanguageBlock.cshtml" />
     <Content Include="Views\Comment\Create.cshtml" />
     <Content Include="Views\Comment\CommentsList.cshtml" />
     <Content Include="Views\Shared\Paging.cshtml" />
+    <Content Include="Views\Comment\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -660,7 +662,6 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />

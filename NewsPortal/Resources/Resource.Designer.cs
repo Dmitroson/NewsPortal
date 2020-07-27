@@ -61,11 +61,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавить номера телефона.
+        /// </summary>
+        public static string AddTelephone {
+            get {
+                return ResourceManager.GetString("AddTelephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Всё время.
         /// </summary>
         public static string All {
             get {
                 return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Новость.
+        /// </summary>
+        public static string Article {
+            get {
+                return ResourceManager.GetString("Article", resourceCulture);
             }
         }
         
@@ -88,6 +106,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Изменить пароль.
+        /// </summary>
+        public static string ChangePass {
+            get {
+                return ResourceManager.GetString("ChangePass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Изменение параметров учетной записи.
+        /// </summary>
+        public static string ChangeSettings {
+            get {
+                return ResourceManager.GetString("ChangeSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Выберите язык.
         /// </summary>
         public static string ChooseLang {
@@ -106,11 +142,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Подтвердить пароль.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Страна.
         /// </summary>
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Создать.
+        /// </summary>
+        public static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
             }
         }
         
@@ -232,11 +286,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Новый пароль.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Никнейм.
         /// </summary>
         public static string Nickname {
             get {
                 return ResourceManager.GetString("Nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Старый пароль.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
             }
         }
         

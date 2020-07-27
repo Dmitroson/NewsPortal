@@ -12,8 +12,8 @@ public class NHibernateHelper
         var configuration = new Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
         ISessionFactory sessionFactory = Fluently.Configure(configuration)
             .Database(MsSqlConfiguration.MsSql2012
-            .ConnectionString(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NewsPortalDb;Integrated Security=True")
-            //.ConnectionString(@"Data Source=localhost\SQLEXPRESS;Initial Catalog=NewsPortalDb;Integrated Security=True")
+            //.ConnectionString(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NewsPortalDb;Integrated Security=True")
+            .ConnectionString(@"Data Source=localhost\SQLEXPRESS;Initial Catalog=NewsPortalDb;Integrated Security=True")
             //.ConnectionString(@"Data Source=tcp:newsportal20200705224151dbserver.database.windows.net,1433;Initial Catalog=NewsPortal_db;User Id=Dmitroson@newsportal20200705224151dbserver;Password=#include_Root")
             .ShowSql()
             )

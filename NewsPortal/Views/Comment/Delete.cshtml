@@ -1,0 +1,20 @@
+﻿@model Business.Models.Comment
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Модель компьютера</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>Id:</dt>
+            <dd>@Html.DisplayFor(model => model.Id)</dd>
+
+            <dt>Date</dt>
+            <dd>@Html.DisplayFor(model => model.PubDate)</dd>
+
+            <dt>Text</dt>
+            <dd>@Html.DisplayFor(model => model.Text)</dd>
+        </dl>
+    </div>
+</div>

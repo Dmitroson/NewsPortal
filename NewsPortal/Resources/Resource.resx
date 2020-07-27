@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddTelephone" xml:space="preserve">
+    <value>Добавить номера телефона</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>Всё время</value>
+  </data>
+  <data name="Article" xml:space="preserve">
+    <value>Новость</value>
   </data>
   <data name="Articles" xml:space="preserve">
     <value>Новости</value>
@@ -126,14 +132,26 @@
   <data name="BackToList" xml:space="preserve">
     <value>Вернуться к новостям</value>
   </data>
+  <data name="ChangePass" xml:space="preserve">
+    <value>Изменить пароль</value>
+  </data>
+  <data name="ChangeSettings" xml:space="preserve">
+    <value>Изменение параметров учетной записи</value>
+  </data>
   <data name="ChooseLang" xml:space="preserve">
     <value>Выберите язык</value>
   </data>
   <data name="Comments" xml:space="preserve">
     <value>Комментарии</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтвердить пароль</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Страна</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
   </data>
   <data name="Create New" xml:space="preserve">
     <value>Создать статью</value>
@@ -174,8 +192,14 @@
   <data name="LogOut" xml:space="preserve">
     <value>Выйти</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
   <data name="Nickname" xml:space="preserve">
     <value>Никнейм</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Старый пароль</value>
   </data>
   <data name="PubDate" xml:space="preserve">
     <value>Дата публикации</value>

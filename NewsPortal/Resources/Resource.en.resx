@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddTelephone" xml:space="preserve">
+    <value>Add telephone</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
+  </data>
+  <data name="Article" xml:space="preserve">
+    <value>Article</value>
   </data>
   <data name="Articles" xml:space="preserve">
     <value>Articles</value>
@@ -126,14 +132,26 @@
   <data name="BackToList" xml:space="preserve">
     <value>Back to list</value>
   </data>
+  <data name="ChangePass" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="ChangeSettings" xml:space="preserve">
+    <value>Change account settings</value>
+  </data>
   <data name="ChooseLang" xml:space="preserve">
     <value>Choose language</value>
   </data>
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
   </data>
   <data name="Create New" xml:space="preserve">
     <value>Create new article</value>
@@ -174,8 +192,14 @@
   <data name="LogOut" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="Nickname" xml:space="preserve">
     <value>Nickname</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old password</value>
   </data>
   <data name="PubDate" xml:space="preserve">
     <value>Pub date</value>
