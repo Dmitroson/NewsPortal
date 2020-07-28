@@ -85,13 +85,22 @@ namespace Business.Services
             switch (order)
             {
                 case 1:
-                    articles = articles.OrderByDescending(a => a.PubDate);
+                    articles = articles.OrderBy(a => a.PubDate);
                     break;
                 case 2:
-                    articles = articles.OrderBy(a => a.Title);
+                    articles = articles.OrderByDescending(a => a.PubDate);
                     break;
                 case 3:
+                    articles = articles.OrderBy(a => a.Title);
+                    break;
+                case 4:
+                    articles = articles.OrderByDescending(a => a.Title);
+                    break;
+                case 5:
                     articles = articles.OrderBy(a => a.Description);
+                    break;
+                case 6:
+                    articles = articles.OrderByDescending(a => a.Description);
                     break;
             }
             return articles;

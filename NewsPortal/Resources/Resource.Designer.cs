@@ -367,7 +367,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Дате.
+        ///   Ищет локализованную строку, похожую на Дате (по возрастанию).
         /// </summary>
         public static string SortByDate {
             get {
@@ -376,7 +376,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Описанию.
+        ///   Ищет локализованную строку, похожую на Дате (по убыванию).
+        /// </summary>
+        public static string SortByDateDesc {
+            get {
+                return ResourceManager.GetString("SortByDateDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Описанию (по возрастанию).
         /// </summary>
         public static string SortByDescription {
             get {
@@ -385,11 +394,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заголовку.
+        ///   Ищет локализованную строку, похожую на Описанию (по убыванию).
+        /// </summary>
+        public static string SortByDescriptionDesc {
+            get {
+                return ResourceManager.GetString("SortByDescriptionDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заголовку (по возрастанию).
         /// </summary>
         public static string SortByTitle {
             get {
                 return ResourceManager.GetString("SortByTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заголовку (по убыванию).
+        /// </summary>
+        public static string SortByTitleDesc {
+            get {
+                return ResourceManager.GetString("SortByTitleDesc", resourceCulture);
             }
         }
         

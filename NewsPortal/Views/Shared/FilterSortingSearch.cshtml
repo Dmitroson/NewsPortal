@@ -22,10 +22,19 @@
                 @Html.ActionLink(Resources.Resource.SortByDate, "Index", new { sortOrder = 1, filterString = currentFilterString, searchString = currentSearchString })
             </li>
             <li class="sorting">
-                @Html.ActionLink(Resources.Resource.SortByTitle, "Index", new { sortOrder = 2, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByDateDesc, "Index", new { sortOrder = 2, filterString = currentFilterString, searchString = currentSearchString })
             </li>
             <li class="sorting">
-                @Html.ActionLink(Resources.Resource.SortByDescription, "Index", new { sortOrder = 3, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByTitle, "Index", new { sortOrder = 3, filterString = currentFilterString, searchString = currentSearchString })
+            </li>
+            <li class="sorting">
+                @Html.ActionLink(Resources.Resource.SortByTitleDesc, "Index", new { sortOrder = 4, filterString = currentFilterString, searchString = currentSearchString })
+            </li>
+            <li class="sorting">
+                @Html.ActionLink(Resources.Resource.SortByDescription, "Index", new { sortOrder = 5, filterString = currentFilterString, searchString = currentSearchString })
+            </li>
+            <li class="sorting">
+                @Html.ActionLink(Resources.Resource.SortByDescriptionDesc, "Index", new { sortOrder = 6, filterString = currentFilterString, searchString = currentSearchString })
             </li>
         </ul>
     </div>

@@ -24,7 +24,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin
-        public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
+        public ActionResult Index(string searchString = "", int sortOrder = 2, string filterString = "", int page = 1)
         {
             WriteLogs("admin entered the site");
             ChangeLanguage();

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Business.Models;
+﻿using Business.Models;
 using Business.Services;
 using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
@@ -40,9 +39,11 @@ namespace NewsPortal.Controllers
 
             if (ModelState.IsValid)
             {
-                var config = new MapperConfiguration(cfg => cfg.CreateMap<CommentViewModel, Comment>());
-                var mapper = new Mapper(config);
-                var comment = mapper.Map<Comment>(commentViewModel);
+                var comment = new Comment
+                {
+                    UserName = commentViewModel.UserName,
+                    Text = commentViewModel.Text
+                };
                 service.CreateComment(comment, articleId);
                 Response.Redirect(Request.RawUrl);
             }

@@ -23,7 +23,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Article
-        public ActionResult Index(string searchString = "", int sortOrder = 1, string filterString = "", int page = 1)
+        public ActionResult Index(string searchString = "", int sortOrder = 2, string filterString = "", int page = 1)
         {
             WriteLogs("user entered the site");
             ChangeLanguage();

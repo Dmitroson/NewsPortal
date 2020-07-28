@@ -220,13 +220,22 @@
     <value>Sort by</value>
   </data>
   <data name="SortByDate" xml:space="preserve">
-    <value>Date</value>
+    <value>Date (ascending)</value>
+  </data>
+  <data name="SortByDateDesc" xml:space="preserve">
+    <value>Date (descending)</value>
   </data>
   <data name="SortByDescription" xml:space="preserve">
-    <value>Description</value>
+    <value>Description (ascending)</value>
+  </data>
+  <data name="SortByDescriptionDesc" xml:space="preserve">
+    <value>Description (descending)</value>
   </data>
   <data name="SortByTitle" xml:space="preserve">
-    <value>Title</value>
+    <value>Title (ascending)</value>
+  </data>
+  <data name="SortByTitleDesc" xml:space="preserve">
+    <value>Title (descending)</value>
   </data>
   <data name="SureDelComment" xml:space="preserve">
     <value>Are you sure you want to delete comment?</value>
