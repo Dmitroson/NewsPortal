@@ -228,6 +228,9 @@
   <data name="SortByTitle" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="SureDelComment" xml:space="preserve">
+    <value>Are you sure you want to delete comment?</value>
+  </data>
   <data name="SureDelete" xml:space="preserve">
     <value>Are you sure you want to delete article?</value>
   </data>

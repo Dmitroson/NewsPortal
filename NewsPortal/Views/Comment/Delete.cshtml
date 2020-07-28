@@ -3,18 +3,21 @@
 <div class="modal-content">
     <div class="modal-header">
         <button class="close" data-dismiss="modal" area-hidden="true">X</button>
-        <h4>Модель компьютера</h4>
+        <h4>@Resources.Resource.SureDelComment</h4>
     </div>
     <div class="modal-body">
         <dl class="dl-horizontal">
-            <dt>Id:</dt>
-            <dd>@Html.DisplayFor(model => model.Id)</dd>
 
-            <dt>Date</dt>
+            <dt>@Resources.Resource.PubDate</dt>
             <dd>@Html.DisplayFor(model => model.PubDate)</dd>
 
-            <dt>Text</dt>
             <dd>@Html.DisplayFor(model => model.Text)</dd>
         </dl>
+        @using (Html.BeginForm("Delete", "Comment", new { id = Model.Id } ))
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="submit" value="@Resources.Resource.Delete" />
+        }
     </div>
 </div>

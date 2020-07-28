@@ -394,6 +394,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы уверены, что хотите удалить комментарий?.
+        /// </summary>
+        public static string SureDelComment {
+            get {
+                return ResourceManager.GetString("SureDelComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вы уверены, что хотите удалить статью?.
         /// </summary>
         public static string SureDelete {
@@ -403,7 +412,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заглавие.
+        ///   Ищет локализованную строку, похожую на Название.
         /// </summary>
         public static string Title {
             get {
