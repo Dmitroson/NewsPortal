@@ -1,11 +1,12 @@
 ﻿using Business.Interfaces;
 using Business.Models;
+using Business.Services;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace NHibernate.DAL.Repositories
 {
-    public class ArticleRepository : IRepository<Article>
+    public class ArticleRepository : IArticleRepository
     {
         private ISession session;
 
@@ -18,6 +19,17 @@ namespace NHibernate.DAL.Repositories
         {
             var articles = session.Query<Article>();
             return articles;
+        }
+
+        public ArticlesIndex GetArticlesBy(string searchString, int sortOrder, string filterString, int page, int articlesPerPage, bool onlyVisible)
+        {
+            var articles = session.Query<Article>();
+            articles = ArticleService.Filter(articles, filterString, onlyVisible);
+            articles = ArticleService.Search(articles, searchString);
+            articles = ArticleService.Sort(articles, sortOrder);
+
+            var articlesIndex = ArticleService.MakePaging(articles, page, articlesPerPage);
+            return articlesIndex;
         }
 
         public Article Get(int id)

@@ -29,13 +29,9 @@ namespace NewsPortal.Controllers
             WriteLogs("user entered the site");
             ChangeLanguage();
 
-            var articles = service.Articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
+            var articlesPerPage = 10;
+            var articlesIndex = service.GetArticlesBy(searchString, sortOrder, filterString, page, articlesPerPage, true);
 
-            articles = service.Filter(articles, filterString);
-            articles = service.Search(articles, searchString);
-            articles = service.Sort(articles, sortOrder);
-
-            var articlesIndex = service.MakePaging(articles, page);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ArticlesIndex, ArticleIndexViewModel>());
             var mapper = new Mapper(config);
             var articlesViewModel = mapper.Map<ArticleIndexViewModel>(articlesIndex);
@@ -100,6 +96,26 @@ namespace NewsPortal.Controllers
                 LoggerHelper.WriteVerbose(e, "When" + message);
                 throw;
             }
+        }
+
+        public ArticleIndexViewModel MakePaging(IQueryable<Article> articles, int page)
+        {
+            var articlesList = articles.ToList();
+            int pageSize = 10;
+
+            IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = articlesList.Count
+            };
+            ArticleIndexViewModel articlesIndex = new ArticleIndexViewModel
+            {
+                Articles = articlesPerPages,
+                PageInfo = pageInfo
+            };
+            return articlesIndex;
         }
     }
 }

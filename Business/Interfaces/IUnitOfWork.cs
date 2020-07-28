@@ -4,7 +4,7 @@ namespace Business.Interfaces
 {
     public interface IUnitOfWork
     {
-        IRepository<Article> Articles { get; }
+        IArticleRepository Articles { get; }
         IRepository<Comment> Comments { get; }
     }
 }

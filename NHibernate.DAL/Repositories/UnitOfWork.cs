@@ -16,7 +16,7 @@ namespace NHibernate.DAL.Repositories
             commentRepository = new CommentRepository(session);
         }
 
-        public IRepository<Article> Articles
+        public IArticleRepository Articles
         {
             get
             {

@@ -31,11 +31,9 @@ namespace NewsPortal.Controllers
             ChangeLanguage();
             var articles = service.Articles;
 
-            articles = service.Filter(articles, filterString);
-            articles = service.Search(articles, searchString);
-            articles = service.Sort(articles, sortOrder);
+            var articlesPerPage = 10;
+            var articlesIndex = service.GetArticlesBy(searchString, sortOrder, filterString, page, articlesPerPage);
 
-            var articlesIndex = service.MakePaging(articles, page);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ArticlesIndex, ArticleIndexViewModel>());
             var mapper = new Mapper(config);
             var articlesViewModel = mapper.Map<ArticleIndexViewModel>(articlesIndex);

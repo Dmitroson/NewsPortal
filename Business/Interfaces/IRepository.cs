@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Business.Models;
+using System.Linq;
 
 namespace Business.Interfaces
 {

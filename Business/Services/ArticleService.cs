@@ -23,6 +23,12 @@ namespace Business.Services
             }
         }
 
+        public ArticlesIndex GetArticlesBy(string searchString, int sortOrder, string filterString, int page, int articlesPerPage, bool onlyVisible = false)
+        {
+            var articlesIndex = unity.Articles.GetArticlesBy(searchString, sortOrder, filterString, page, articlesPerPage, onlyVisible);
+            return articlesIndex;
+        }
+
         public Article GetArticle(int id)
         {
             return unity.Articles.Get(id);
@@ -53,14 +59,18 @@ namespace Business.Services
             unity.Articles.Update(article);
         }
 
-        public IQueryable<Article> Filter(IQueryable<Article> articles, string filterString)
+        public static IQueryable<Article> Filter(IQueryable<Article> articles, string filterString, bool onlyVisible)
         {
             DateFilter filter = new DateFilter(filterString);
             articles = filter.FilterByDate(articles);
+            if (onlyVisible)
+            {
+                articles = articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
+            }
             return articles;
         }
 
-        public IQueryable<Article> Search(IQueryable<Article> articles, string searchString)
+        public static IQueryable<Article> Search(IQueryable<Article> articles, string searchString)
         {
             if (searchString != "")
             {
@@ -70,27 +80,26 @@ namespace Business.Services
             return articles;
         }
 
-        public IQueryable<Article> Sort(IQueryable<Article> articles, int order)
+        public static IQueryable<Article> Sort(IQueryable<Article> articles, int order)
         {
             switch (order)
             {
-                case (int)SortOrder.Date:
+                case 1:
                     articles = articles.OrderByDescending(a => a.PubDate);
                     break;
-                case (int)SortOrder.Title:
+                case 2:
                     articles = articles.OrderBy(a => a.Title);
                     break;
-                case (int)SortOrder.Description:
+                case 3:
                     articles = articles.OrderBy(a => a.Description);
                     break;
             }
             return articles;
         }
 
-        public ArticlesIndex MakePaging(IQueryable<Article> articles, int page)
+        public static ArticlesIndex MakePaging(IQueryable<Article> articles, int page, int pageSize)
         {
             var articlesList = articles.ToList();
-            int pageSize = 10;
 
             IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
             PageInfo pageInfo = new PageInfo
@@ -105,13 +114,6 @@ namespace Business.Services
                 PageInfo = pageInfo
             };
             return articlesIndex;
-        }
-
-        internal enum SortOrder
-        {
-            Date = 1,
-            Title,
-            Description
         }
     }
 }
