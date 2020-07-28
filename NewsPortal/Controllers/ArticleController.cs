@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Business.Models;
+﻿using Business.Models;
 using Business.Services;
 using MultilingualSite.Filters;
 using NewsPortal.Helpers;
@@ -32,9 +31,11 @@ namespace NewsPortal.Controllers
             var articlesPerPage = 10;
             var articlesIndex = service.GetArticlesBy(searchString, sortOrder, filterString, page, articlesPerPage, true);
 
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<ArticlesIndex, ArticleIndexViewModel>());
-            var mapper = new Mapper(config);
-            var articlesViewModel = mapper.Map<ArticleIndexViewModel>(articlesIndex);
+            var articlesViewModel = new ArticleIndexViewModel
+            {
+                Articles = articlesIndex.Articles,
+                PageInfo = articlesIndex.PageInfo
+            };
             
             return View(articlesViewModel);
         }
