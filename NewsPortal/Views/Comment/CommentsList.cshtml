@@ -10,7 +10,7 @@
 {
     <article class="comment">
         <div class="commentuser">@comment.UserName</div>
-        <div class="commentdate">@comment.PubDate.Value.AddHours(3).ToString("dd.MM.yyyy hh:mm")</div>
+        <div class="commentdate pubDate">@comment.PubDate</div>
         <div class="commenttext">@comment.Text</div>
     </article>
     if (controllerName == "Admin")
@@ -25,3 +25,4 @@
 </div>
 
 @Scripts.Render("~/Scripts/commentPopup.js")
+@Scripts.Render("~/Scripts/converterToLocalTime.js")

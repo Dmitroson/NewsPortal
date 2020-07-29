@@ -5,43 +5,43 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-    <div>
+<div>
 
-        <h2 class="article-title title-details">
-            @Html.DisplayFor(model => model.Title)
-        </h2>
+    <h2 class="article-title title-details">
+        @Html.DisplayFor(model => model.Title)
+    </h2>
 
-        <dl class="dl-horizontal">
+    <dl class="dl-horizontal">
 
-            <dd class="details-article">
+        <dd class="details-article">
 
-                <img src="@Model.ImageUrl" alt="image" class="details-img" />
+            <img src="@Model.ImageUrl" alt="image" class="details-img" />
 
-                <div class="article-del-desc details-desc">
-                    @Html.Raw(Model.Description)
-                </div>
+            <div class="article-del-desc details-desc">
+                @Html.Raw(Model.Description)
+            </div>
 
-            </dd>
+        </dd>
 
-            <dt>
-                @Resources.Resource.Visibility
-            </dt>
+        <dt>
+            @Resources.Resource.Visibility
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Visibility)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Visibility)
+        </dd>
 
-            <dt>
-                @Resources.Resource.PubDate
-            </dt>
+        <dt>
+            @Resources.Resource.PubDate
+        </dt>
 
-            <dd>
-                @Model.PubDate.Value.AddHours(3)
-            </dd>
+        <dd class="pubDate">
+            @Model.PubDate
+        </dd>
 
-        </dl>
+    </dl>
 
-    </div>
+</div>
 
 <p>
     @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = Model.Id }) |
@@ -52,3 +52,5 @@
     @Html.Action("Create", "Comment", new { articleId = Model.Id })
     @Html.Action("CommentsList", "Comment", new { articleId = Model.Id })
 </p>
+
+@Scripts.Render("~/Scripts/converterToLocalTime.js")
