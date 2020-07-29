@@ -38,8 +38,8 @@ function parseTime(time) {
             year: timeArray[2],
             month: timeArray[1],
             day: timeArray[0],
-            hour: timeArray[3],
-            minute: timeArray[4]
+            hours: timeArray[3],
+            minutes: timeArray[4]
         };
     }
     else {
@@ -47,17 +47,17 @@ function parseTime(time) {
             year: timeArray[2],
             month: timeArray[0],
             day: timeArray[1],
-            hour: timeArray[3],
-            minute: timeArray[4],
+            hours: timeArray[3],
+            minutes: timeArray[4],
             meridiem: timeArray[6]
         };
 
-        if (timeParsed.meridiem == 'AM' && timeParsed.hour == 12) {
-            timeParsed.hour -= 12;
+        if (timeParsed.meridiem == 'AM' && timeParsed.hours == 12) {
+            timeParsed.hours -= 12;
         }
 
-        if (timeParsed.meridiem == 'PM' && timeParsed.hour != 12) {
-            timeParsed.hour = (+timeParsed.hour + 12).toString();
+        if (timeParsed.meridiem == 'PM' && timeParsed.hours != 12) {
+            timeParsed.hours = (+timeParsed.hours + 12).toString();
         }
     }
     return timeParsed;
@@ -67,28 +67,47 @@ function getLocalTime(time, culture = 'ru') {
     let offset = getOffset();
     
     let localTime = parseTime(time);
-    localTime.hour = (+localTime.hour + offset).toString();
+    let dateTime = new Date(localTime.year, localTime.month, localTime.day, localTime.hours, localTime.minutes);
+    dateTime.setHours(dateTime.getHours() + offset);
 
+    let year = dateTime.getFullYear().toString();
+    let month = dateTime.getMonth().toString();
+    let day = dateTime.getDate().toString();
+    let hours = dateTime.getHours().toString();
+    let minutes = dateTime.getMinutes().toString();
+
+    if (month.length < 2) {
+        month = '0' + month;
+    }
+    if (day.length < 2) {
+        day = '0' + day;
+    }
+    if (hours.length < 2) {
+        hours = '0' + hours;
+    }
+    if (minutes.length < 2) {
+        minutes = '0' + minutes;
+    }
 
     let localTimeString = '';
     if (culture == 'ru') {
-        localTimeString += localTime.day + '.'
-            + localTime.month + '.'
-            + localTime.year + ' '
-            + localTime.hour + ':'
-            + localTime.minute;
+        localTimeString += day + '.'
+            + month + '.'
+            + year + ' '
+            + hours + ':'
+            + minutes;
     }
     else {
-        if (localTime.hour > 12) {
-            localTime.hour -= 12;
+        if (Number(hours) > 12) {
+            hours -= 12;
             localTime.meridiem = 'PM';
         }
 
-        localTimeString += localTime.month + '/'
-            + localTime.day + '/'
-            + localTime.year + ' '
-            + localTime.hour + ':'
-            + localTime.minute + ' '
+        localTimeString += month + '/'
+            + day + '/'
+            + year + ' '
+            + hours + ':'
+            + minutes + ' '
             + localTime.meridiem;
     }
 
