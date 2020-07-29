@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_UserList.cshtml";
 }
 
-    <h2>@Resources.Resource.Articles</h2>
+<h2>@Resources.Resource.Articles</h2>
 
 <table class="table">
     @foreach (var item in Model.Articles)
@@ -21,8 +21,8 @@
                     <div class="article-desc">
                         @Html.Raw(item.Description)
                     </div>
-                    <div class="article-time">
-                        @item.PubDate.Value.AddHours(3)
+                    <div class="article-time pubDate">
+                        @item.PubDate
                     </div>
                 </div>
             </td>
@@ -34,3 +34,5 @@
 <div class="btn-group pages">
     @Html.Partial("Paging", Model)
 </div>
+
+@Scripts.Render("~/Scripts/converterToLocalTime.js")

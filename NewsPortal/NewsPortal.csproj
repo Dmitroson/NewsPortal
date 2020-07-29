@@ -296,6 +296,9 @@
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\commentPopup.js" />
+    <Content Include="Scripts\converterToLocalTime.js" />
+    <Content Include="Scripts\Handlers\datetimeReplacer.js" />
+    <Content Include="Scripts\Handlers\DateTimeSendHandler.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\FilterSortingSearch.cshtml" />
     <Content Include="Views\Shared\ChangeLanguageBlock.cshtml" />
