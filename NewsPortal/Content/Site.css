@@ -335,3 +335,6 @@ img {
     margin: 5px 50px 5px 12px;
 }
 
+.selected {
+    background: #696969;
+}

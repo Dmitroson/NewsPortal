@@ -27,7 +27,6 @@ namespace NewsPortal.Controllers
         public ActionResult Index(string searchString = "", int sortOrder = 2, string filterString = "", int page = 1)
         {
             WriteLogs("admin entered the site");
-            ChangeLanguage();
             var articles = service.Articles;
 
             var articlesPerPage = 10;
@@ -45,7 +44,6 @@ namespace NewsPortal.Controllers
         // GET: Admin/Details/5
         public ActionResult Details(int id)
         {
-            ChangeLanguage();
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -53,7 +51,6 @@ namespace NewsPortal.Controllers
         // GET: Admin/Create
         public ActionResult Create()
         {
-            ChangeLanguage();
             return View();
         }
 
@@ -86,7 +83,6 @@ namespace NewsPortal.Controllers
         // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
-            ChangeLanguage();
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -117,7 +113,6 @@ namespace NewsPortal.Controllers
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
-            ChangeLanguage();
             var article = service.GetArticle(id);
             return View(article);
         }
@@ -130,43 +125,7 @@ namespace NewsPortal.Controllers
         {
             service.DeleteArticle(id);
             return RedirectToAction("Index");
-        }
-
-        public ActionResult ChangeCulture(string language)
-        {
-            List<string> cultures = new List<string>() { "ru", "en" };
-            if (!cultures.Contains(language))
-            {
-                language = "ru";
-            }
-            HttpCookie cookie = Request.Cookies["lang"];
-            if (cookie != null)
-            {
-                cookie.Value = language;
-            }
-            else
-            {
-                cookie = new HttpCookie("lang");
-                cookie.HttpOnly = false;
-                cookie.Value = language;
-                cookie.Expires = DateTime.Now.AddYears(1);
-            }
-            Response.Cookies.Add(cookie);
-            return RedirectToAction("", new { lang = language });
-        }
-
-        public void ChangeLanguage()
-        {
-            var currentLanguage = Request.RequestContext.RouteData.Values["lang"].ToString();
-            if (currentLanguage == "en")
-            {
-                ChangeCulture("en");
-            }
-            else
-            {
-                ChangeCulture("ru");
-            }
-        }
+        }       
 
         void WriteLogs(string message)
         {

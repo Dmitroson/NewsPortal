@@ -245,7 +245,7 @@
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Filters\CultureAttribute.cs" />
+    <Compile Include="Attributes\CultureAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -279,6 +279,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\checkLanguage.js" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />

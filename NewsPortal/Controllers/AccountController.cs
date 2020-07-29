@@ -26,29 +26,6 @@ namespace NewsPortal.Controllers
         {
         }
 
-        public ActionResult ChangeCulture(string language)
-        {
-            List<string> cultures = new List<string>() { "ru", "en" };
-            if (!cultures.Contains(language))
-            {
-                language = "ru";
-            }
-            HttpCookie cookie = Request.Cookies["lang"];
-            if (cookie != null)
-            {
-                cookie.Value = language;
-            }
-            else
-            {
-                cookie = new HttpCookie("lang");
-                cookie.HttpOnly = false;
-                cookie.Value = language;
-                cookie.Expires = DateTime.Now.AddYears(1);
-            }
-            Response.Cookies.Add(cookie);
-            return RedirectToAction("", new { lang = language });
-        }
-
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;

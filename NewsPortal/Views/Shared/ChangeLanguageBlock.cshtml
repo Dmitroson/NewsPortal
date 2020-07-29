@@ -3,11 +3,11 @@
         @Resources.Resource.ChooseLang
     </button>
     <ul class="dropdown-menu">
-        <li>
-            @Html.ActionLink("Русский", "ChangeCulture", new { language = "ru" })
+        <li id="ru">
+            @Html.ActionLink("Русский", "Index", new { lang = "ru" })
         </li>
-        <li>
-            @Html.ActionLink("English", "ChangeCulture", new { language = "en" })
+        <li id="en">
+            @Html.ActionLink("English", "Index", new { lang = "en" })
         </li>
     </ul>
 </div>
