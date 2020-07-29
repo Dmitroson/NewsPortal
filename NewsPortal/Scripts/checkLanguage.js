@@ -10,5 +10,5 @@
         }
     }
     let checkedLang = document.getElementById(language);
-    checkedLang.classList.toggle("selected");
+    checkedLang.classList.toggle("selected-lang");
 });
