@@ -35,12 +35,7 @@ namespace Business.Services
         }
 
         public void CreateArticle(Article article)
-        {
-            if (article.PubDate == null)
-            {
-                article.PubDate = DateTime.Now;
-            }
-            
+        {            
             unity.Articles.Create(article);
         }
 
