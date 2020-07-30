@@ -26,7 +26,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" /> |
-            @Html.ActionLink(Resources.Resource.BackToList, "Index")
+            <input type="button" value="@Resources.Resource.BackToList" onclick="window.location.href='@Url.Action("Index")';" class="btn btn-default" />
         </div>
     }
 </div>
