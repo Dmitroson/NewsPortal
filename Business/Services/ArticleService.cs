@@ -35,12 +35,7 @@ namespace Business.Services
         }
 
         public void CreateArticle(Article article)
-        {
-            if (article.PubDate == null)
-            {
-                article.PubDate = DateTime.Now;
-            }
-            
+        {            
             unity.Articles.Create(article);
         }
 
@@ -60,7 +55,7 @@ namespace Business.Services
             articles = filter.FilterByDate(articles);
             if (onlyVisible)
             {
-                articles = articles.Where(a => a.PubDate <= DateTime.Now.AddHours(3) && a.Visibility == true);
+                articles = articles.Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);
             }
             return articles;
         }

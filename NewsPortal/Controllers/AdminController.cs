@@ -60,9 +60,14 @@ namespace NewsPortal.Controllers
         [ValidateInput(false)]
         public ActionResult Create(Article article, HttpPostedFileBase uploadImage)
         {
+            if (article.PubDate == null)
+            {
+                article.PubDate = DateTime.Now;
+            }
+
             if (ModelState.IsValid && uploadImage != null)
             {
-                var imageUrl = "/Images/";
+                var imageUrl = BuildImageUrl(article);
                 var path = Server.MapPath(imageUrl);
 
                 DirectoryInfo dir = new DirectoryInfo(path);
@@ -97,7 +102,7 @@ namespace NewsPortal.Controllers
             {
                 if (uploadImage != null)
                 {
-                    var imageUrl = "/Images/" + uploadImage.FileName;
+                    var imageUrl = BuildImageUrl(article) + uploadImage.FileName;
                     var path = Server.MapPath(imageUrl);
                     uploadImage.SaveAs(path);
                     article.ImageUrl = imageUrl;
@@ -125,7 +130,7 @@ namespace NewsPortal.Controllers
         {
             service.DeleteArticle(id);
             return RedirectToAction("Index");
-        }       
+        }
 
         void WriteLogs(string message)
         {
@@ -140,6 +145,17 @@ namespace NewsPortal.Controllers
                 LoggerHelper.WriteVerbose(e, "When" + message);
                 throw;
             }
+        }
+
+        string BuildImageUrl(Article article)
+        {
+            var articlePubDateString = article.PubDate.ToString().Replace(".", string.Empty);
+            articlePubDateString = articlePubDateString.Replace(":", string.Empty);
+            articlePubDateString = articlePubDateString.Replace(" ", string.Empty);
+            articlePubDateString = articlePubDateString.Remove(articlePubDateString.Length - 2);
+
+            var imageUrl = "/Images/" + article.Title + "_" + articlePubDateString + "/";
+            return imageUrl;
         }
     }
 }
