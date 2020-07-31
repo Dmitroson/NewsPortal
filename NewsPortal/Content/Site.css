@@ -184,6 +184,10 @@ img {
     color: #4574ec;
 }
 
+.dropdown-menu > li > a {
+    display: inline-block;
+}
+
 .filters {
     margin-top: 15px;
     list-style-type: none;
@@ -341,4 +345,20 @@ img {
 
 .btn-group li.selected-lang a{
     font-weight: 600;
+}
+
+.flag {
+    width: 14px;
+    height: 14px;
+    margin-left: 10px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.flag-ru {
+    background: url(https://image.flaticon.com/icons/svg/323/323300.svg);
+}
+
+.flag-en {
+    background: url(https://image.flaticon.com/icons/svg/323/323329.svg);
 }
