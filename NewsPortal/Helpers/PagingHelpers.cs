@@ -11,11 +11,12 @@ namespace NewsPortal.Helpers
         public static MvcHtmlString PageLinks(this HtmlHelper html, PageInfo pageInfo, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-            for(int i = 1; i <= pageInfo.TotalPages; i++)
+            for(int i = 0; i < pageInfo.TotalPages; i++)
             {
+                var currentPage = i + 1;
                 TagBuilder tag = new TagBuilder("a");
-                tag.MergeAttribute("href", pageUrl(i));
-                tag.InnerHtml = i.ToString();
+                tag.MergeAttribute("href", pageUrl(currentPage));
+                tag.InnerHtml = currentPage.ToString();
 
                 if (i == pageInfo.PageNumber)
                 {

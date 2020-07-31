@@ -5,9 +5,6 @@ using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -23,12 +20,12 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Article
-        public ActionResult Index(string searchString = "", int sortOrder = 2, string filterString = "", int page = 1)
+        public ActionResult Index(Criteria criteria)
         {
             WriteLogs("user entered the site");
 
             var articlesPerPage = 10;
-            var articlesIndex = service.GetArticlesBy(searchString, sortOrder, filterString, page, articlesPerPage, true);
+            var articlesIndex = service.GetArticlesBy(criteria.SearchString, criteria.SortOrder, criteria.FilterString, criteria.Page, articlesPerPage, true);
 
             var articlesViewModel = new ArticleIndexViewModel
             {

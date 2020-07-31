@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Business.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace Business.Models
 {
-    public class Article
+    public class Article : IEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }

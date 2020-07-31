@@ -1,3 +1,5 @@
+using Business.Models;
+using NewsPortal.CustomModelBinders;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -11,6 +13,8 @@ namespace NewsPortal
     {
         protected void Application_Start()
         {
+            ModelBinders.Binders.Add(typeof(Criteria), new CriteriaModelBinder());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -9,7 +9,6 @@ namespace NHibernate.DAL.Repositories
     public class ArticleRepository : IArticleRepository
     {
         private ISession session;
-
         public ArticleRepository(ISession session)
         {
             this.session = session;

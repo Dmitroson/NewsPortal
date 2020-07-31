@@ -36,8 +36,7 @@ namespace Business.Models
 
             if (Options.Contains(ThisWeekOption))
             {
-                result = articles.Where(a => a.PubDate.Value.Date >= DateTime.Today.Date.AddDays(-7) &&
-                                             a.PubDate.Value.Date <= DateTime.Today.Date);
+                result = articles.Where(a => a.PubDate.Value.Date >= DateTime.Today.Date.AddDays(-7));
                 return result;
             }
 

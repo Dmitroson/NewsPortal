@@ -5,7 +5,6 @@ using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -24,13 +23,12 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin
-        public ActionResult Index(string searchString = "", int sortOrder = 2, string filterString = "", int page = 1)
+        public ActionResult Index(Criteria criteria)
         {
             WriteLogs("admin entered the site");
-            var articles = service.Articles;
 
             var articlesPerPage = 10;
-            var articlesIndex = service.GetArticlesBy(searchString, sortOrder, filterString, page, articlesPerPage);
+            var articlesIndex = service.GetArticlesBy(criteria.SearchString, criteria.SortOrder, criteria.FilterString, criteria.Page, articlesPerPage);
 
             var articlesViewModel = new ArticleIndexViewModel
             {
@@ -149,6 +147,8 @@ namespace NewsPortal.Controllers
 
         string BuildImageUrl(Article article)
         {
+            //Path.GetInvalidFileNameChars();
+            //Path.Combine()
             var articlePubDateString = article.PubDate.ToString().Replace(".", string.Empty);
             articlePubDateString = articlePubDateString.Replace(":", string.Empty);
             articlePubDateString = articlePubDateString.Replace(" ", string.Empty);

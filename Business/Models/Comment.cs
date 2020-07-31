@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Business.Interfaces;
+using System;
 
 namespace Business.Models
 {
-    public class Comment
+    public class Comment : IEntity
     {
         public int Id { get; set; }
         public string Text { get; set; }

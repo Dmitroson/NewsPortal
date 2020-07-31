@@ -8,45 +8,45 @@ namespace Business.Services
 {
     public class ArticleService
     {
-        private IUnitOfWork unity;
+        private IUnitOfWork unit;
 
         public ArticleService(IUnitOfWork unitOfWork)
         {
-            unity = unitOfWork;
+            unit = unitOfWork;
         }
 
         public IQueryable<Article> Articles
         {
             get
             {
-                return unity.Articles.GetAll();
+                return unit.Articles.GetAll();
             }
         }
 
         public ArticlesIndex GetArticlesBy(string searchString, int sortOrder, string filterString, int page, int articlesPerPage, bool onlyVisible = false)
         {
-            var articlesIndex = unity.Articles.GetArticlesBy(searchString, sortOrder, filterString, page, articlesPerPage, onlyVisible);
+            var articlesIndex = unit.Articles.GetArticlesBy(searchString, sortOrder, filterString, page, articlesPerPage, onlyVisible);
             return articlesIndex;
         }
 
         public Article GetArticle(int id)
         {
-            return unity.Articles.Get(id);
+            return unit.Articles.Get(id);
         }
 
         public void CreateArticle(Article article)
         {            
-            unity.Articles.Create(article);
+            unit.Articles.Create(article);
         }
 
         public void DeleteArticle(int id)
         {
-            unity.Articles.Delete(id);
+            unit.Articles.Delete(id);
         }
 
         public void UpdateArticle(Article article)
         {
-            unity.Articles.Update(article);
+            unit.Articles.Update(article);
         }
 
         public static IQueryable<Article> Filter(IQueryable<Article> articles, string filterString, bool onlyVisible)
@@ -62,7 +62,7 @@ namespace Business.Services
 
         public static IQueryable<Article> Search(IQueryable<Article> articles, string searchString)
         {
-            if (searchString != "")
+            if (!string.IsNullOrEmpty(searchString))
             {
                 articles = articles.Where(a => a.Title.Contains(searchString)
                                             || a.Description.Contains(searchString));
@@ -100,7 +100,7 @@ namespace Business.Services
         {
             var articlesList = articles.ToList();
 
-            IEnumerable<Article> articlesPerPages = articlesList.Skip((page - 1) * pageSize).Take(pageSize);
+            IEnumerable<Article> articlesPerPages = articlesList.Skip((page) * pageSize).Take(pageSize);
             PageInfo pageInfo = new PageInfo
             {
                 PageNumber = page,
