@@ -9,6 +9,8 @@ namespace NHibernate.DAL.Repositories
         private ArticleRepository articleRepository;
         private CommentRepository commentRepository;
 
+        private bool disposed;
+
         public UnitOfWork()
         {
             session = NHibernateHelper.OpenSession();
@@ -24,11 +26,28 @@ namespace NHibernate.DAL.Repositories
             }
         }
 
-        public IRepository<Comment> Comments
+        public ICommentRepository Comments
         {
             get
             {
                 return commentRepository;
+            }
+        }
+
+        public void Save()
+        {
+            using(ITransaction transaction = session.BeginTransaction())
+            {
+                transaction.Commit();
+            }
+        }
+
+        public void Dispose()
+        {
+            if (!disposed)
+            {
+                session.Close();
+                disposed = true;
             }
         }
     }

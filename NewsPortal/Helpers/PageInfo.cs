@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Business.Models;
+using System;
 
-namespace Business.Models
+namespace NewsPortal.Helpers
 {
     public class PageInfo
     {

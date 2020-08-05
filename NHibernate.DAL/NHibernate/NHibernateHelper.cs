@@ -4,12 +4,14 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.DAL.ClassMap;
 using NHibernate.Tool.hbm2ddl;
+using System.Configuration;
 
 public class NHibernateHelper
 {
     public static ISession OpenSession()
     {
-        var configuration = new Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
+        var configuration = new NHibernate.Cfg.Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
+        
         ISessionFactory sessionFactory = Fluently.Configure(configuration)
             .Database(MsSqlConfiguration.MsSql2012
             //.ConnectionString(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NewsPortalDb;Integrated Security=True")

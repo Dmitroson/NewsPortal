@@ -8,34 +8,44 @@ namespace Business.Services
 {
     public class CommentService
     {
-        private IUnitOfWork unit;
+        private IUnitOfWork unitOfWork;
 
-        public CommentService(IUnitOfWork unitOfWork)
+        public CommentService()
         {
-            unit = unitOfWork;
+            unitOfWork = UnitOfWorkManager.GetUnitOfWork();
+        }
+
+        public IEnumerable<Comment> Comments
+        {
+            get
+            {
+                return unitOfWork.Comments.GetAll();
+            }
         }
 
         public void CreateComment(Comment comment, int articleId)
         {
             comment.PubDate = DateTime.Now;
             comment.ArticleId = articleId;
-            unit.Comments.Create(comment);
+            unitOfWork.Comments.Create(comment);
+            unitOfWork.Save();
         }
 
         public void DeleteComment(int id)
         {
-            unit.Comments.Delete(id);
+            unitOfWork.Comments.Delete(id);
+            unitOfWork.Save();
         }
 
         public IEnumerable<Comment> GetComments(int articleId)
         {
-            var comments = unit.Comments.GetAll().Where(c => c.ArticleId == articleId);
+            var comments = unitOfWork.Comments.GetCommentsBy(articleId);
             return comments;
         }
 
         public int GetArticleIdByCommentId(int id)
         {
-            var comment = unit.Comments.Get(id);
+            var comment = unitOfWork.Comments.Get(id);
             var articleId = comment.ArticleId;
             return articleId;
         }
