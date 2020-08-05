@@ -1,7 +1,7 @@
 using Business.Models;
+using Business.Services;
 using NewsPortal.CustomModelBinders;
-using System;
-using System.Collections.Generic;
+using NHibernate.DAL.Repositories;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -14,6 +14,7 @@ namespace NewsPortal
         protected void Application_Start()
         {
             ModelBinders.Binders.Add(typeof(Criteria), new CriteriaModelBinder());
+            UnitOfWorkManager.SetUnitOfWork(new UnitOfWork());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

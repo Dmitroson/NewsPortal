@@ -1,11 +1,10 @@
-﻿using Business.Models;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Business.Interfaces
 {
     public interface IRepository<T> where T : class, IEntity
     {
-        IQueryable<T> GetAll();
+        IEnumerable<T> GetAll();
         T Get(int id);
         void Create(T item);
         void Update(T item);

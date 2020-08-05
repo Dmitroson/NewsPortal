@@ -1,31 +1,38 @@
 ﻿using Business.Interfaces;
 using Business.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NHibernate.DAL.Repositories
 {
-    public class CommentRepository : IRepository<Comment>
+    public class CommentRepository : ICommentRepository
     {
-        private ISession session;
+        private readonly ISession session;
 
         public CommentRepository(ISession session)
         {
             this.session = session;
         }
 
-        IQueryable<Comment> IRepository<Comment>.GetAll()
+        public IEnumerable<Comment> GetAll()
         {
             var comments = session.Query<Comment>();
             return comments;
         }
 
-        Comment IRepository<Comment>.Get(int id)
+        public Comment Get(int id)
         {
             var comment = session.Get<Comment>(id);
             return comment;
         }
+
+        public IEnumerable<Comment> GetCommentsBy(int articleId)
+        {
+            var comments = session.Query<Comment>().Where(c => c.ArticleId == articleId).ToList();
+            return comments;
+        }
         
-        void IRepository<Comment>.Create(Comment comment)
+        public void Create(Comment comment)
         {
             using (ITransaction transaction = session.BeginTransaction())
             {
@@ -34,7 +41,7 @@ namespace NHibernate.DAL.Repositories
             }
         }
 
-        void IRepository<Comment>.Update(Comment comment)
+        public void Update(Comment comment)
         {
             using (ITransaction transaction = session.BeginTransaction())
             {
@@ -43,7 +50,7 @@ namespace NHibernate.DAL.Repositories
             }
         }
 
-        void IRepository<Comment>.Delete(int id)
+        public void Delete(int id)
         {
             using (ITransaction transaction = session.BeginTransaction())
             {

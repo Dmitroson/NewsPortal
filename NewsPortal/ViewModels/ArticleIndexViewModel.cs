@@ -1,4 +1,5 @@
 ﻿using Business.Models;
+using NewsPortal.Helpers;
 using System.Collections.Generic;
 
 namespace NewsPortal.ViewModels

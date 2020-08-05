@@ -1,10 +1,12 @@
 ﻿using Business.Models;
+using System;
 
 namespace Business.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         IArticleRepository Articles { get; }
-        IRepository<Comment> Comments { get; }
+        ICommentRepository Comments { get; }
+        void Save();
     }
 }

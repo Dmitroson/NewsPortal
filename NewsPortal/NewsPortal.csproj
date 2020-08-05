@@ -251,6 +251,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LoggerHelper.cs" />
+    <Compile Include="Helpers\PageInfo.cs" />
     <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Resources\Resource.en.Designer.cs">
       <DependentUpon>Resource.en.resx</DependentUpon>
