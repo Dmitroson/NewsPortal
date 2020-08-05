@@ -4,25 +4,42 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.DAL.ClassMap;
 using NHibernate.Tool.hbm2ddl;
+using NHibernate.Util;
 using System.Configuration;
+using System.Linq;
+using System.Xml;
 
 public class NHibernateHelper
 {
-    public static ISession OpenSession()
+    private static ISessionFactory sessionFactory;
+    private static object sessionFactoryLock = new object();
+    public static string ConnectionString { get; set; }
+
+    private static ISessionFactory CreateSessionFactory()
     {
         var configuration = new NHibernate.Cfg.Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
-        
-        ISessionFactory sessionFactory = Fluently.Configure(configuration)
+
+        sessionFactory = Fluently.Configure(configuration)
             .Database(MsSqlConfiguration.MsSql2012
-            //.ConnectionString(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NewsPortalDb;Integrated Security=True")
-            .ConnectionString(@"Data Source=localhost\SQLEXPRESS;Initial Catalog=NewsPortalDb;Integrated Security=True")
-            //.ConnectionString(@"Data Source=tcp:newsportal20200705224151dbserver.database.windows.net,1433;Initial Catalog=NewsPortal_db;User Id=Dmitroson@newsportal20200705224151dbserver;Password=#include_Root")
+            .ConnectionString(ConnectionString)
             .ShowSql()
             )
             .Mappings(m => m.FluentMappings.AddFromAssemblyOf<ArticleMap>())
             .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
             .BuildSessionFactory();
 
+        return sessionFactory;
+    }
+
+    public static ISession OpenSession()
+    {
+        lock (sessionFactoryLock)
+        {
+            if(sessionFactory == null)
+            {
+                sessionFactory = CreateSessionFactory();
+            }
+        }
         return sessionFactory.OpenSession();
     }
 }
