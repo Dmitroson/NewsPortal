@@ -2030,7 +2030,7 @@ pre code {
     width: 91.66666667%;
   }
   .col-md-10 {
-    width: 83.33333333%;
+    width: 90%;
   }
   .col-md-9 {
     width: 75%;
@@ -2052,9 +2052,6 @@ pre code {
   }
   .col-md-3 {
     width: 25%;
-  }
-  .col-md-2 {
-    width: 16.66666667%;
   }
   .col-md-1 {
     width: 8.33333333%;
@@ -2166,9 +2163,6 @@ pre code {
   }
   .col-md-offset-3 {
     margin-left: 25%;
-  }
-  .col-md-offset-2 {
-    margin-left: 16.66666667%;
   }
   .col-md-offset-1 {
     margin-left: 8.33333333%;
@@ -2767,7 +2761,6 @@ fieldset[disabled] .checkbox label {
 .checkbox-inline input[type="checkbox"] {
   position: absolute;
   margin-top: 4px \9;
-  margin-left: -20px;
 }
 .radio + .radio,
 .checkbox + .checkbox {
@@ -5983,15 +5976,16 @@ button.close {
   margin: 10px;
 }
 .modal-content {
-  position: relative;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  outline: 0;
+    width: 470px;
+    position: relative;
+    background-color: #C9EDE5;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    outline: 0;
 }
 .modal-backdrop {
   position: fixed;
@@ -6049,7 +6043,7 @@ button.close {
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 600px;
+    width: 400px;
     margin: 30px auto;
   }
   .modal-content {

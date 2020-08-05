@@ -19,7 +19,7 @@ namespace NewsPortal.Controllers
 
         public AdminController()
         {
-            service = new ArticleService(new UnitOfWork());
+            service = new ArticleService();
         }
 
         // GET: Admin
@@ -28,12 +28,19 @@ namespace NewsPortal.Controllers
             WriteLogs("admin entered the site");
 
             var articlesPerPage = 10;
-            var articlesIndex = service.GetArticlesBy(criteria.SearchString, criteria.SortOrder, criteria.FilterString, criteria.Page, articlesPerPage);
+            var articles = service.GetArticlesBy(criteria, articlesPerPage);
+
+            var pageInfo = new PageInfo
+            {
+                PageNumber = criteria.Page,
+                PageSize = articlesPerPage,
+                TotalItems = articles.TotalItems
+            };
 
             var articlesViewModel = new ArticleIndexViewModel
             {
-                Articles = articlesIndex.Articles,
-                PageInfo = articlesIndex.PageInfo
+                Articles = articles,
+                PageInfo = pageInfo
             };
 
             return View(articlesViewModel);
@@ -56,48 +63,70 @@ namespace NewsPortal.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create(Article article, HttpPostedFileBase uploadImage)
+        public ActionResult Create(ArticleViewModel articleView, HttpPostedFileBase uploadImage)
         {
-            if (article.PubDate == null)
+            if (articleView.PubDate == null)
             {
-                article.PubDate = DateTime.Now;
+                articleView.PubDate = DateTime.Now;
             }
 
-            if (ModelState.IsValid && uploadImage != null)
+            if (ModelState.IsValid )
             {
-                var imageUrl = BuildImageUrl(article);
-                var path = Server.MapPath(imageUrl);
+                var article = new Article
+                {
+                    Id = articleView.Id,
+                    Title = articleView.Title,
+                    Description = articleView.Description,
+                    ImageUrl = articleView.ImageUrl,
+                    Visibility = articleView.Visibility,
+                    PubDate = articleView.PubDate
+                };
+                if(uploadImage != null)
+                {
+                    var imageUrl = BuildImageUrl(article);
+                    var path = Server.MapPath(imageUrl);
 
-                DirectoryInfo dir = new DirectoryInfo(path);
-                if (!dir.Exists)
-                    dir.Create();
+                    DirectoryInfo dir = new DirectoryInfo(path);
+                    if (!dir.Exists)
+                        dir.Create();
 
-                path += uploadImage.FileName;
-                uploadImage.SaveAs(path);
-                article.ImageUrl = imageUrl + uploadImage.FileName;
+                    path += uploadImage.FileName;
+                    uploadImage.SaveAs(path);
+                    article.ImageUrl = imageUrl + uploadImage.FileName;
+                }
 
                 service.CreateArticle(article);
 
                 return RedirectToAction("Index");
             }
-            return View(article);
+            return View(articleView);
         }
 
         // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
             var article = service.GetArticle(id);
-            return View(article);
+            var articleView = new ArticleViewModel(article);
+            return View(articleView);
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit(Article article, HttpPostedFileBase uploadImage)
+        public ActionResult Edit(ArticleViewModel articleView, HttpPostedFileBase uploadImage)
         {
             if (ModelState.IsValid)
             {
+                var article = new Article
+                {
+                    Id = articleView.Id,
+                    Title = articleView.Title,
+                    Description = articleView.Description,
+                    ImageUrl = articleView.ImageUrl,
+                    Visibility = articleView.Visibility,
+                    PubDate = articleView.PubDate
+                };
                 if (uploadImage != null)
                 {
                     var imageUrl = BuildImageUrl(article) + uploadImage.FileName;
@@ -110,7 +139,7 @@ namespace NewsPortal.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View(article);
+            return View(articleView);
         }
 
         // GET: Admin/Delete/5

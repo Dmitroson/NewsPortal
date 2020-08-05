@@ -16,7 +16,7 @@ namespace NewsPortal.Controllers
          
         public ArticleController()
         {
-            service = new ArticleService(new UnitOfWork());
+            service = new ArticleService();
         }
 
         // GET: Article
@@ -25,14 +25,21 @@ namespace NewsPortal.Controllers
             WriteLogs("user entered the site");
 
             var articlesPerPage = 10;
-            var articlesIndex = service.GetArticlesBy(criteria.SearchString, criteria.SortOrder, criteria.FilterString, criteria.Page, articlesPerPage, true);
+            var articles = service.GetArticlesBy(criteria, articlesPerPage, true);
+
+            var pageInfo = new PageInfo
+            {
+                PageNumber = criteria.Page,
+                PageSize = articlesPerPage,
+                TotalItems = articles.TotalItems
+            };
 
             var articlesViewModel = new ArticleIndexViewModel
             {
-                Articles = articlesIndex.Articles,
-                PageInfo = articlesIndex.PageInfo
+                Articles = articles,
+                PageInfo = pageInfo
             };
-            
+
             return View(articlesViewModel);
         }
 

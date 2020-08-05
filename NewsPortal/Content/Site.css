@@ -1,5 +1,8 @@
 ﻿body {
     padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 footer {
@@ -8,7 +11,7 @@ footer {
     padding: 2em;
     color: white;
     clear: right;
-    margin-top: 2%;
+    margin-top: auto;
 }
 
 .navbar {
@@ -126,7 +129,6 @@ img {
 }
 
 .commenttext {
-    margin-left: 10%;
     resize: none;
     padding: 5px;
     width: 100%;
@@ -199,6 +201,7 @@ img {
     }
 
 .filter-list {
+    border-radius: 12px;
     border: 1px solid #4574ec;
     height: 240px;
     width: 200px;
@@ -210,7 +213,7 @@ img {
     font-family: Montserrat;
     font-style: normal;
     font-size: 30px;
-    line-height: 30px;
+    line-height: 35px;
     margin-top: 0px;
     color: black;
     overflow: hidden;
@@ -224,7 +227,7 @@ img {
     font-family: Montserrat;
     font-style: normal;
     font-size: 30px;
-    line-height: 30px;
+    line-height: 35px;
     margin-top: 0px;
     color: #4574ec;
     text-decoration: none;
@@ -264,15 +267,15 @@ img {
 }
 
 .title-details {
-    margin-left: 30%;
-    margin-top: 30px;
+    margin: 5px auto;
+    display: block;
     word-break: break-word;
     white-space: normal;
 }
 
 .title-details:hover {
-    margin-left: 30%;
-    margin-top: 30px;
+    margin: 5px auto;
+    display: block;
     word-break: break-word;
     white-space: normal;
 }
@@ -289,8 +292,10 @@ img {
 }
 
 .details-date {
+    float: right;
     font-family: Open Sans;
     font-style: normal;
+    margin-right: 15px;
     font-weight: normal;
     font-size: 11px;
     line-height: 15px;
@@ -330,7 +335,7 @@ img {
 }
 
 .pages{
-    margin: 5px;
+    margin: 15px;
     margin-left: 20%;
 }
 
@@ -361,4 +366,16 @@ img {
 
 .flag-en {
     background: url(https://image.flaticon.com/icons/svg/323/323329.svg);
+}
+
+input[type="submit"] {
+    border-radius: 5px;
+    background: #008080;
+    color: white;
+}
+
+input[type="submit"]:hover {
+    border-radius: 5px;
+    background: #008080;
+    color: white;
 }

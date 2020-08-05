@@ -132,6 +132,9 @@
   <data name="BackToList" xml:space="preserve">
     <value>Вернуться к новостям</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
   <data name="ChangePass" xml:space="preserve">
     <value>Изменить пароль</value>
   </data>

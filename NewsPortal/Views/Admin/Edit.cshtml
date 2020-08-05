@@ -1,7 +1,7 @@
-﻿@model Business.Models.Article
+﻿@model NewsPortal.ViewModels.ArticleViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = @Resources.Resource.Edit;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     string PubDate = Model.PubDate.Value.ToString("s").Remove(16);
 }
@@ -51,7 +51,7 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">@Resources.Resource.Visibility</label>
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Visibility)
                     @Html.ValidationMessageFor(model => model.Visibility, "", new { @class = "text-danger" })

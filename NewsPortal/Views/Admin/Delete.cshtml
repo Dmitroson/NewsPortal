@@ -1,32 +1,32 @@
 ﻿@model Business.Models.Article
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = @Resources.Resource.Delete;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h4>@Resources.Resource.SureDelete</h4>
-<div>
+    <div>
 
-    <h4 class="article-title title-details">
-        @Html.DisplayFor(model => model.Title)
-    </h4>
+        <h4 class="article-title title-details">
+            @Html.DisplayFor(model => model.Title)
+        </h4>
 
-    <dl class="dl-horizontal">
+        <dl class="dl-horizontal">
 
-        <dd>
-            <img src="@Model.ImageUrl" alt="image" />
-        </dd>
+            <dd>
+                <img src="@Model.ImageUrl" alt="image" />
+            </dd>
 
-    </dl>
+        </dl>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+        <h4>@Resources.Resource.SureDelete</h4>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" /> 
-            <input type="button" value="@Resources.Resource.BackToList" onclick="window.location.href='@Url.Action("Index")';" class="btn btn-default" />
-        </div>
-    }
-</div>
+            <div class="form-actions no-color">
+                <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" />
+                <input type="button" value="@Resources.Resource.Cancel" onclick="window.location.href='@Url.Action("Index")';" class="btn btn-default" />
+            </div>
+        }
+    </div>

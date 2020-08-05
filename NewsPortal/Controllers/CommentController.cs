@@ -21,14 +21,12 @@ namespace NewsPortal.Controllers
         // GET: Comment
         public ActionResult CommentsList(int articleId)
         {
-            ChangeLanguage();
             var comments = service.GetComments(articleId);
             return PartialView("CommentsList", comments);
         }
 
         public ActionResult Create()
         {
-            ChangeLanguage();
             return PartialView();
         }
 
@@ -36,7 +34,6 @@ namespace NewsPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CommentViewModel commentViewModel, int articleId)
         {
-
             if (ModelState.IsValid)
             {
                 var comment = new Comment

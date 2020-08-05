@@ -132,6 +132,9 @@
   <data name="BackToList" xml:space="preserve">
     <value>Back to list</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ChangePass" xml:space="preserve">
     <value>Change password</value>
   </data>
