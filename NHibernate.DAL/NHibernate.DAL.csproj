@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="NHibernate\App.config" />
+    <None Remove="NHibernate\ConnectionStrings.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="NHibernate\ConnectionStrings.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="NHibernate\App.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="2.1.2" />
   </ItemGroup>
 

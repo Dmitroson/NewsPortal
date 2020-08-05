@@ -2,6 +2,7 @@ using Business.Models;
 using Business.Services;
 using NewsPortal.CustomModelBinders;
 using NHibernate.DAL.Repositories;
+using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -13,6 +14,7 @@ namespace NewsPortal
     {
         protected void Application_Start()
         {
+            NHibernateHelper.ConnectionString = ConfigurationManager.ConnectionStrings["NewsPortalDbConnection"].ConnectionString;
             ModelBinders.Binders.Add(typeof(Criteria), new CriteriaModelBinder());
             UnitOfWorkManager.SetUnitOfWork(new UnitOfWork());
 
