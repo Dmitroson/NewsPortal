@@ -15,7 +15,7 @@ namespace NewsPortal.Controllers
 
         public CommentController()
         {
-            service = new CommentService(new UnitOfWork());
+            service = new CommentService();
         }
 
         // GET: Comment
