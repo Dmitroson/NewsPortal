@@ -10,16 +10,17 @@ namespace NHibernate.DAL.Repositories
 {
     public class ArticleRepository : IArticleRepository
     {
-        private readonly ISession session;
+        private Stream stream;
 
-        public ArticleRepository(ISession session)
+        public ArticleRepository(Stream stream)
         {
-            this.session = session;
+            this.stream = stream;
         }
 
         public IEnumerable<Article> GetAll()
         {
-            var articles = session.Query<Article>();
+            XmlSerializer formatter = new XmlSerializer(typeof(IEnumerable<Article>));
+            var articles = (IEnumerable<Article>)formatter.Deserialize(stream);
             return articles;
         }
 
@@ -85,6 +86,23 @@ namespace NHibernate.DAL.Repositories
                 session.Delete(article);
                 transaction.Commit();
             }
+        }
+
+        private void WriteArticleToFile(string filename, Article article)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Article));
+            TextWriter writer = new StreamWriter(filename);
+            serializer.Serialize(writer, article);
+            writer.Close();
+        }
+
+        private Article ReadArticleFromFile(string filename)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Article));
+            FileStream fs = new FileStream(filename, FileMode.OpenOrCreate);
+            var article = new Article();
+            article = (Article)serializer.Deserialize(fs);
+            return article;
         }
     }
 }

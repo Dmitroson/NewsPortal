@@ -1459,6 +1459,7 @@ dd {
     text-align: right;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-right: 5px;
     white-space: nowrap;
   }
   .dl-horizontal dd {
@@ -3206,7 +3207,8 @@ fieldset[disabled] .btn-default.focus {
 .btn-primary {
   color: #fff;
   background-color: #337ab7;
-  border-color: #2e6da4;
+  border-color: #2e6da4;    
+  width: 140px;
 }
 .btn-primary:focus,
 .btn-primary.focus {
@@ -3239,6 +3241,7 @@ fieldset[disabled] .btn-default.focus {
   color: #fff;
   background-color: #204d74;
   border-color: #122b40;
+  width: 140px;
 }
 .btn-primary.disabled:hover,
 .btn-primary[disabled]:hover,
