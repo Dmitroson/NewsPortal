@@ -3,7 +3,6 @@ using Business.Services;
 using MultilingualSite.Filters;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
-using NHibernate.DAL.Repositories;
 using System;
 using System.IO;
 using System.Web;
