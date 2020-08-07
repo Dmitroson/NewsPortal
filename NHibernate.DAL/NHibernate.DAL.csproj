@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="NHibernate\ConnectionStrings.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="NHibernate\App.config" />
   </ItemGroup>
 

@@ -16,7 +16,10 @@ namespace NewsPortal
         {
             NHibernateHelper.ConnectionString = ConfigurationManager.ConnectionStrings["NewsPortalDbConnection"].ConnectionString;
             ModelBinders.Binders.Add(typeof(Criteria), new CriteriaModelBinder());
-            UnitOfWorkManager.SetUnitOfWork(new UnitOfWork());
+
+            ServiceManager.SetUnitOfWork(new NHUnitOfWork());
+            ServiceManager.SetArticleRepository(new ArticleRepository());
+            ServiceManager.SetCommentRepository(new CommentRepository());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

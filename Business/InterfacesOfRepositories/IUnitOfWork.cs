@@ -5,8 +5,7 @@ namespace Business.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IArticleRepository Articles { get; }
-        ICommentRepository Comments { get; }
-        void Save();
+        void Commit();
+        void Rollback();
     }
 }

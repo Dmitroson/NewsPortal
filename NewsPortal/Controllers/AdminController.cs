@@ -1,6 +1,7 @@
 ﻿using Business.Models;
 using Business.Services;
 using MultilingualSite.Filters;
+using NewsPortal.Attributes;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using System;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 namespace NewsPortal.Controllers
 {
     [Culture]
+    [ExceptionLogger]
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
@@ -24,8 +26,6 @@ namespace NewsPortal.Controllers
         // GET: Admin
         public ActionResult Index(Criteria criteria)
         {
-            WriteLogs("admin entered the site");
-
             var articlesPerPage = 10;
             var articles = service.GetArticlesBy(criteria, articlesPerPage);
 
@@ -156,21 +156,6 @@ namespace NewsPortal.Controllers
         {
             service.DeleteArticle(id);
             return RedirectToAction("Index");
-        }
-
-        void WriteLogs(string message)
-        {
-            try
-            {
-                LoggerHelper.WriteDebug(null, message);
-            }
-            catch (Exception e)
-            {
-                LoggerHelper.WriteError(e, "When" + message);
-                LoggerHelper.WriteFatal(e, "When" + message);
-                LoggerHelper.WriteVerbose(e, "When" + message);
-                throw;
-            }
         }
 
         string BuildImageUrl(Article article)

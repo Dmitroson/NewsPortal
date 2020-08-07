@@ -1,55 +1,55 @@
 ﻿using Business.Interfaces;
 using Business.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Business.Services
 {
     public class ArticleService
     {
-        private IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IArticleRepository articleRepository;
 
         public ArticleService()
         {
-            unitOfWork = UnitOfWorkManager.GetUnitOfWork();
+            unitOfWork = ServiceManager.GetUnitOfWork();
+            articleRepository = ServiceManager.GetArticleRepository();
         }
 
         public IEnumerable<Article> Articles
         {
             get
             {
-                return unitOfWork.Articles.GetAll();
+                return articleRepository.GetAll();
             }
         }
 
         public ArticleCollection GetArticlesBy(Criteria criteria, int articlesPerPage, bool onlyVisible = false)
         {
-            var articlesIndex = unitOfWork.Articles.GetArticlesBy(criteria, articlesPerPage, onlyVisible);
+            var articlesIndex = articleRepository.GetArticlesBy(criteria, articlesPerPage, onlyVisible);
             return articlesIndex;
         }
 
         public Article GetArticle(int id)
         {
-            return unitOfWork.Articles.Get(id);
+            return articleRepository.Get(id);
         }
 
         public void CreateArticle(Article article)
-        {            
-            unitOfWork.Articles.Create(article);
-            unitOfWork.Save();
+        {
+            articleRepository.Create(article);
+            unitOfWork.Commit();
         }
 
         public void DeleteArticle(int id)
         {
-            unitOfWork.Articles.Delete(id);
-            unitOfWork.Save();
+            articleRepository.Delete(id);
+            unitOfWork.Commit();
         }
 
         public void UpdateArticle(Article article)
         {
-            unitOfWork.Articles.Update(article);
-            unitOfWork.Save();
+            articleRepository.Update(article);
+            unitOfWork.Commit();
         }
     }
 }

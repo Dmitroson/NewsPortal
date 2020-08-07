@@ -2,24 +2,25 @@
 using Business.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Business.Services
 {
     public class CommentService
     {
-        private IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
+        private ICommentRepository commentRepository;
 
         public CommentService()
         {
-            unitOfWork = UnitOfWorkManager.GetUnitOfWork();
+            unitOfWork = ServiceManager.GetUnitOfWork();
+            commentRepository = ServiceManager.GetCommentRepository();
         }
 
         public IEnumerable<Comment> Comments
         {
             get
             {
-                return unitOfWork.Comments.GetAll();
+                return commentRepository.GetAll();
             }
         }
 
@@ -27,25 +28,25 @@ namespace Business.Services
         {
             comment.PubDate = DateTime.Now;
             comment.ArticleId = articleId;
-            unitOfWork.Comments.Create(comment);
-            unitOfWork.Save();
+            commentRepository.Create(comment);
+            unitOfWork.Commit();
         }
 
         public void DeleteComment(int id)
         {
-            unitOfWork.Comments.Delete(id);
-            unitOfWork.Save();
+            commentRepository.Delete(id);
+            unitOfWork.Commit();
         }
 
         public IEnumerable<Comment> GetComments(int articleId)
         {
-            var comments = unitOfWork.Comments.GetCommentsBy(articleId);
+            var comments = commentRepository.GetCommentsBy(articleId);
             return comments;
         }
 
         public int GetArticleIdByCommentId(int id)
         {
-            var comment = unitOfWork.Comments.Get(id);
+            var comment = commentRepository.Get(id);
             var articleId = comment.ArticleId;
             return articleId;
         }

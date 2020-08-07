@@ -8,11 +8,13 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MultilingualSite.Filters;
+using NewsPortal.Attributes;
 using NewsPortal.ViewModels;
 
 namespace NewsPortal.Controllers
 {
     [Authorize]
+    [ExceptionLogger]
     [Culture]
     public class ManageController : Controller
     {
@@ -21,29 +23,6 @@ namespace NewsPortal.Controllers
 
         public ManageController()
         {
-        }
-
-        public ActionResult ChangeCulture(string language)
-        {
-            List<string> cultures = new List<string>() { "ru", "en" };
-            if (!cultures.Contains(language))
-            {
-                language = "ru";
-            }
-            HttpCookie cookie = Request.Cookies["lang"];
-            if (cookie != null)
-            {
-                cookie.Value = language;
-            }
-            else
-            {
-                cookie = new HttpCookie("lang");
-                cookie.HttpOnly = false;
-                cookie.Value = language;
-                cookie.Expires = DateTime.Now.AddYears(1);
-            }
-            Response.Cookies.Add(cookie);
-            return RedirectToAction("", new { lang = language });
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)

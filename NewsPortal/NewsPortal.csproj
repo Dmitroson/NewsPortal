@@ -240,6 +240,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Attributes\ExceptionLoggerAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
@@ -685,12 +686,8 @@
     <Content Include="Views\Admin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ErrorLog\Debug\" />
-    <Folder Include="ErrorLog\Error\" />
-    <Folder Include="ErrorLog\Fatal\" />
-    <Folder Include="ErrorLog\Verbose\" />
-    <Folder Include="ErrorLog\Warning\" />
     <Folder Include="Images\" />
+    <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

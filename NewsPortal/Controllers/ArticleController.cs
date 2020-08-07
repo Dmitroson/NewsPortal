@@ -1,6 +1,7 @@
 ﻿using Business.Models;
 using Business.Services;
 using MultilingualSite.Filters;
+using NewsPortal.Attributes;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 namespace NewsPortal.Controllers
 {
     [Culture]
+    [ExceptionLogger]
     public class ArticleController : Controller
     {
         private ArticleService service;
@@ -22,8 +24,6 @@ namespace NewsPortal.Controllers
         // GET: Article
         public ActionResult Index(Criteria criteria)
         {
-            WriteLogs("user entered the site");
-
             var articlesPerPage = 10;
             var articles = service.GetArticlesBy(criteria, articlesPerPage, true);
 
@@ -49,22 +49,5 @@ namespace NewsPortal.Controllers
             var article = service.GetArticle(id);
             return View(article);
         }
-
-
-        void WriteLogs(string message)
-        {
-            try
-            {
-                LoggerHelper.WriteDebug(null, message);
-            }
-            catch (Exception e)
-            {
-                LoggerHelper.WriteError(e, "When" + message);
-                LoggerHelper.WriteFatal(e, "When" + message);
-                LoggerHelper.WriteVerbose(e, "When" + message);
-                throw;
-            }
-        }      
-
     }
 }

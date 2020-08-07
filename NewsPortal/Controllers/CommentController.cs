@@ -1,5 +1,6 @@
 ﻿using Business.Models;
 using Business.Services;
+using NewsPortal.Attributes;
 using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
 using System;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
 {
+    [ExceptionLogger]
     public class CommentController : Controller
     {
         private CommentService service;

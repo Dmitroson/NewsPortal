@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Business.Models;
+using System;
 using System.Linq;
 
-namespace Business.Models
+namespace NHibernate.DAL
 {
     public class DateFilter
     {
