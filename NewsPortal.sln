@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHibernate.DAL", "NHibernat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.DAL", "EF.DAL\EF.DAL.csproj", "{95C4A5E1-AC34-471F-AA06-840E91E2DBEC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xml.DAL", "Xml.DAL\Xml.DAL.csproj", "{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{95C4A5E1-AC34-471F-AA06-840E91E2DBEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95C4A5E1-AC34-471F-AA06-840E91E2DBEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95C4A5E1-AC34-471F-AA06-840E91E2DBEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
