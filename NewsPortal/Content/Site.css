@@ -399,3 +399,25 @@ input[type="submit"]:hover {
 .dl-horizontal dd {
     margin-left: 0px;
 }
+
+@media (min-width: 768px) {
+    .modal-dialog {
+        width: 400px!important;
+    }
+}
+
+.modal-content {
+    background-color: #C9EDE5!important;
+}
+
+.modal-body {
+    padding: 0 15px 15px;
+}
+
+.return-button {
+    padding-bottom: 15px;
+}
+
+.btn-primary {
+    min-width: 140px;
+}

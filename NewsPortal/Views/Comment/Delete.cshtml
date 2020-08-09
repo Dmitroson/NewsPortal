@@ -8,10 +8,10 @@
     <div class="modal-body">
         <dl class="dl-horizontal">
 
-            <dt>@Resources.Resource.PubDate</dt>
-            <dd>@Html.DisplayFor(model => model.PubDate)</dd>
-
             <dd>@Html.DisplayFor(model => model.Text)</dd>
+
+            <dd class="commentdate">@Html.DisplayFor(model => model.PubDate)</dd>
+
         </dl>
         @using (Html.BeginForm("Delete", "Comment", new { id = Model.Id } ))
         {
