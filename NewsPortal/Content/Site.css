@@ -247,6 +247,7 @@ img {
 }
 
 .article-desc {
+    font-family: Montserrat;
     margin-top: 3%;
     height: 100px;
     width: 400px;
@@ -257,6 +258,7 @@ img {
 }
 
 .article-time {
+    font-family: Montserrat;
     bottom: 10px;
     position: absolute;
     font-family: Open Sans;
@@ -267,6 +269,7 @@ img {
 }
 
 .title-details {
+    font-family: Montserrat;
     margin: 5px auto;
     display: block;
     word-break: break-word;
@@ -274,6 +277,7 @@ img {
 }
 
 .title-details:hover {
+    font-family: Montserrat;
     margin: 5px auto;
     display: block;
     word-break: break-word;
@@ -288,6 +292,7 @@ img {
 }
 
 .details-desc {
+    font-family: Montserrat;
     margin: 10px;
 }
 
@@ -307,7 +312,7 @@ img {
 
 .article-del-desc {
     height: 10%;
-    max-width: 9    0%;
+    max-width: 90%;
     word-break: break-all;
 }
 
@@ -416,8 +421,4 @@ input[type="submit"]:hover {
 
 .return-button {
     padding-bottom: 15px;
-}
-
-.btn-primary {
-    min-width: 140px;
 }
