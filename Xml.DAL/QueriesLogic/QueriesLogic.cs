@@ -1,12 +1,14 @@
 ﻿using Business.Models;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Xml.DAL
 {
     public class QueriesLogic
     {
-        public static IQueryable<Article> Filter(IQueryable<Article> articles, string filterString, bool onlyVisible)
+        public static IEnumerable<Article> Filter(IEnumerable<Article> articles, string filterString, bool onlyVisible)
         {
             DateFilter filter = new DateFilter(filterString);
             articles = filter.FilterByDate(articles);
@@ -17,7 +19,7 @@ namespace Xml.DAL
             return articles;
         }
 
-        public static IQueryable<Article> Search(IQueryable<Article> articles, string searchString)
+        public static IEnumerable<Article> Search(IEnumerable<Article> articles, string searchString)
         {
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -27,7 +29,7 @@ namespace Xml.DAL
             return articles;
         }
 
-        public static IQueryable<Article> Sort(IQueryable<Article> articles, int order)
+        public static IEnumerable<Article> Sort(IEnumerable<Article> articles, int order)
         {
             switch (order)
             {

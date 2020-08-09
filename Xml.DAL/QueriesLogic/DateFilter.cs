@@ -1,5 +1,6 @@
 ﻿using Business.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Xml.DAL
@@ -25,9 +26,9 @@ namespace Xml.DAL
             }
         }
 
-        public IQueryable<Article> FilterByDate(IQueryable<Article> articles)
+        public IEnumerable<Article> FilterByDate(IEnumerable<Article> articles)
         {
-            IQueryable<Article> result = null;
+            IEnumerable<Article> result = null;
 
             if (Options.Contains(AllOption))
             {

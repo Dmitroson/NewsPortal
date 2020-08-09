@@ -1,11 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<articles lastId="4">
-  <article>
-    <id>3</id>
-    <title>First article132</title>
-    <description>Разобрать системный блок</description>
-    <imageUrl>/Images/0service-428540_1280.jpg</imageUrl>
-    <visibility>True</visibility>
-    <pubDate>04.07.2020 19:17:00</pubDate>
-  </article>
-</articles>
+<database>
+  <articles lastId="11">
+    <article>
+      <id>9</id>
+      <title>First article</title>
+      <description>&lt;p&gt;Fucking XML is working!&lt;/p&gt;
+</description>
+      <imageUrl>/Images/First article_10082020138/beautiful_sunset_poland_sea.jpg</imageUrl>
+      <visibility>true</visibility>
+      <pubDate>2020-08-10T01:38:39.3354198+03:00</pubDate>
+    </article>
+    <article>
+      <id>10</id>
+      <title>Article about IT</title>
+      <description>&lt;p&gt;awdawdawdawdawd&lt;/p&gt;
+
+&lt;div id="gtx-trans" style="position: absolute; left: -58px; top: 38.6px;"&gt;
+&lt;div class="gtx-trans-icon"&gt;&amp;nbsp;&lt;/div&gt;
+&lt;/div&gt;
+</description>
+      <imageUrl>/Images/Article about IT_10082020138/service-428540_1280.jpg</imageUrl>
+      <visibility>true</visibility>
+      <pubDate>2020-08-10T01:38:56.7345179+03:00</pubDate>
+    </article>
+  </articles>
+  <comments lastId="7">
+    <comment>
+      <id>5</id>
+      <text>awdawdawdawd</text>
+      <userName>dadawdawd</userName>
+      <pubDate>2020-08-10T01:37:27.0270999+03:00</pubDate>
+      <articleId>8</articleId>
+    </comment>
+  </comments>
+</database>

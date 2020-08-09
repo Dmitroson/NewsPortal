@@ -247,7 +247,6 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Attributes\CultureAttribute.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="CustomModelBinders\CriteriaModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -311,11 +310,6 @@
     <Content Include="Views\Comment\CommentsList.cshtml" />
     <Content Include="Views\Shared\Paging.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
-    <Content Include="Views\Test\Create.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
-    <Content Include="Views\Test\Details.cshtml" />
-    <Content Include="Views\Test\Delete.cshtml" />
-    <Content Include="Views\Test\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -720,6 +714,10 @@
     <ProjectReference Include="..\NHibernate.DAL\NHibernate.DAL.csproj">
       <Project>{dd6aba5b-ec5f-4ff5-bd8c-e7d3f7f0de05}</Project>
       <Name>NHibernate.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xml.DAL\Xml.DAL.csproj">
+      <Project>{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}</Project>
+      <Name>Xml.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

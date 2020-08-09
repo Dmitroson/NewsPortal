@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Xml.DAL.Repositories;
 
 namespace NewsPortal
 {
@@ -14,12 +15,24 @@ namespace NewsPortal
     {
         protected void Application_Start()
         {
-            NHibernateHelper.ConnectionString = ConfigurationManager.ConnectionStrings["NewsPortalDbConnection"].ConnectionString;
             ModelBinders.Binders.Add(typeof(Criteria), new CriteriaModelBinder());
 
-            ServiceManager.SetUnitOfWork(new NHUnitOfWork());
-            ServiceManager.SetArticleRepository(new ArticleRepository());
-            ServiceManager.SetCommentRepository(new CommentRepository());
+            var typeConnection = ConfigurationManager.AppSettings["typeConnection"];
+            switch (typeConnection)
+            {
+                case "xml":
+                    var xmlConnectionString = Server.MapPath(ConfigurationManager.ConnectionStrings["NewsPortalXmlConnection"].ConnectionString);
+                    ServiceManager.SetUnitOfWork(new XmlUnitOfWork(xmlConnectionString));
+                    ServiceManager.SetArticleRepository(new XmlArticleRepository());
+                    ServiceManager.SetCommentRepository(new XmlCommentRepository());
+                    break;
+                default:
+                    NHibernateHelper.ConnectionString = ConfigurationManager.ConnectionStrings["NewsPortalDbConnection"].ConnectionString;
+                    ServiceManager.SetUnitOfWork(new NHUnitOfWork());
+                    ServiceManager.SetArticleRepository(new ArticleRepository());
+                    ServiceManager.SetCommentRepository(new CommentRepository());
+                    break;
+            }
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
