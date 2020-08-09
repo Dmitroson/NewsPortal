@@ -17,7 +17,7 @@
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        <lable class="control-label col-md-2">@Resources.Resource.Title</lable>
+        <label class="control-label col-md-2">@Resources.Resource.Title</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
@@ -49,7 +49,7 @@
     </div>
 
     <div class="form-group">
-        <lable class="control-label col-md-2">@Resources.Resource.Visibility</lable>
+        <label class="control-label col-md-2">@Resources.Resource.Visibility</label>
         <div class="col-md-10">
             <div class="checkbox">
                 @Html.EditorFor(model => model.Visibility)
@@ -60,7 +60,7 @@
 
     <div class="form-group">
         <label class="control-label col-md-2">@Resources.Resource.PubDate</label>
-        <div class="col-md-10">
+        <div class="col-md-8">
             @Html.EditorFor(model => model.PubDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local", @id = "pubDateInput" } })
             @Html.ValidationMessageFor(model => model.PubDate, "", new { @class = "text-danger" })
         </div>
@@ -74,7 +74,7 @@
 </div>
 }
 
-<div>
+<div class="return-button">
     @Html.ActionLink(Resources.Resource.BackToList, "Index")
 </div>
 
