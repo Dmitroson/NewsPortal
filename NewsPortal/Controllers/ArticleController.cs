@@ -6,6 +6,7 @@ using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using NHibernate.DAL.Repositories;
 using System;
+using System.Configuration;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -24,13 +25,12 @@ namespace NewsPortal.Controllers
         // GET: Article
         public ActionResult Index(Criteria criteria)
         {
-            var articlesPerPage = 10;
-            var articles = service.GetArticlesBy(criteria, articlesPerPage, true);
+            var articles = service.GetArticlesBy(criteria, true);
 
             var pageInfo = new PageInfo
             {
                 PageNumber = criteria.Page,
-                PageSize = articlesPerPage,
+                PageSize = criteria.ArticlesPerPage,
                 TotalItems = articles.TotalItems
             };
 

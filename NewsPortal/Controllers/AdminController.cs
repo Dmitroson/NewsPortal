@@ -26,13 +26,12 @@ namespace NewsPortal.Controllers
         // GET: Admin
         public ActionResult Index(Criteria criteria)
         {
-            var articlesPerPage = 10;
-            var articles = service.GetArticlesBy(criteria, articlesPerPage);
+            var articles = service.GetArticlesBy(criteria);
 
             var pageInfo = new PageInfo
             {
                 PageNumber = criteria.Page,
-                PageSize = articlesPerPage,
+                PageSize = criteria.ArticlesPerPage,
                 TotalItems = articles.TotalItems
             };
 

@@ -1,10 +1,8 @@
 ﻿using Business.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace NHibernate.DAL
+namespace Xml.DAL
 {
     public class QueriesLogic
     {

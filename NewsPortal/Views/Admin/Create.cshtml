@@ -29,7 +29,7 @@
         <label class="control-label col-md-2">@Resources.Resource.Description</label>
         <div class="col-md-10">
             <textarea id="description" name="Description"></textarea>
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger", @id = "errorMessageForDescription" })
             @*CKEditor*@
             <script>
                 CKEDITOR.replace('description');
@@ -42,9 +42,9 @@
         <label class="control-label col-md-2">@Resources.Resource.Image</label>
         <div class="col-md-10">
             <div>
-                <input type="file" name="uploadImage" />
+                <input type="file" accept=".jpg, .jpeg, .png" name="uploadImage" id="uploadImage"/>
             </div>
-            @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger", @id = "errorMessageForImage" })
         </div>
     </div>
 
@@ -79,6 +79,7 @@
 </div>
 
 @Scripts.Render("~/Scripts/Handlers/datetimeReplacer.js")
+@Scripts.Render("~/Scripts/Handlers/createValidationHandler.js")
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

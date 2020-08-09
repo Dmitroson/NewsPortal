@@ -10,5 +10,6 @@ namespace Business.Models
         public string FilterString { get; set; }
         public int SortOrder { get; set; }
         public int Page { get; set; }
+        public int ArticlesPerPage { get; set; }
     }
 }

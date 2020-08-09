@@ -1,4 +1,5 @@
 ﻿using Business.Models;
+using System.Configuration;
 using System.Web.Mvc;
 
 namespace NewsPortal.CustomModelBinders
@@ -31,7 +32,8 @@ namespace NewsPortal.CustomModelBinders
                 FilterString = filterString,
                 SearchString = searchString,
                 SortOrder = sortOrder,
-                Page = page - 1
+                Page = page - 1,
+                ArticlesPerPage = int.Parse(ConfigurationManager.AppSettings["articlesPerPage"])
             };
 
             return criteria;

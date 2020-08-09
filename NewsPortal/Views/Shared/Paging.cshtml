@@ -5,9 +5,25 @@
     string currentFilterString = Request.QueryString["filterString"];
     string currentSearchString = Request.QueryString["searchString"];
     string currentSortOrder = Request.QueryString["sortOrder"];
+    int currentPage = Model.PageInfo.PageNumber + 1;
+    int totalPages = Model.PageInfo.TotalPages;
 }
 
-@if (Model.PageInfo.TotalPages > 1)
+@if (currentPage > 1)
+{
+    @Html.ActionLink("<", "Index",
+        new
+        {
+                page = currentPage - 1,
+                filterString = currentFilterString,
+                searchString = currentSearchString,
+                sortOrder = currentSortOrder
+        },
+        new { @class = "btn btn-default" }
+    )
+}
+
+@if (totalPages > 1)
 {
     @Html.PageLinks(Model.PageInfo, x => Url.Action("Index",
         new
@@ -18,5 +34,19 @@
                 sortOrder = currentSortOrder
             }
         )
+    )
+}
+
+@if (currentPage < totalPages)
+{
+    @Html.ActionLink(">", "Index",
+        new
+        {
+                page = currentPage + 1,
+                filterString = currentFilterString,
+                searchString = currentSearchString,
+                sortOrder = currentSortOrder
+        },
+        new { @class = "btn btn-default" }
     )
 }

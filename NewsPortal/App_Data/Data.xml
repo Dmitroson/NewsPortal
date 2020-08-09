@@ -1,1 +1,35 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<articles lastId="4">
+  <article>
+    <id>1</id>
+    <title>First article</title>
+    <description>Разобрать системный блок</description>
+    <imageUrl>/Images/0service-428540_1280.jpg</imageUrl>
+    <visibility>true</visibility>
+    <pubDate>2020-07-04T19:17:00</pubDate>
+  </article>
+  <article>
+    <id>2</id>
+    <title>First article</title>
+    <description>Разобрать системный блок</description>
+    <imageUrl>/Images/0service-428540_1280.jpg</imageUrl>
+    <visibility>true</visibility>
+    <pubDate>2020-07-04T19:17:00</pubDate>
+  </article>
+  <article>
+    <id>3</id>
+    <title>First article</title>
+    <description>Разобрать системный блок</description>
+    <imageUrl>/Images/0service-428540_1280.jpg</imageUrl>
+    <visibility>true</visibility>
+    <pubDate>2020-07-04T19:17:00</pubDate>
+  </article>
+  <article>
+    <id>4</id>
+    <title>23123123123</title>
+    <description>123123</description>
+    <imageUrl>1231231</imageUrl>
+    <visibility>true</visibility>
+    <pubDate>2020-01-30T19:52:02</pubDate>
+  </article>
+</articles>

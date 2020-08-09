@@ -4,6 +4,6 @@ namespace Business.Interfaces
 {
     public interface IArticleRepository : IRepository<Article>
     {
-        ArticleCollection GetArticlesBy(Criteria criteria, int articlesPerPage, bool onlyVisible);
+        ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible);
     }
 }

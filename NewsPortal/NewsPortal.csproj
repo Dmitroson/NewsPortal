@@ -247,11 +247,11 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Attributes\CultureAttribute.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="CustomModelBinders\CriteriaModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\LoggerHelper.cs" />
     <Compile Include="Helpers\PageInfo.cs" />
     <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Resources\Resource.en.Designer.cs">
@@ -302,6 +302,7 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\commentPopup.js" />
     <Content Include="Scripts\converterToLocalTime.js" />
+    <Content Include="Scripts\Handlers\createValidationHandler.js" />
     <Content Include="Scripts\Handlers\datetimeReplacer.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\FilterSortingSearch.cshtml" />
@@ -310,6 +311,8 @@
     <Content Include="Views\Comment\CommentsList.cshtml" />
     <Content Include="Views\Shared\Paging.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
+    <Content Include="Views\Test\Create.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace NHibernate.DAL.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork
     {
         private string fileName;
         private ArticleRepository articleRepository;
@@ -27,22 +27,6 @@ namespace NHibernate.DAL.Repositories
 
             stream = new FileStream(fileName, FileMode.Open);
             writer = new StreamWriter(fileName);
-        }
-
-        public IArticleRepository Articles
-        {
-            get
-            {
-                return articleRepository;
-            }
-        }
-
-        public ICommentRepository Comments
-        {
-            get
-            {
-                return commentRepository;
-            }
         }
 
         public void Save()

@@ -5,7 +5,6 @@ using System.Xml.Serialization;
 
 namespace Business.Models
 {
-    [XmlRoot]
     public class Article : IEntity
     {
         public int Id { get; set; }

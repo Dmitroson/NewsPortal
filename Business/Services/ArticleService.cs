@@ -23,9 +23,9 @@ namespace Business.Services
             }
         }
 
-        public ArticleCollection GetArticlesBy(Criteria criteria, int articlesPerPage, bool onlyVisible = false)
+        public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible = false)
         {
-            var articlesIndex = articleRepository.GetArticlesBy(criteria, articlesPerPage, onlyVisible);
+            var articlesIndex = articleRepository.GetArticlesBy(criteria, onlyVisible);
             return articlesIndex;
         }
 

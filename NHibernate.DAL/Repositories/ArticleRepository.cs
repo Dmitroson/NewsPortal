@@ -23,7 +23,7 @@ namespace NHibernate.DAL.Repositories
             return articles;
         }
 
-        public ArticleCollection GetArticlesBy(Criteria criteria, int articlesPerPage, bool onlyVisible)
+        public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible)
         {
             unitOfWork.OpenSession();
 
@@ -37,7 +37,7 @@ namespace NHibernate.DAL.Repositories
                 TotalItems = articlesQuery.Count()
             };
 
-            articlesQuery = articlesQuery.Skip((criteria.Page) * articlesPerPage).Take(articlesPerPage);
+            articlesQuery = articlesQuery.Skip((criteria.Page) * criteria.ArticlesPerPage).Take(criteria.ArticlesPerPage);
 
             articles.AddItems(articlesQuery);
             return articles;
