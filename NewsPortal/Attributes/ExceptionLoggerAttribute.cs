@@ -27,7 +27,7 @@ namespace NewsPortal.Attributes
             if (!dir.Exists)
                 dir.Create();
 
-            var fileName = "logs" + $"{DateTime.Now.ToShortDateString()}" + ".txt";
+            var fileName = "logs" + $"{DateTime.Now.Day}.{DateTime.Now.Month}.{DateTime.Now.Year}" + ".txt";
             var filePath = logsDirectoryPath + fileName;
 
             using(StreamWriter streamWriter = new StreamWriter(filePath, true))
@@ -38,4 +38,5 @@ namespace NewsPortal.Attributes
             }
         }
     }
+
 }
