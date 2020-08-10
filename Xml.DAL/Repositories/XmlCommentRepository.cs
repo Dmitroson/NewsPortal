@@ -10,6 +10,8 @@ namespace Xml.DAL.Repositories
 {
     public class XmlCommentRepository : ICommentRepository
     {
+        private const string ISOFormat = "yyyy-MM-dd\\THH:mm:ss";
+
         private readonly XmlUnitOfWork unitOfWork;
 
         public XmlCommentRepository()
@@ -21,7 +23,7 @@ namespace Xml.DAL.Repositories
         {
             unitOfWork.OpenDocument();
 
-            XElement root = unitOfWork.Document.Element("commrnts");
+            XElement root = unitOfWork.Document.Element("comments");
             IEnumerable<XElement> xComments = root.Elements();
 
             var comments = new List<Comment>();
@@ -108,7 +110,7 @@ namespace Xml.DAL.Repositories
                 new XElement("id", lastId),
                 new XElement("text", comment.Text),
                 new XElement("userName", comment.UserName),
-                new XElement("pubDate", comment.PubDate),
+                new XElement("pubDate", comment.PubDate.Value.ToString(ISOFormat)),
                 new XElement("articleId", comment.ArticleId)));
         }
 

@@ -1,12 +1,8 @@
 ﻿using Business.Models;
 using Business.Services;
-using MultilingualSite.Filters;
 using NewsPortal.Attributes;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
-using NHibernate.DAL.Repositories;
-using System;
-using System.Configuration;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers

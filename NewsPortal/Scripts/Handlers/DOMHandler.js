@@ -26,4 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let url = location.href.toString();
     if (url.includes('filterString'))
         showCheckedItems();
+
+    let linkMoveToPrevious = document.querySelector('#paging-move-to-previous');
+    let linkMoveToNext = document.querySelector('#paging-move-to-next');
+
+    if (linkMoveToPrevious)
+        linkMoveToPrevious.innerHTML = '&laquo;';
+    if (linkMoveToNext)
+        linkMoveToNext.innerHTML = '&raquo;';
 });
