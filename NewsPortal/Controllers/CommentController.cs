@@ -20,7 +20,7 @@ namespace NewsPortal.Controllers
         public ActionResult CommentsList(int articleId)
         {
             var comments = service.GetComments(articleId);
-            return PartialView("CommentsList", comments);
+            return PartialView(comments);
         }
 
         public ActionResult Create()
@@ -45,6 +45,8 @@ namespace NewsPortal.Controllers
             return View(commentViewModel);
         }
 
+        //rename 
+        //antiforgerys
         public ActionResult SureDelete(Comment comment)
         {
             if (comment != null)
