@@ -8,8 +8,18 @@ namespace Business.Models
     {
         public string SearchString { get; set; }
         public string FilterString { get; set; }
-        public int SortOrder { get; set; }
+        public SortOrder SortOrder { get; set; }
         public int Page { get; set; }
         public int ArticlesPerPage { get; set; }
+    }
+
+    public enum SortOrder
+    {
+        DateAscending,
+        DateDescending,
+        TitleAscending,
+        TitleDescending,
+        DescriptionAscending,
+        DescriptionDescending
     }
 }

@@ -19,6 +19,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Article
+        [HttpGet]
         public ActionResult Index(Criteria criteria)
         {
             var articles = service.GetArticlesBy(criteria, true);
@@ -40,9 +41,19 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Article/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            var article = service.GetArticle(id);
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var article = service.GetArticle((int)id);
+            if (article == null)
+            {
+                return HttpNotFound();
+            }
+
             return View(article);
         }
     }

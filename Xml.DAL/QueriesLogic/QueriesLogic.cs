@@ -28,26 +28,26 @@ namespace Xml.DAL
             return articles;
         }
 
-        public static IEnumerable<Article> Sort(IEnumerable<Article> articles, int order)
+        public static IEnumerable<Article> Sort(IEnumerable<Article> articles, SortOrder order)
         {
             switch (order)
             {
-                case 1:
+                case SortOrder.DateAscending:
                     articles = articles.OrderBy(a => a.PubDate);
                     break;
-                case 2:
+                case SortOrder.DateDescending:
                     articles = articles.OrderByDescending(a => a.PubDate);
                     break;
-                case 3:
+                case SortOrder.TitleAscending:
                     articles = articles.OrderBy(a => a.Title);
                     break;
-                case 4:
+                case SortOrder.TitleDescending:
                     articles = articles.OrderByDescending(a => a.Title);
                     break;
-                case 5:
+                case SortOrder.DescriptionAscending:
                     articles = articles.OrderBy(a => a.Description);
                     break;
-                case 6:
+                case SortOrder.DescriptionDescending:
                     articles = articles.OrderByDescending(a => a.Description);
                     break;
             }

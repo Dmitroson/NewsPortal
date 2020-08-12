@@ -1,4 +1,5 @@
 ﻿using Business.Interfaces;
+using System.Resources;
 
 namespace NHibernate.DAL.Repositories
 {
@@ -14,7 +15,7 @@ namespace NHibernate.DAL.Repositories
 
             Session = NHibernateHelper.OpenSession();
         }
-        
+
         public void BeginTransaction()
         {
             transaction = Session.BeginTransaction();
@@ -24,11 +25,12 @@ namespace NHibernate.DAL.Repositories
         {
             try
             {
-                transaction.Commit();
+                if (transaction != null)
+                    transaction.Commit();
             }
             catch
             {
-                transaction.Rollback();
+                Rollback();
                 throw;
             }
             finally
@@ -47,6 +49,7 @@ namespace NHibernate.DAL.Repositories
         {
             Session.Close();
             Session = null;
+            transaction = null;
         }
     }
 }

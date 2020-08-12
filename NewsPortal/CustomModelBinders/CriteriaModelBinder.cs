@@ -10,9 +10,9 @@ namespace NewsPortal.CustomModelBinders
         {
             var request = controllerContext.HttpContext.Request;
 
-            string filterString = "";
-            string searchString = "";
-            int sortOrder = 2;
+            string filterString = string.Empty;
+            string searchString = string.Empty;
+            SortOrder sortOrder = SortOrder.DateDescending;
             int page = 1;
 
             if (request.QueryString["filterString"] != null)
@@ -21,8 +21,32 @@ namespace NewsPortal.CustomModelBinders
             if (request.QueryString["searchString"] != null)
                 searchString = request.QueryString["searchString"].ToString();
 
+
             if (request.QueryString["sortOrder"] != null)
-                sortOrder = int.Parse(request.QueryString["sortOrder"]);
+            {
+                var sortOrderFromQuery = int.Parse(request.QueryString["sortOrder"]);
+                switch (sortOrderFromQuery)
+                {
+                    case 1:
+                        sortOrder = SortOrder.DateAscending;
+                        break;
+                    case 2:
+                        sortOrder = SortOrder.DateDescending;
+                        break;
+                    case 3:
+                        sortOrder = SortOrder.TitleAscending;
+                        break;
+                    case 4:
+                        sortOrder = SortOrder.TitleDescending;
+                        break;
+                    case 5:
+                        sortOrder = SortOrder.DescriptionAscending;
+                        break;
+                    case 6:
+                        sortOrder = SortOrder.DescriptionDescending;
+                        break;
+                }
+            }
 
             if (request.QueryString["page"] != null)
                 page = int.Parse(request.QueryString["page"]);
