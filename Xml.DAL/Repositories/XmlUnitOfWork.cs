@@ -23,7 +23,14 @@ namespace Xml.DAL.Repositories
 
         public void Commit()
         {
-            Document.Save(path);
+            try
+            {
+                Document.Save(path);
+            }
+            finally
+            {
+                Dispose();
+            }
         }
 
         public void Rollback()

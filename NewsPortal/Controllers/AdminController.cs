@@ -1,6 +1,5 @@
 ﻿using Business.Models;
 using Business.Services;
-using MultilingualSite.Filters;
 using NewsPortal.Attributes;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;

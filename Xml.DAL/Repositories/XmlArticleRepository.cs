@@ -10,6 +10,8 @@ namespace Xml.DAL.Repositories
 {
     public class XmlArticleRepository : IArticleRepository
     {
+        private const string ISOFormat = "yyyy-MM-dd\\THH:mm:ss";
+
         private readonly XmlUnitOfWork unitOfWork;
 
         public XmlArticleRepository()
@@ -105,7 +107,7 @@ namespace Xml.DAL.Repositories
                 new XElement("description", article.Description),
                 new XElement("imageUrl", article.ImageUrl),
                 new XElement("visibility", article.Visibility),
-                new XElement("pubDate", article.PubDate)));
+                new XElement("pubDate", article.PubDate.Value.ToString(ISOFormat))));
         }
 
         public void Update(Article article)
@@ -126,7 +128,7 @@ namespace Xml.DAL.Repositories
             xArticle.Element("description").Value = article.Description;
             xArticle.Element("imageUrl").Value = article.ImageUrl;
             xArticle.Element("visibility").Value = article.Visibility.ToString();
-            xArticle.Element("pubDate").Value = article.PubDate.ToString();
+            xArticle.Element("pubDate").Value = article.PubDate.Value.ToString(ISOFormat);
         }
 
         public void Delete(int id)

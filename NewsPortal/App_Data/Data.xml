@@ -1,36 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <database>
-  <articles lastId="11">
+  <articles lastId="13">
     <article>
       <id>9</id>
       <title>First article</title>
       <description>&lt;p&gt;Fucking XML is working!&lt;/p&gt;
 </description>
       <imageUrl>/Images/First article_10082020138/beautiful_sunset_poland_sea.jpg</imageUrl>
-      <visibility>true</visibility>
-      <pubDate>2020-08-10T01:38:39.3354198+03:00</pubDate>
+      <visibility>True</visibility>
+      <pubDate>2020-08-09T16:38:00</pubDate>
     </article>
     <article>
       <id>10</id>
       <title>Article about IT</title>
       <description>&lt;p&gt;awdawdawdawdawd&lt;/p&gt;
 
-&lt;div id="gtx-trans" style="position: absolute; left: -58px; top: 38.6px;"&gt;
-&lt;div class="gtx-trans-icon"&gt;&amp;nbsp;&lt;/div&gt;
-&lt;/div&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 </description>
       <imageUrl>/Images/Article about IT_10082020138/service-428540_1280.jpg</imageUrl>
+      <visibility>True</visibility>
+      <pubDate>2020-08-07T19:38:00</pubDate>
+    </article>
+    <article>
+      <id>12</id>
+      <title> jbjbjkb</title>
+      <description>&lt;p&gt;cfvb&lt;/p&gt;
+</description>
+      <imageUrl>/Images/ jbjbjkb_100820201214/testPicture111.jpg</imageUrl>
+      <visibility>True</visibility>
+      <pubDate>2020-08-10T15:19:00</pubDate>
+    </article>
+    <article>
+      <id>13</id>
+      <title>test</title>
+      <description>&lt;p&gt;test test test xml xml xml&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;jbkjhkhkhjkh&lt;/em&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;hhgjhgjhgjhp0iogcghchgchch&lt;strong&gt;vghhgchg&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+      <imageUrl>/Images/test_100820201523/testPicture111.jpg</imageUrl>
       <visibility>true</visibility>
-      <pubDate>2020-08-10T01:38:56.7345179+03:00</pubDate>
+      <pubDate>2020-08-10T15:23:17</pubDate>
     </article>
   </articles>
-  <comments lastId="7">
+  <comments lastId="9">
     <comment>
       <id>5</id>
       <text>awdawdawdawd</text>
       <userName>dadawdawd</userName>
       <pubDate>2020-08-10T01:37:27.0270999+03:00</pubDate>
       <articleId>8</articleId>
+    </comment>
+    <comment>
+      <id>8</id>
+      <text>____________________</text>
+      <userName>unknown</userName>
+      <pubDate>2020-08-10T15:19:34.4317755+03:00</pubDate>
+      <articleId>12</articleId>
+    </comment>
+    <comment>
+      <id>9</id>
+      <text>1233131314222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222223</text>
+      <userName>54646</userName>
+      <pubDate>2020-08-10T15:24:18</pubDate>
+      <articleId>13</articleId>
     </comment>
   </comments>
 </database>

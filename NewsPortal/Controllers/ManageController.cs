@@ -7,15 +7,14 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using MultilingualSite.Filters;
 using NewsPortal.Attributes;
 using NewsPortal.ViewModels;
 
 namespace NewsPortal.Controllers
 {
+    [Culture]
     [Authorize]
     [ExceptionLogger]
-    [Culture]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
