@@ -11,6 +11,17 @@
 
 @if (currentPage > 1)
 {
+    @Html.ActionLink("<<", "Index",
+        new
+        {
+                page = 1,
+                filterString = currentFilterString,
+                searchString = currentSearchString,
+                sortOrder = currentSortOrder
+        },
+        new { @class = "btn btn-default", @id = "paging-move-to-previous" }
+    )
+
     @Html.ActionLink("<", "Index",
         new
         {
@@ -19,7 +30,7 @@
                 searchString = currentSearchString,
                 sortOrder = currentSortOrder
         },
-        new { @class = "btn btn-default", @id = "paging-move-to-previous" }
+        new { @class = "btn btn-default" }
     )
 }
 
@@ -43,6 +54,17 @@
         new
         {
                 page = currentPage + 1,
+                filterString = currentFilterString,
+                searchString = currentSearchString,
+                sortOrder = currentSortOrder
+        },
+        new { @class = "btn btn-default"}
+    )
+
+    @Html.ActionLink(">>", "Index",
+        new
+        {
+                page = totalPages,
                 filterString = currentFilterString,
                 searchString = currentSearchString,
                 sortOrder = currentSortOrder

@@ -46,17 +46,17 @@ namespace NewsPortal.Controllers
             return View(commentViewModel);
         }
 
-        //rename 
-        //antiforgerys
-        public ActionResult SureDelete(Comment comment)
+        [HttpGet]
+        public ActionResult Delete(Comment comment)
         {
             if (comment != null)
                 return PartialView("Delete", comment);
             return HttpNotFound();
         }
 
+        [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
             var articleId = service.GetArticleIdByCommentId(id);
             service.DeleteComment(id);

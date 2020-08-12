@@ -13,7 +13,7 @@
             <dd class="commentdate">@Html.DisplayFor(model => model.PubDate)</dd>
 
         </dl>
-        @using (Html.BeginForm("Delete", "Comment", new { id = Model.Id } ))
+        @using (Html.BeginForm("DeleteConfirmed", "Comment", new { id = Model.Id } ))
         {
             @Html.AntiForgeryToken()
 

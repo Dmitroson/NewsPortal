@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Text;
 using System.Web.Mvc;
 
@@ -8,18 +9,19 @@ namespace NewsPortal.Helpers
     {
         public static MvcHtmlString PageLinks(this HtmlHelper html, PageInfo pageInfo, Func<int, string> pageUrl)
         {
+            int pagingPanelSize = int.Parse(ConfigurationManager.AppSettings.Get("pagingPanelSize"));
             int currentPage = pageInfo.PageNumber + 1;
             int offset = 0;
 
             StringBuilder result = new StringBuilder();
 
-            if (pageInfo.TotalPages >= 5)
+            if (pageInfo.TotalPages >= pagingPanelSize)
             {
-                if(currentPage > 5)
+                if(currentPage > pagingPanelSize)
                 {
-                    offset = currentPage - 5;
+                    offset = currentPage - pagingPanelSize;
                 }
-                for (int page = 1; page <= 5; page++)
+                for (int page = 1; page <= pagingPanelSize; page++)
                 {
                     var p = page + offset;
                     TagBuilder tag = new TagBuilder("a");

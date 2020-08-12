@@ -19,22 +19,22 @@
         </button>
         <ul class="dropdown-menu">
             <li class="sorting">
-                @Html.ActionLink(Resources.Resource.SortByDate, "Index", new { sortOrder = 1, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByDate, "Index", new { sortOrder = "date", filterString = currentFilterString, searchString = currentSearchString })
             </li>
             <li class="sorting">
-                @Html.ActionLink(Resources.Resource.SortByDateDesc, "Index", new { sortOrder = 2, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByDateDesc, "Index", new { sortOrder = "dateDescending", filterString = currentFilterString, searchString = currentSearchString })
             </li>
             <li class="sorting">
-                @Html.ActionLink(Resources.Resource.SortByTitle, "Index", new { sortOrder = 3, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByTitle, "Index", new { sortOrder = "title", filterString = currentFilterString, searchString = currentSearchString })
             </li>
             <li class="sorting">
-                @Html.ActionLink(Resources.Resource.SortByTitleDesc, "Index", new { sortOrder = 4, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByTitleDesc, "Index", new { sortOrder = "titleDescending", filterString = currentFilterString, searchString = currentSearchString })
             </li>
             <li class="sorting">
-                @Html.ActionLink(Resources.Resource.SortByDescription, "Index", new { sortOrder = 5, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByDescription, "Index", new { sortOrder = "description", filterString = currentFilterString, searchString = currentSearchString })
             </li>
             <li class="sorting">
-                @Html.ActionLink(Resources.Resource.SortByDescriptionDesc, "Index", new { sortOrder = 6, filterString = currentFilterString, searchString = currentSearchString })
+                @Html.ActionLink(Resources.Resource.SortByDescriptionDesc, "Index", new { sortOrder = "descriptionDescending", filterString = currentFilterString, searchString = currentSearchString })
             </li>
         </ul>
     </div>
