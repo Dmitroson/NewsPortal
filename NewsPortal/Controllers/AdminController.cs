@@ -24,6 +24,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin
+        [HttpGet]
         public ActionResult Index(Criteria criteria)
         {
             var articles = service.GetArticlesBy(criteria);
@@ -45,6 +46,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
             var article = service.GetArticle(id);
@@ -52,6 +54,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -61,23 +64,23 @@ namespace NewsPortal.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create(ArticleViewModel articleView, HttpPostedFileBase uploadImage)
+        public ActionResult Create(ArticleViewModel articleViewModel, HttpPostedFileBase uploadImage)
         {
-            if (articleView.PubDate == null)
+            if (articleViewModel.PubDate == null)
             {
-                articleView.PubDate = DateTime.Now;
+                articleViewModel.PubDate = DateTime.Now;
             }
 
             if (ModelState.IsValid )
             {
                 var article = new Article
                 {
-                    Id = articleView.Id,
-                    Title = articleView.Title,
-                    Description = articleView.Description,
-                    ImageUrl = articleView.ImageUrl,
-                    Visibility = articleView.Visibility,
-                    PubDate = articleView.PubDate
+                    Id = articleViewModel.Id,
+                    Title = articleViewModel.Title,
+                    Description = articleViewModel.Description,
+                    ImageUrl = articleViewModel.ImageUrl,
+                    Visibility = articleViewModel.Visibility,
+                    PubDate = articleViewModel.PubDate
                 };
                 if(uploadImage != null)
                 {
@@ -97,33 +100,34 @@ namespace NewsPortal.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View(articleView);
+            return View(articleViewModel);
         }
 
         // GET: Admin/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             var article = service.GetArticle(id);
-            var articleView = new ArticleViewModel(article);
-            return View(articleView);
+            var articleViewModel = new ArticleViewModel(article);
+            return View(articleViewModel);
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit(ArticleViewModel articleView, HttpPostedFileBase uploadImage)
+        public ActionResult Edit(ArticleViewModel articleViewModel, HttpPostedFileBase uploadImage)
         {
             if (ModelState.IsValid)
             {
                 var article = new Article
                 {
-                    Id = articleView.Id,
-                    Title = articleView.Title,
-                    Description = articleView.Description,
-                    ImageUrl = articleView.ImageUrl,
-                    Visibility = articleView.Visibility,
-                    PubDate = articleView.PubDate
+                    Id = articleViewModel.Id,
+                    Title = articleViewModel.Title,
+                    Description = articleViewModel.Description,
+                    ImageUrl = articleViewModel.ImageUrl,
+                    Visibility = articleViewModel.Visibility,
+                    PubDate = articleViewModel.PubDate
                 };
                 if (uploadImage != null)
                 {
@@ -137,10 +141,11 @@ namespace NewsPortal.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View(articleView);
+            return View(articleViewModel);
         }
 
         // GET: Admin/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             var article = service.GetArticle(id);

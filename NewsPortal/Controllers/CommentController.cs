@@ -21,6 +21,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Comment
+        [HttpGet]
         public ActionResult CommentsList(int articleId)
         {
             var comments = service.GetComments(articleId);
@@ -51,7 +52,6 @@ namespace NewsPortal.Controllers
 
         public ActionResult SureDelete(Comment comment)
         {
-            ChangeLanguage();
             if (comment != null)
                 return PartialView("Delete", comment);
             return HttpNotFound();
@@ -60,46 +60,9 @@ namespace NewsPortal.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
-            ChangeLanguage();
             var articleId = service.GetArticleIdByCommentId(id);
             service.DeleteComment(id);
             return RedirectToRoute(new { controller = "Admin", action = "Details", id = articleId.ToString() });
-        }
-
-        public ActionResult ChangeCulture(string language)
-        {
-            List<string> cultures = new List<string>() { "ru", "en" };
-            if (!cultures.Contains(language))
-            {
-                language = "ru";
-            }
-            HttpCookie cookie = Request.Cookies["lang"];
-            if (cookie != null)
-            {
-                cookie.Value = language;
-            }
-            else
-            {
-                cookie = new HttpCookie("lang");
-                cookie.HttpOnly = false;
-                cookie.Value = language;
-                cookie.Expires = DateTime.Now.AddYears(1);
-            }
-            Response.Cookies.Add(cookie);
-            return RedirectToAction("", new { lang = language });
-        }
-
-        public void ChangeLanguage()
-        {
-            var currentLanguage = Request.RequestContext.RouteData.Values["lang"].ToString();
-            if (currentLanguage == "en")
-            {
-                ChangeCulture("en");
-            }
-            else
-            {
-                ChangeCulture("ru");
-            }
         }
     }
 }
