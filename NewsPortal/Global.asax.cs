@@ -17,8 +17,8 @@ namespace NewsPortal
         {
             ModelBinders.Binders.Add(typeof(Criteria), new CriteriaModelBinder());
 
-            var typeConnection = ConfigurationManager.AppSettings["typeConnection"];
-            switch (typeConnection)
+            var typeSource = ConfigurationManager.AppSettings["typeSource"];
+            switch (typeSource)
             {
                 case "xml":
                     var xmlConnectionString = Server.MapPath(ConfigurationManager.ConnectionStrings["NewsPortalXmlConnection"].ConnectionString);
@@ -26,7 +26,7 @@ namespace NewsPortal
                     ServiceManager.SetArticleRepository(new XmlArticleRepository());
                     ServiceManager.SetCommentRepository(new XmlCommentRepository());
                     break;
-                default:
+                case "nhibernate":
                     NHibernateHelper.ConnectionString = ConfigurationManager.ConnectionStrings["NewsPortalDbConnection"].ConnectionString;
                     ServiceManager.SetUnitOfWork(new NHUnitOfWork());
                     ServiceManager.SetArticleRepository(new ArticleRepository());

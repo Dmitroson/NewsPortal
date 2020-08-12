@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <database>
-  <articles lastId="13">
+  <articles lastId="15">
     <article>
       <id>9</id>
       <title>First article</title>
@@ -45,8 +45,26 @@
       <visibility>true</visibility>
       <pubDate>2020-08-10T15:23:17</pubDate>
     </article>
+    <article>
+      <id>14</id>
+      <title>XML</title>
+      <description>&lt;p&gt;Sfweffaefawd&lt;/p&gt;
+</description>
+      <imageUrl>/Images\XML_13.08.2020_18-35-00\beautiful_sunset_poland_sea.jpg</imageUrl>
+      <visibility>True</visibility>
+      <pubDate>2020-08-13T18:35:00</pubDate>
+    </article>
+    <article>
+      <id>15</id>
+      <title>adwwdaw</title>
+      <description>&lt;p&gt;dawdawdawdawd&lt;/p&gt;
+</description>
+      <imageUrl>\Images\adwwdaw_12.08.2020-23-15-26\5-Top-Technology-Trends-In-2019-And-The-Opportunities-They-Will-Create-1030x672.jpg</imageUrl>
+      <visibility>false</visibility>
+      <pubDate>2020-08-12T23:15:26</pubDate>
+    </article>
   </articles>
-  <comments lastId="9">
+  <comments lastId="11">
     <comment>
       <id>5</id>
       <text>awdawdawdawd</text>
@@ -66,6 +84,20 @@
       <text>1233131314222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222223</text>
       <userName>54646</userName>
       <pubDate>2020-08-10T15:24:18</pubDate>
+      <articleId>13</articleId>
+    </comment>
+    <comment>
+      <id>10</id>
+      <text>вфцвфцв</text>
+      <userName>цфвфцвфц</userName>
+      <pubDate>2020-08-12T17:36:42</pubDate>
+      <articleId>13</articleId>
+    </comment>
+    <comment>
+      <id>11</id>
+      <text>фв</text>
+      <userName>фцвф</userName>
+      <pubDate>2020-08-12T17:37:31</pubDate>
       <articleId>13</articleId>
     </comment>
   </comments>

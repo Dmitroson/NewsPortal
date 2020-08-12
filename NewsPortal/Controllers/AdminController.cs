@@ -45,10 +45,19 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Details/5
-        [HttpGet]
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            var article = service.GetArticle(id);
+            if(id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var article = service.GetArticle((int)id);
+            if(article == null)
+            {
+                return HttpNotFound();
+            }
+
             return View(article);
         }
 
@@ -70,7 +79,7 @@ namespace NewsPortal.Controllers
                 articleViewModel.PubDate = DateTime.Now;
             }
 
-            if (ModelState.IsValid )
+            if (ModelState.IsValid)
             {
                 var article = new Article
                 {
@@ -81,18 +90,10 @@ namespace NewsPortal.Controllers
                     Visibility = articleViewModel.Visibility,
                     PubDate = articleViewModel.PubDate
                 };
-                if(uploadImage != null)
+
+                if (uploadImage != null)
                 {
-                    var imageUrl = BuildImageUrl(article);
-                    var path = Server.MapPath(imageUrl);
-
-                    DirectoryInfo dir = new DirectoryInfo(path);
-                    if (!dir.Exists)
-                        dir.Create();
-
-                    path += uploadImage.FileName;
-                    uploadImage.SaveAs(path);
-                    article.ImageUrl = imageUrl + uploadImage.FileName;
+                    SaveArticleImage(ref article, uploadImage);
                 }
 
                 service.CreateArticle(article);
@@ -128,12 +129,10 @@ namespace NewsPortal.Controllers
                     Visibility = articleViewModel.Visibility,
                     PubDate = articleViewModel.PubDate
                 };
+
                 if (uploadImage != null)
                 {
-                    var imageUrl = BuildImageUrl(article) + uploadImage.FileName;
-                    var path = Server.MapPath(imageUrl);
-                    uploadImage.SaveAs(path);
-                    article.ImageUrl = imageUrl;
+                    SaveArticleImage(ref article, uploadImage);
                 }
 
                 service.UpdateArticle(article);
@@ -161,16 +160,34 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index");
         }
 
-        string BuildImageUrl(Article article)
+        private void SaveArticleImage(ref Article article, HttpPostedFileBase uploadImage)
         {
-            //Path.GetInvalidFileNameChars();
-            //Path.Combine()
-            var articlePubDateString = article.PubDate.ToString().Replace(".", string.Empty);
-            articlePubDateString = articlePubDateString.Replace(":", string.Empty);
-            articlePubDateString = articlePubDateString.Replace(" ", string.Empty);
-            articlePubDateString = articlePubDateString.Remove(articlePubDateString.Length - 2);
+            var imageUrl = BuildImageUrl(article);
+            var path = Server.MapPath(imageUrl);
 
-            var imageUrl = "/Images/" + article.Title + "_" + articlePubDateString + "/";
+            DirectoryInfo dir = new DirectoryInfo(path);
+            if (!dir.Exists)
+                dir.Create();
+
+            path = Path.Combine(path, uploadImage.FileName);
+            uploadImage.SaveAs(path);
+            article.ImageUrl = Path.Combine(imageUrl, uploadImage.FileName);
+        }
+
+        private string BuildImageUrl(Article article)
+        {
+            var articlePubDateString = article.PubDate.ToString();
+            articlePubDateString = articlePubDateString.Replace(" ", "-");
+
+            var imageFolderName = string.Concat(article.Title, "_", articlePubDateString);
+
+            var invalidChars = Path.GetInvalidFileNameChars();
+            foreach(var invalidChar in invalidChars)
+            {
+                imageFolderName = imageFolderName.Replace(invalidChar, '-');
+            }
+
+            var imageUrl = Path.Combine(@"\Images", imageFolderName);
             return imageUrl;
         }
     }
