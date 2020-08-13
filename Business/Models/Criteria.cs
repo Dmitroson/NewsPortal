@@ -7,7 +7,7 @@ namespace Business.Models
     public class Criteria
     {
         public string SearchString { get; set; }
-        public string FilterString { get; set; }
+        public DateRange FilterRange { get; set; }
         public SortOrder SortOrder { get; set; }
         public int Page { get; set; }
         public int ArticlesPerPage { get; set; }

@@ -10,13 +10,16 @@ namespace NewsPortal.CustomModelBinders
         {
             var request = controllerContext.HttpContext.Request;
 
-            string filterString = string.Empty;
+            DateRange range = new DateRange();
             string searchString = string.Empty;
             SortOrder sortOrder = SortOrder.DateDescending;
             int page = 1;
 
             if (request.QueryString["filterString"] != null)
-                filterString = request.QueryString["filterString"].ToString();
+            {
+                var filterString = request.QueryString["filterString"].ToString();
+                range = new DateRange(filterString);
+            }
 
             if (request.QueryString["searchString"] != null)
                 searchString = request.QueryString["searchString"].ToString();
@@ -24,28 +27,8 @@ namespace NewsPortal.CustomModelBinders
 
             if (request.QueryString["sortOrder"] != null)
             {
-                var sortOrderFromQuery = int.Parse(request.QueryString["sortOrder"]);
-                switch (sortOrderFromQuery)
-                {
-                    case 1:
-                        sortOrder = SortOrder.DateAscending;
-                        break;
-                    case 2:
-                        sortOrder = SortOrder.DateDescending;
-                        break;
-                    case 3:
-                        sortOrder = SortOrder.TitleAscending;
-                        break;
-                    case 4:
-                        sortOrder = SortOrder.TitleDescending;
-                        break;
-                    case 5:
-                        sortOrder = SortOrder.DescriptionAscending;
-                        break;
-                    case 6:
-                        sortOrder = SortOrder.DescriptionDescending;
-                        break;
-                }
+                var sortOrderFromQuery = request.QueryString["sortOrder"];
+                sortOrder = GetSortOrderFromQuery(sortOrderFromQuery);
             }
 
             if (request.QueryString["page"] != null)
@@ -53,7 +36,7 @@ namespace NewsPortal.CustomModelBinders
 
             Criteria criteria = new Criteria
             {
-                FilterString = filterString,
+                FilterRange = range,
                 SearchString = searchString,
                 SortOrder = sortOrder,
                 Page = page - 1,
@@ -61,6 +44,27 @@ namespace NewsPortal.CustomModelBinders
             };
 
             return criteria;
+        }
+
+        private SortOrder GetSortOrderFromQuery(string sortOrderFromQuery)
+        {
+            switch (sortOrderFromQuery)
+            {
+                case "date":
+                    return SortOrder.DateAscending;
+                case "dateDescending":
+                    return SortOrder.DateDescending;
+                case "title":
+                    return SortOrder.TitleAscending;
+                case "titleDescending":
+                    return SortOrder.TitleDescending;
+                case "description":
+                    return SortOrder.DescriptionAscending;
+                case "descriptionDescending":
+                    return SortOrder.DescriptionDescending;
+
+                default: return SortOrder.DateDescending;
+            }
         }
     }
 }

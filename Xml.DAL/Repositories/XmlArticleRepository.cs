@@ -73,7 +73,7 @@ namespace Xml.DAL.Repositories
         public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible)
         {
             var articlesQuery = GetAll();
-            articlesQuery = QueriesLogic.Filter(articlesQuery, criteria.FilterString, onlyVisible);
+            articlesQuery = QueriesLogic.Filter(articlesQuery, criteria.FilterRange, onlyVisible);
             articlesQuery = QueriesLogic.Search(articlesQuery, criteria.SearchString);
             articlesQuery = QueriesLogic.Sort(articlesQuery, criteria.SortOrder);
 
