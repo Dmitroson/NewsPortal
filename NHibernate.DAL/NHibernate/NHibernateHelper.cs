@@ -1,23 +1,22 @@
-﻿using FluentNHibernate.Cfg;
+﻿using Business.Services;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.DAL.ClassMap;
+using NHibernate.DAL.Repositories;
 using NHibernate.Tool.hbm2ddl;
-using NHibernate.Util;
-using System.Configuration;
-using System.Linq;
-using System.Xml;
 
 public class NHibernateHelper
 {
     private static ISessionFactory sessionFactory;
     private static object sessionFactoryLock = new object();
+    public static NHUnitOfWork UnitOfWork { get; set; }
     public static string ConnectionString { get; set; }
 
     private static ISessionFactory CreateSessionFactory()
     {
-        var configuration = new NHibernate.Cfg.Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
+        var configuration = new Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
 
         sessionFactory = Fluently.Configure(configuration)
             .Database(MsSqlConfiguration.MsSql2012
@@ -33,13 +32,23 @@ public class NHibernateHelper
 
     public static ISession OpenSession()
     {
-        lock (sessionFactoryLock)
+        if (sessionFactory == null)
         {
-            if(sessionFactory == null)
+            lock (sessionFactoryLock)
             {
                 sessionFactory = CreateSessionFactory();
             }
         }
         return sessionFactory.OpenSession();
+    }
+
+    public static ISession GetSession()
+    {
+        UnitOfWork = ServiceManager.GetUnitOfWork() as NHUnitOfWork;
+        if(UnitOfWork.Session == null)
+        {
+            return OpenSession();
+        }
+        return UnitOfWork.Session;
     }
 }

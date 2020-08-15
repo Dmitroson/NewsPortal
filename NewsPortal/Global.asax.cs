@@ -28,9 +28,11 @@ namespace NewsPortal
                     break;
                 case "nhibernate":
                     NHibernateHelper.ConnectionString = ConfigurationManager.ConnectionStrings["NewsPortalDbConnection"].ConnectionString;
+                    
                     ServiceManager.SetUnitOfWork(new NHUnitOfWork());
                     ServiceManager.SetArticleRepository(new ArticleRepository());
                     ServiceManager.SetCommentRepository(new CommentRepository());
+                    
                     break;
             }
 

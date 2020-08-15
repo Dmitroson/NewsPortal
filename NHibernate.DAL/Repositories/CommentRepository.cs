@@ -8,60 +8,46 @@ namespace NHibernate.DAL.Repositories
 {
     public class CommentRepository : ICommentRepository
     {
-        private readonly NHUnitOfWork unitOfWork;
-
-        public CommentRepository()
+        private ISession Session
         {
-            unitOfWork = ServiceManager.GetUnitOfWork() as NHUnitOfWork;
+            get
+            {
+                return NHibernateHelper.GetSession();
+            }
         }
 
         public IEnumerable<Comment> GetAll()
         {
-            unitOfWork.OpenSession();
-
-            var comments = unitOfWork.Session.Query<Comment>();
+            var comments = Session.Query<Comment>();
             return comments;
         }
 
         public Comment Get(int id)
         {
-            unitOfWork.OpenSession();
-
-            var comment = unitOfWork.Session.Get<Comment>(id);
+            var comment = Session.Get<Comment>(id);
             return comment;
         }
 
         public IEnumerable<Comment> GetCommentsBy(int articleId)
         {
-            unitOfWork.OpenSession();
-
-            var comments = unitOfWork.Session.Query<Comment>().Where(c => c.ArticleId == articleId).ToList();
+            var comments = Session.Query<Comment>().Where(c => c.ArticleId == articleId).ToList();
             return comments;
         }
         
         public void Create(Comment comment)
         {
-            unitOfWork.OpenSession();
-            unitOfWork.BeginTransaction();
-
-            unitOfWork.Session.Save(comment);  
+            Session.Save(comment);  
         }
 
         public void Update(Comment comment)
         {
-            unitOfWork.OpenSession();
-            unitOfWork.BeginTransaction();
-
-            unitOfWork.Session.Update(comment);
+            Session.Update(comment);
         }
 
         public void Delete(int id)
         {
-            unitOfWork.OpenSession();
-            unitOfWork.BeginTransaction();
-
-            var comment = unitOfWork.Session.Get<Comment>(id);
-            unitOfWork.Session.Delete(comment);
+            var comment = Session.Get<Comment>(id);
+            Session.Delete(comment);
         }
     }
 }

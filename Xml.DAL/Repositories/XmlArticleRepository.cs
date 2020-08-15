@@ -21,7 +21,7 @@ namespace Xml.DAL.Repositories
 
         public IEnumerable<Article> GetAll()
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
 
             XElement root = unitOfWork.Document.Element("articles");
             IEnumerable<XElement> xArticles = root.Elements();
@@ -45,7 +45,7 @@ namespace Xml.DAL.Repositories
 
         public Article Get(int id)
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
 
             XElement xArticle = null;
             foreach(var item in unitOfWork.Document.Element("articles").Elements("article"))
@@ -90,7 +90,7 @@ namespace Xml.DAL.Repositories
 
         public void Create(Article article)
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
             XElement root = unitOfWork.Document.Element("articles");
             if (root.Attribute("lastId") == null)
             {
@@ -112,7 +112,7 @@ namespace Xml.DAL.Repositories
 
         public void Update(Article article)
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
 
             XElement xArticle = null;
             foreach (var item in unitOfWork.Document.Element("articles").Elements("article"))
@@ -133,7 +133,7 @@ namespace Xml.DAL.Repositories
 
         public void Delete(int id)
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
 
             XElement xArticle = null;
             foreach (var item in unitOfWork.Document.Element("articles").Elements("article"))

@@ -8,26 +8,23 @@ namespace NHibernate.DAL.Repositories
 {
     public class ArticleRepository : IArticleRepository
     {
-        private readonly NHUnitOfWork unitOfWork;
-
-        public ArticleRepository()
+        private ISession Session
         {
-            unitOfWork = ServiceManager.GetUnitOfWork() as NHUnitOfWork;
+            get
+            {
+                return NHibernateHelper.GetSession();
+            }
         }
 
         public IEnumerable<Article> GetAll()
         {
-            unitOfWork.OpenSession();
-
-            var articles = unitOfWork.Session.Query<Article>();
+            var articles = Session.Query<Article>();
             return articles;
         }
 
         public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible)
         {
-            unitOfWork.OpenSession();
-
-            var articlesQuery = unitOfWork.Session.Query<Article>();
+            var articlesQuery = Session.Query<Article>();
             articlesQuery = QueriesLogic.Filter(articlesQuery, criteria.FilterRange, onlyVisible);
             articlesQuery = QueriesLogic.Search(articlesQuery, criteria.SearchString);
             articlesQuery = QueriesLogic.Sort(articlesQuery, criteria.SortOrder);
@@ -45,47 +42,36 @@ namespace NHibernate.DAL.Repositories
 
         public Article Get(int id)
         {
-            unitOfWork.OpenSession();
-
-            var article = unitOfWork.Session.Get<Article>(id);
+            var article = Session.Get<Article>(id);
             return article;
         }
 
         public void Create(Article article)
         {
-            unitOfWork.OpenSession();
-            unitOfWork.BeginTransaction();
-
-            unitOfWork.Session.Save(article);
+            Session.Save(article);
         }
 
         public void Update(Article article)
         {
-            unitOfWork.OpenSession();
-            unitOfWork.BeginTransaction();
-
-            Article editedArticle = unitOfWork.Session.Get<Article>(article.Id);
+            Article editedArticle = Session.Get<Article>(article.Id);
             editedArticle.Title = article.Title;
             editedArticle.Description = article.Description;
             editedArticle.ImageUrl = article.ImageUrl;
             editedArticle.Visibility = article.Visibility;
             editedArticle.PubDate = article.PubDate;
 
-            unitOfWork.Session.Update(editedArticle);
+            Session.Update(editedArticle);
         }
 
         public void Delete(int id)
         {
-            unitOfWork.OpenSession();
-            unitOfWork.BeginTransaction();
-
-            var article = unitOfWork.Session.Get<Article>(id);
-            var comments = unitOfWork.Session.Query<Comment>().Where(c => c.ArticleId == id).ToList();
+            var article = Session.Get<Article>(id);
+            var comments = Session.Query<Comment>().Where(c => c.ArticleId == id).ToList();
             foreach (var comment in comments)
             {
-                unitOfWork.Session.Delete(comment);
+                Session.Delete(comment);
             }
-            unitOfWork.Session.Delete(article);
+            Session.Delete(article);
         }
     }
 }
