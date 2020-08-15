@@ -20,6 +20,7 @@ namespace NewsPortal.Controllers
 
         // GET: Article
         [HttpGet]
+        [OutputCache(CacheProfile = "CacheWithCriteria")]
         public ActionResult Index(Criteria criteria)
         {
             var articles = service.GetArticlesBy(criteria, true);
@@ -41,6 +42,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Article/Details/5
+        [OutputCache(CacheProfile = "CacheWithId")]
         public ActionResult Details(int? id)
         {
             if (id == null)

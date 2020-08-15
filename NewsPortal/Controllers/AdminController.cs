@@ -24,6 +24,7 @@ namespace NewsPortal.Controllers
 
         // GET: Admin
         [HttpGet]
+        [OutputCache(CacheProfile = "CacheWithCriteria")]
         public ActionResult Index(Criteria criteria)
         {
             var articles = service.GetArticlesBy(criteria);
@@ -45,6 +46,7 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Admin/Details/5
+        [OutputCache(CacheProfile = "CacheWithId")]
         public ActionResult Details(int? id)
         {
             if(id == null)
@@ -63,6 +65,7 @@ namespace NewsPortal.Controllers
 
         // GET: Admin/Create
         [HttpGet]
+        [OutputCache(CacheProfile = "CacheWithoutParams")]
         public ActionResult Create()
         {
             return View();
@@ -93,7 +96,7 @@ namespace NewsPortal.Controllers
 
                 if (uploadImage != null)
                 {
-                    SaveArticleImage(ref article, uploadImage);
+                    SaveArticleImage(article, uploadImage);
                 }
 
                 service.CreateArticle(article);
@@ -105,6 +108,7 @@ namespace NewsPortal.Controllers
 
         // GET: Admin/Edit/5
         [HttpGet]
+        [OutputCache(CacheProfile = "CacheWithId")]
         public ActionResult Edit(int id)
         {
             var article = service.GetArticle(id);
@@ -132,7 +136,7 @@ namespace NewsPortal.Controllers
 
                 if (uploadImage != null)
                 {
-                    SaveArticleImage(ref article, uploadImage);
+                    SaveArticleImage(article, uploadImage);
                 }
 
                 service.UpdateArticle(article);
@@ -144,6 +148,7 @@ namespace NewsPortal.Controllers
 
         // GET: Admin/Delete/5
         [HttpGet]
+        [OutputCache(CacheProfile = "CacheWithId")]
         public ActionResult Delete(int id)
         {
             var article = service.GetArticle(id);
@@ -160,7 +165,7 @@ namespace NewsPortal.Controllers
             return RedirectToAction("Index");
         }
 
-        private void SaveArticleImage(ref Article article, HttpPostedFileBase uploadImage)
+        private void SaveArticleImage(Article article, HttpPostedFileBase uploadImage)
         {
             var imageUrl = BuildImageUrl(article);
             var path = Server.MapPath(imageUrl);
