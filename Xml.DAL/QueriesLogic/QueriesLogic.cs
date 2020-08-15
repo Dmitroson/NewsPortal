@@ -7,10 +7,9 @@ namespace Xml.DAL
 {
     public class QueriesLogic
     {
-        public static IEnumerable<Article> Filter(IEnumerable<Article> articles, string filterString, bool onlyVisible)
+        public static IEnumerable<Article> Filter(IEnumerable<Article> articles, DateRange range, bool onlyVisible)
         {
-            DateFilter filter = new DateFilter(filterString);
-            articles = filter.FilterByDate(articles);
+            articles = articles.Where(a => range.Includes(a.PubDate.Value));
             if (onlyVisible)
             {
                 articles = articles.Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);

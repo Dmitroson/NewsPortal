@@ -21,7 +21,7 @@ namespace Xml.DAL.Repositories
 
         public IEnumerable<Comment> GetAll()
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
 
             XElement root = unitOfWork.Document.Element("comments");
             IEnumerable<XElement> xComments = root.Elements();
@@ -44,7 +44,7 @@ namespace Xml.DAL.Repositories
 
         public Comment Get(int id)
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
 
             XElement xComment = null;
             foreach (var item in unitOfWork.Document.Element("comments").Elements("comment"))
@@ -69,7 +69,7 @@ namespace Xml.DAL.Repositories
 
         public IEnumerable<Comment> GetCommentsBy(int articleId)
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
 
             var comments = new List<Comment>();
 
@@ -94,7 +94,7 @@ namespace Xml.DAL.Repositories
 
         public void Create(Comment comment)
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
             
             XElement root = unitOfWork.Document.Element("comments");
             if (root.Attribute("lastId") == null)
@@ -116,7 +116,7 @@ namespace Xml.DAL.Repositories
 
         public void Update(Comment comment)
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
 
             XElement xComment = null;
             foreach (var item in unitOfWork.Document.Element("comments").Elements("comment"))
@@ -134,7 +134,7 @@ namespace Xml.DAL.Repositories
 
         public void Delete(int id)
         {
-            unitOfWork.OpenDocument();
+            unitOfWork.OpenSession();
 
             XElement xComment = null;
             foreach (var item in unitOfWork.Document.Element("comments").Elements("comment"))

@@ -6,10 +6,9 @@ namespace NHibernate.DAL
 {
     public class QueriesLogic
     {
-        public static IQueryable<Article> Filter(IQueryable<Article> articles, string filterString, bool onlyVisible)
+        public static IQueryable<Article> Filter(IQueryable<Article> articles, DateRange range, bool onlyVisible)
         {
-            DateFilter filter = new DateFilter(filterString);
-            articles = filter.FilterByDate(articles);
+            articles = articles.Where(a => a.PubDate.Value.Date >= range.Start && a.PubDate.Value.Date <= range.End);
             if (onlyVisible)
             {
                 articles = articles.Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);

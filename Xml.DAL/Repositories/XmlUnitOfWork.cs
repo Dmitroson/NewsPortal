@@ -14,13 +14,13 @@ namespace Xml.DAL.Repositories
             this.path = path;
         }
 
-        public void OpenDocument()
+        public void OpenSession()
         {
             if (Document != null)
                 Dispose();
 
             Document = XDocument.Load(path).Element("database");
-            snapshot = Document;
+            snapshot = new XDocument(Document).Element("database");
         }
 
         public void Commit()
@@ -28,14 +28,12 @@ namespace Xml.DAL.Repositories
             try
             {
                 Document.Save(path);
+                Dispose();
             }
             catch
             {
                 Rollback();
-            }
-            finally
-            {
-                Dispose();
+                throw;
             }
         }
 
