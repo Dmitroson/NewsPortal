@@ -28,7 +28,7 @@ namespace NewsPortal.Controllers
         public ActionResult Index(Criteria criteria)
         {
             var articles = service.GetArticlesBy(criteria);
-
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             var pageInfo = new PageInfo
             {
                 PageNumber = criteria.Page,

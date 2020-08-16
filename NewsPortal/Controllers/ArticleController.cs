@@ -3,6 +3,7 @@ using Business.Services;
 using NewsPortal.Attributes;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
+using System.Web;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -23,6 +24,7 @@ namespace NewsPortal.Controllers
         [OutputCache(CacheProfile = "CacheWithCriteria")]
         public ActionResult Index(Criteria criteria)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             var articles = service.GetArticlesBy(criteria, true);
 
             var pageInfo = new PageInfo
