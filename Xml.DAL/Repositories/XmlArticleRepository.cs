@@ -21,8 +21,6 @@ namespace Xml.DAL.Repositories
 
         public IEnumerable<Article> GetAll()
         {
-            unitOfWork.OpenSession();
-
             XElement root = unitOfWork.Document.Element("articles");
             IEnumerable<XElement> xArticles = root.Elements();
 
@@ -45,8 +43,6 @@ namespace Xml.DAL.Repositories
 
         public Article Get(int id)
         {
-            unitOfWork.OpenSession();
-
             XElement xArticle = null;
             foreach(var item in unitOfWork.Document.Element("articles").Elements("article"))
             {
@@ -90,7 +86,6 @@ namespace Xml.DAL.Repositories
 
         public void Create(Article article)
         {
-            unitOfWork.OpenSession();
             XElement root = unitOfWork.Document.Element("articles");
             if (root.Attribute("lastId") == null)
             {
@@ -112,8 +107,6 @@ namespace Xml.DAL.Repositories
 
         public void Update(Article article)
         {
-            unitOfWork.OpenSession();
-
             XElement xArticle = null;
             foreach (var item in unitOfWork.Document.Element("articles").Elements("article"))
             {
@@ -133,8 +126,6 @@ namespace Xml.DAL.Repositories
 
         public void Delete(int id)
         {
-            unitOfWork.OpenSession();
-
             XElement xArticle = null;
             foreach (var item in unitOfWork.Document.Element("articles").Elements("article"))
             {
@@ -145,12 +136,17 @@ namespace Xml.DAL.Repositories
                 }
             }
 
+            var comments = new List<XElement>();
             foreach(var comment in unitOfWork.Document.Element("comments").Elements("comment"))
             {
                 if (comment.Element("articleId").Value == id.ToString())
                 {
-                    comment.Remove();
+                    comments.Add(comment);
                 }
+            }
+            for (int i = 0; i < comments.Count; i++)
+            {
+                comments[i].Remove();
             }
 
             xArticle.Remove();

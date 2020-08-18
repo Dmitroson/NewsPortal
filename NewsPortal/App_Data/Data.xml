@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <database>
-  <articles lastId="16">
+  <articles lastId="19">
     <article>
       <id>9</id>
       <title>First article</title>
@@ -21,93 +21,14 @@
       <visibility>True</visibility>
       <pubDate>2020-08-05T19:38:00</pubDate>
     </article>
-    <article>
-      <id>12</id>
-      <title> jbjbjkb</title>
-      <description>&lt;p&gt;cfvb&lt;/p&gt;
-</description>
-      <imageUrl>/Images/ jbjbjkb_100820201214/testPicture111.jpg</imageUrl>
-      <visibility>True</visibility>
-      <pubDate>2020-08-10T15:19:00</pubDate>
-    </article>
-    <article>
-      <id>13</id>
-      <title>test</title>
-      <description>&lt;p&gt;test test test xml xml xml&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;jbkjhkhkhjkh&lt;/em&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;hhgjhgjhgjhp0iogcghchgchch&lt;strong&gt;vghhgchg&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-      <imageUrl>/Images/test_100820201523/testPicture111.jpg</imageUrl>
-      <visibility>true</visibility>
-      <pubDate>2020-08-10T15:23:17</pubDate>
-    </article>
-    <article>
-      <id>14</id>
-      <title>XML</title>
-      <description>&lt;p&gt;Sfweffaefawd&lt;/p&gt;
-</description>
-      <imageUrl>/Images\XML_13.08.2020_18-35-00\beautiful_sunset_poland_sea.jpg</imageUrl>
-      <visibility>True</visibility>
-      <pubDate>2020-08-13T18:35:00</pubDate>
-    </article>
-    <article>
-      <id>15</id>
-      <title>adwwdaw</title>
-      <description>&lt;p&gt;dawdawdawdawd&lt;/p&gt;
-</description>
-      <imageUrl>\Images\adwwdaw_12.08.2020-23-15-26\5-Top-Technology-Trends-In-2019-And-The-Opportunities-They-Will-Create-1030x672.jpg</imageUrl>
-      <visibility>false</visibility>
-      <pubDate>2020-08-12T23:15:26</pubDate>
-    </article>
-    <article>
-      <id>16</id>
-      <title>asdsdad</title>
-      <description>&lt;p&gt;wdawdawdawd&lt;/p&gt;
-</description>
-      <imageUrl>\Images\asdsdad_13.08.2020-2-58-48\Без названия.jpg</imageUrl>
-      <visibility>True</visibility>
-      <pubDate>2020-08-13T02:58:00</pubDate>
-    </article>
   </articles>
-  <comments lastId="11">
+  <comments lastId="27">
     <comment>
       <id>5</id>
       <text>awdawdawdawd</text>
       <userName>dadawdawd</userName>
       <pubDate>2020-08-10T01:37:27.0270999+03:00</pubDate>
       <articleId>8</articleId>
-    </comment>
-    <comment>
-      <id>8</id>
-      <text>____________________</text>
-      <userName>unknown</userName>
-      <pubDate>2020-08-10T15:19:34.4317755+03:00</pubDate>
-      <articleId>12</articleId>
-    </comment>
-    <comment>
-      <id>9</id>
-      <text>1233131314222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222223</text>
-      <userName>54646</userName>
-      <pubDate>2020-08-10T15:24:18</pubDate>
-      <articleId>13</articleId>
-    </comment>
-    <comment>
-      <id>10</id>
-      <text>вфцвфцв</text>
-      <userName>цфвфцвфц</userName>
-      <pubDate>2020-08-12T17:36:42</pubDate>
-      <articleId>13</articleId>
-    </comment>
-    <comment>
-      <id>11</id>
-      <text>фв</text>
-      <userName>фцвф</userName>
-      <pubDate>2020-08-12T17:37:31</pubDate>
-      <articleId>13</articleId>
     </comment>
   </comments>
 </database>

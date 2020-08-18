@@ -19,16 +19,19 @@ namespace Xml.DAL.Repositories
             if (Document != null)
                 Dispose();
 
-            Document = XDocument.Load(path).Element("database");
-            snapshot = new XDocument(Document).Element("database");
+            Document = XDocument.Load(path).Root;
+            snapshot = new XDocument(Document).Root;
         }
 
         public void Commit()
         {
             try
             {
-                Document.Save(path);
-                Dispose();
+                if(Document != null)
+                {
+                    Document.Save(path);
+                    snapshot = new XDocument(Document).Root;
+                }
             }
             catch
             {
@@ -39,13 +42,14 @@ namespace Xml.DAL.Repositories
 
         public void Rollback()
         {
-            Document = snapshot;
+            if (Document != null)
+                Document = new XDocument(snapshot).Root;
         }
 
         public void Dispose()
         {
             Document = null;
             snapshot = null;
-        } 
+        }
     }
 }

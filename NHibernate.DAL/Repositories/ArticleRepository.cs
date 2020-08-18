@@ -1,27 +1,11 @@
 ﻿using Business.Interfaces;
 using Business.Models;
-using Business.Services;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace NHibernate.DAL.Repositories
 {
-    public class ArticleRepository : IArticleRepository
+    public class ArticleRepository : NHBaseRepository<Article>, IArticleRepository
     {
-        private ISession Session
-        {
-            get
-            {
-                return NHibernateHelper.GetSession();
-            }
-        }
-
-        public IEnumerable<Article> GetAll()
-        {
-            var articles = Session.Query<Article>();
-            return articles;
-        }
-
         public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible)
         {
             var articlesQuery = Session.Query<Article>();
@@ -40,18 +24,7 @@ namespace NHibernate.DAL.Repositories
             return articles;
         }
 
-        public Article Get(int id)
-        {
-            var article = Session.Get<Article>(id);
-            return article;
-        }
-
-        public void Create(Article article)
-        {
-            Session.Save(article);
-        }
-
-        public void Update(Article article)
+        public override void Update(Article article)
         {
             Article editedArticle = Session.Get<Article>(article.Id);
             editedArticle.Title = article.Title;
@@ -63,15 +36,14 @@ namespace NHibernate.DAL.Repositories
             Session.Update(editedArticle);
         }
 
-        public void Delete(int id)
+        public override void Delete(int id)
         {
-            var article = Session.Get<Article>(id);
             var comments = Session.Query<Comment>().Where(c => c.ArticleId == id).ToList();
             foreach (var comment in comments)
             {
                 Session.Delete(comment);
             }
-            Session.Delete(article);
+            base.Delete(id);
         }
     }
 }

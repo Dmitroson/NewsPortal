@@ -27,11 +27,17 @@ document.addEventListener("DOMContentLoaded", function () {
     if (url.includes('filterString'))
         showCheckedItems();
 
+    let linkMoveToStart = document.querySelector('#paging-move-to-start');
+    let linkMoveToEnd = document.querySelector('#paging-move-to-end');
     let linkMoveToPrevious = document.querySelector('#paging-move-to-previous');
     let linkMoveToNext = document.querySelector('#paging-move-to-next');
 
+    if (linkMoveToStart)
+        linkMoveToStart.innerHTML = '&laquo;';
+    if (linkMoveToEnd)
+        linkMoveToEnd.innerHTML = '&raquo;';
     if (linkMoveToPrevious)
-        linkMoveToPrevious.innerHTML = '&laquo;';
+        linkMoveToPrevious.innerHTML = '&lsaquo;';
     if (linkMoveToNext)
-        linkMoveToNext.innerHTML = '&raquo;';
+        linkMoveToNext.innerHTML = '&rsaquo;';
 });

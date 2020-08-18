@@ -19,18 +19,18 @@
                 searchString = currentSearchString,
                 sortOrder = currentSortOrder
         },
-        new { @class = "btn btn-default", @id = "paging-move-to-previous" }
+        new { @class = "btn btn-default", @id = "paging-move-to-start" }
     )
 
     @Html.ActionLink("<", "Index",
         new
         {
-                page = currentPage - 1,
-                filterString = currentFilterString,
-                searchString = currentSearchString,
-                sortOrder = currentSortOrder
+            page = currentPage - 1,
+            filterString = currentFilterString,
+            searchString = currentSearchString,
+            sortOrder = currentSortOrder
         },
-        new { @class = "btn btn-default" }
+        new { @class = "btn btn-default", @id = "paging-move-to-previous" }
     )
 }
 
@@ -53,12 +53,12 @@
     @Html.ActionLink(">", "Index",
         new
         {
-                page = currentPage + 1,
-                filterString = currentFilterString,
-                searchString = currentSearchString,
-                sortOrder = currentSortOrder
+            page = currentPage + 1,
+            filterString = currentFilterString,
+            searchString = currentSearchString,
+            sortOrder = currentSortOrder
         },
-        new { @class = "btn btn-default"}
+        new { @class = "btn btn-default", @id = "paging-move-to-next" }
     )
 
     @Html.ActionLink(">>", "Index",
@@ -69,6 +69,6 @@
                 searchString = currentSearchString,
                 sortOrder = currentSortOrder
         },
-        new { @class = "btn btn-default", @id = "paging-move-to-next" }
+        new { @class = "btn btn-default", @id = "paging-move-to-end" }
     )
 }
