@@ -251,6 +251,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\LuceneSearch.cs" />
     <Compile Include="Helpers\PageInfo.cs" />
     <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Resources\Resource.en.Designer.cs">

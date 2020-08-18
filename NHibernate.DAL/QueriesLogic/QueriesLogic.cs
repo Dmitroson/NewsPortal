@@ -1,5 +1,7 @@
 ﻿using Business.Models;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace NHibernate.DAL
@@ -20,8 +22,7 @@ namespace NHibernate.DAL
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                articles = articles.Where(a => a.Title.Contains(searchString)
-                                            || a.Description.Contains(searchString));
+                articles = LuceneSearch.Search(searchString).AsQueryable<Article>();
             }
             return articles;
         }

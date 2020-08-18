@@ -99,6 +99,7 @@ namespace NewsPortal.Controllers
                     SaveArticleImage(article, uploadImage);
                 }
 
+                LuceneSearch.AddUpdateLuceneIndex(article);
                 service.CreateArticle(article);
 
                 return RedirectToAction("Index");
@@ -138,7 +139,8 @@ namespace NewsPortal.Controllers
                 {
                     SaveArticleImage(article, uploadImage);
                 }
-
+                LuceneSearch.DeleteArticle(article.Id);
+                LuceneSearch.AddUpdateLuceneIndex(article);
                 service.UpdateArticle(article);
 
                 return RedirectToAction("Index");
@@ -162,6 +164,7 @@ namespace NewsPortal.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             service.DeleteArticle(id);
+            LuceneSearch.DeleteArticle(id);
             return RedirectToAction("Index");
         }
 

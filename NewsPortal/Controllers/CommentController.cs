@@ -2,6 +2,7 @@
 using Business.Services;
 using NewsPortal.Attributes;
 using NewsPortal.ViewModels;
+using System.Web;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -20,6 +21,7 @@ namespace NewsPortal.Controllers
         [HttpGet]
         public ActionResult CommentsList(int articleId)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             var comments = service.GetComments(articleId);
             return PartialView(comments);
         }
