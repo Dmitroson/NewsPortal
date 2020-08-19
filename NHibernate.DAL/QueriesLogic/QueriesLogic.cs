@@ -1,4 +1,5 @@
 ﻿using Business.Models;
+using LuceneSearcher;
 using System;
 using System.Collections.Generic;
 using System.IO;

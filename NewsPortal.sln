@@ -4,14 +4,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsPortal", "NewsPortal\NewsPortal.csproj", "{CA5CAB73-DFC7-4688-80DB-F8968DD0620D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7969D77-36F4-4501-98FE-2D7426052496} = {B7969D77-36F4-4501-98FE-2D7426052496}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{9F44E825-E6D4-4B1E-A669-5602ABE5E9AC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHibernate.DAL", "NHibernate.DAL\NHibernate.DAL.csproj", "{DD6ABA5B-EC5F-4FF5-BD8C-E7D3F7F0DE05}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7969D77-36F4-4501-98FE-2D7426052496} = {B7969D77-36F4-4501-98FE-2D7426052496}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.DAL", "EF.DAL\EF.DAL.csproj", "{95C4A5E1-AC34-471F-AA06-840E91E2DBEC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xml.DAL", "Xml.DAL\Xml.DAL.csproj", "{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneSearcher", "LuceneSearch\LuceneSearcher.csproj", "{B7969D77-36F4-4501-98FE-2D7426052496}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +47,10 @@ Global
 		{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E8520EC-4EBB-4E9D-9095-356A351B9C1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7969D77-36F4-4501-98FE-2D7426052496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7969D77-36F4-4501-98FE-2D7426052496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7969D77-36F4-4501-98FE-2D7426052496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7969D77-36F4-4501-98FE-2D7426052496}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,7 +17,7 @@ namespace NewsPortal.Helpers
 
             if (pageInfo.TotalPages >= pagingPanelSize)
             {
-                if(currentPage > pagingPanelSize)
+                if (currentPage > pagingPanelSize)
                 {
                     offset = currentPage - pagingPanelSize;
                 }

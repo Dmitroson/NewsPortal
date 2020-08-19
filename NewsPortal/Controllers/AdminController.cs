@@ -1,8 +1,9 @@
 ﻿using Business.Models;
 using Business.Services;
 using NewsPortal.Attributes;
-using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
+using LuceneSearcher;
+using NewsPortal.Helpers;
 using System;
 using System.IO;
 using System.Web;
@@ -41,7 +42,7 @@ namespace NewsPortal.Controllers
                 Articles = articles,
                 PageInfo = pageInfo
             };
-
+            LuceneSearch.ClearLuceneIndex();
             return View(articlesViewModel);
         }
 
@@ -139,7 +140,6 @@ namespace NewsPortal.Controllers
                 {
                     SaveArticleImage(article, uploadImage);
                 }
-                LuceneSearch.DeleteArticle(article.Id);
                 LuceneSearch.AddUpdateLuceneIndex(article);
                 service.UpdateArticle(article);
 
