@@ -23,7 +23,7 @@ namespace NHibernate.DAL
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                articles = LuceneSearch.Search(searchString).AsQueryable<Article>();
+                articles = LuceneSearch.Search(searchString).AsQueryable();
             }
             return articles;
         }

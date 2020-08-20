@@ -28,7 +28,7 @@ namespace NewsPortal
             routes.MapRoute(
                 name: "Default",
                 url: "{lang}/{controller}/{action}/{id}",
-                defaults: new { lang = "ru", controller = "Article", action = "Index", id = UrlParameter.Optional }
+                defaults: new { lang = "ru", controller = "Article", action = "UpdateLuceneIndex", id = UrlParameter.Optional }
             );
  
         }

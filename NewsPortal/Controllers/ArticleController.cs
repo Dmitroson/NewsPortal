@@ -4,6 +4,7 @@ using NewsPortal.Attributes;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using System.Web;
+using LuceneSearcher;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -60,5 +61,14 @@ namespace NewsPortal.Controllers
 
             return View(article);
         }
+
+        public ActionResult UpdateLuceneIndex()
+        {
+            var articles = service.Articles;
+            LuceneSearch.ClearLuceneIndex();
+            LuceneSearch.AddUpdateLuceneIndex(articles);
+            return RedirectToAction("Index");
+        }
+
     }
 }

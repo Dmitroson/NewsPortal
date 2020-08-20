@@ -16,27 +16,27 @@ namespace LuceneSearcher
 {
     public static class LuceneSearch
     {
-        private static string _luceneDir;
-        private static FSDirectory _directoryTemp;
+        private static string diriectoryPath;
+        private static FSDirectory directoryTemp;
 
         public static void SetDirectory(string path)
         {
-            _luceneDir = path;
+            diriectoryPath = path;
         }
 
-        private static FSDirectory _directory
+        private static FSDirectory directory
         {
             get
             {
-                if (_directoryTemp == null) _directoryTemp = FSDirectory.Open(new DirectoryInfo(_luceneDir));
-                if (IndexWriter.IsLocked(_directoryTemp)) IndexWriter.Unlock(_directoryTemp);
-                var lockFilePath = Path.Combine(_luceneDir, "write.lock");
+                if (directoryTemp == null) directoryTemp = FSDirectory.Open(new DirectoryInfo(diriectoryPath));
+                if (IndexWriter.IsLocked(directoryTemp)) IndexWriter.Unlock(directoryTemp);
+                var lockFilePath = Path.Combine(diriectoryPath, "write.lock");
                 if (File.Exists(lockFilePath)) File.Delete(lockFilePath);
-                return _directoryTemp;
+                return directoryTemp;
             }
         }
 
-        private static void _addToLuceneIndex(Article article, IndexWriter writer)
+        private static void AddToLuceneIndex(Article article, IndexWriter writer)
         {
             var searchQuery = new TermQuery(new Term("Id", article.Id.ToString()));
             writer.DeleteDocuments(searchQuery);
@@ -54,14 +54,11 @@ namespace LuceneSearcher
 
         public static void AddUpdateLuceneIndex(IEnumerable<Article> articleList)
         {
-            // init lucene
             var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-            using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+            using (var writer = new IndexWriter(directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
             {
-                // add data to lucene search index (replaces older entry if any)
-                foreach (var article in articleList) _addToLuceneIndex(article, writer);
+                foreach (var article in articleList) AddToLuceneIndex(article, writer);
 
-                // close handles
                 analyzer.Close();
                 writer.Dispose();
             }
@@ -74,15 +71,12 @@ namespace LuceneSearcher
 
         public static void DeleteArticle(int articleId)
         {
-            // init lucene
             var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-            using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+            using (var writer = new IndexWriter(directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
             {
-                // remove older index entry
                 var searchQuery = new TermQuery(new Term("Id", articleId.ToString()));
                 writer.DeleteDocuments(searchQuery);
 
-                // close handles
                 analyzer.Close();
                 writer.Dispose();
             }
@@ -93,7 +87,7 @@ namespace LuceneSearcher
             try
             {
                 var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-                using (var writer = new IndexWriter(_directory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
+                using (var writer = new IndexWriter(directory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
                     writer.DeleteAll();
 
@@ -108,7 +102,7 @@ namespace LuceneSearcher
             return true;
         }
 
-        private static Article _mapLuceneDocumentToData(Document document)
+        private static Article MapLuceneDocumentToData(Document document)
         {
             return new Article
             {
@@ -120,28 +114,28 @@ namespace LuceneSearcher
             };
         }
 
-        private static IEnumerable<Article> _mapLuceneToDataList(IEnumerable<Document> hits)
+        private static IEnumerable<Article> MapLuceneToDataList(IEnumerable<Document> hits)
         {
-            return hits.Select(_mapLuceneDocumentToData).ToList();
+            return hits.Select(MapLuceneDocumentToData).ToList();
         }
 
-        private static IEnumerable<Article> _mapLuceneToDataList(IEnumerable<ScoreDoc> hits,
+        private static IEnumerable<Article> MapLuceneToDataList(IEnumerable<ScoreDoc> hits,
             IndexSearcher searcher)
         {
-            return hits.Select(hit => _mapLuceneDocumentToData(searcher.Doc(hit.Doc))).ToList();
+            return hits.Select(hit => MapLuceneDocumentToData(searcher.Doc(hit.Doc))).ToList();
         }
 
-        private static Query fparseQuery(string searchQuery)
+        private static Query ParseQuery(string searchQuery)
         {
             var query = new PrefixQuery(new Term("Description", searchQuery));
             return query;
         }
 
-        private static IEnumerable<Article> _search(string searchQuery, string searchField = "")
+        private static IEnumerable<Article> _search(string searchQuery, string searchField = "Id")
         {
             if (string.IsNullOrEmpty(searchQuery.Replace("*", "").Replace("?", ""))) return new List<Article>();
             
-            using (var searcher = new IndexSearcher(_directory, false))
+            using (var searcher = new IndexSearcher(directory, false))
             {
                 var hits_limit = 1000;
                 var analyzer = new StandardAnalyzer(Version.LUCENE_30);
@@ -149,9 +143,9 @@ namespace LuceneSearcher
                 if (!string.IsNullOrEmpty(searchField))
                 {
                     var parser = new QueryParser(Version.LUCENE_30, searchField, analyzer);
-                    var query = fparseQuery(searchQuery);
+                    var query = ParseQuery(searchQuery);
                     var hits = searcher.Search(query, hits_limit).ScoreDocs;
-                    var results = _mapLuceneToDataList(hits, searcher);
+                    var results = MapLuceneToDataList(hits, searcher);
                     analyzer.Close();
                     searcher.Dispose();
                     return results;
@@ -160,10 +154,10 @@ namespace LuceneSearcher
                 {
                     var parser = new MultiFieldQueryParser
                         (Version.LUCENE_30, new[] { "Id", "Name", "Description" }, analyzer);
-                    var query = fparseQuery(searchQuery);
+                    var query = ParseQuery(searchQuery);
                     var hits = searcher.Search
                     (query, null, hits_limit, Sort.RELEVANCE).ScoreDocs;
-                    var results = _mapLuceneToDataList(hits, searcher);
+                    var results = MapLuceneToDataList(hits, searcher);
                     analyzer.Close();
                     searcher.Dispose();
                     return results;
@@ -179,16 +173,16 @@ namespace LuceneSearcher
 
         public static IEnumerable<Article> GetAllArticles()
         {
-            if (!System.IO.Directory.EnumerateFiles(_luceneDir).Any()) return new List<Article>();
+            if (!System.IO.Directory.EnumerateFiles(diriectoryPath).Any()) return new List<Article>();
 
-            var searcher = new IndexSearcher(_directory, false);
-            var reader = IndexReader.Open(_directory, false);
+            var searcher = new IndexSearcher(directory, false);
+            var reader = IndexReader.Open(directory, false);
             var docs = new List<Document>();
             var term = reader.TermDocs();
             while (term.Next()) docs.Add(searcher.Doc(term.Doc));
             reader.Dispose();
             searcher.Dispose();
-            return _mapLuceneToDataList(docs);
+            return MapLuceneToDataList(docs);
         }
 
     }

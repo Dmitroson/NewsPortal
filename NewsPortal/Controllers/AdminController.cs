@@ -43,6 +43,7 @@ namespace NewsPortal.Controllers
                 PageInfo = pageInfo
             };
             LuceneSearch.ClearLuceneIndex();
+            LuceneSearch.AddUpdateLuceneIndex(articles);
             return View(articlesViewModel);
         }
 
@@ -99,7 +100,7 @@ namespace NewsPortal.Controllers
                 {
                     SaveArticleImage(article, uploadImage);
                 }
-
+                LuceneSearch.DeleteArticle(article.Id);
                 LuceneSearch.AddUpdateLuceneIndex(article);
                 service.CreateArticle(article);
 
