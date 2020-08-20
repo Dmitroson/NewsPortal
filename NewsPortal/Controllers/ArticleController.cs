@@ -4,7 +4,9 @@ using NewsPortal.Attributes;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using System.Web;
+using System.IO;
 using LuceneSearcher;
+using System.Configuration;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -64,6 +66,13 @@ namespace NewsPortal.Controllers
 
         public ActionResult UpdateLuceneIndex()
         {
+            var luceneIndexUrl = ConfigurationManager.ConnectionStrings["LuceneDirectory"].ConnectionString;
+            var path = Server.MapPath(luceneIndexUrl);
+
+            DirectoryInfo dir = new DirectoryInfo(path);
+            if (!dir.Exists)
+                dir.Create();
+
             var articles = service.Articles;
             LuceneSearch.ClearLuceneIndex();
             LuceneSearch.AddUpdateLuceneIndex(articles);
