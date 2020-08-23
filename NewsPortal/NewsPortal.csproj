@@ -725,10 +725,6 @@
       <Project>{95c4a5e1-ac34-471f-aa06-840e91e2dbec}</Project>
       <Name>EF.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LuceneSearch\LuceneSearcher.csproj">
-      <Project>{b7969d77-36f4-4501-98fe-2d7426052496}</Project>
-      <Name>LuceneSearcher</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NHibernate.DAL\NHibernate.DAL.csproj">
       <Project>{dd6aba5b-ec5f-4ff5-bd8c-e7d3f7f0de05}</Project>
       <Name>NHibernate.DAL</Name>

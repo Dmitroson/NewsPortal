@@ -21,7 +21,6 @@ namespace NewsPortal.Controllers
         [HttpGet]
         public ActionResult CommentsList(int articleId)
         {
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             var comments = service.GetComments(articleId);
             return PartialView(comments);
         }

@@ -5,7 +5,6 @@ using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
 using System.Web;
 using System.IO;
-using LuceneSearcher;
 using System.Configuration;
 using System.Web.Mvc;
 
@@ -24,7 +23,6 @@ namespace NewsPortal.Controllers
 
         // GET: Article
         [HttpGet]
-        [OutputCache(CacheProfile = "CacheWithCriteria")]
         public ActionResult Index(Criteria criteria)
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -47,7 +45,6 @@ namespace NewsPortal.Controllers
         }
 
         // GET: Article/Details/5
-        [OutputCache(CacheProfile = "CacheWithId")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -74,8 +71,6 @@ namespace NewsPortal.Controllers
                 dir.Create();
 
             var articles = service.Articles;
-            LuceneSearch.ClearLuceneIndex();
-            LuceneSearch.AddUpdateLuceneIndex(articles);
             return RedirectToAction("Index");
         }
 

@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj" />
-    <ProjectReference Include="..\LuceneSearch\LuceneSearcher.csproj" />
   </ItemGroup>
 
 </Project>

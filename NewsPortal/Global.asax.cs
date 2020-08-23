@@ -35,7 +35,6 @@ namespace NewsPortal
                     
                     break;
             }
-            LuceneSearcher.LuceneSearch.SetDirectory(Server.MapPath(ConfigurationManager.ConnectionStrings["LuceneDirectory"].ConnectionString));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

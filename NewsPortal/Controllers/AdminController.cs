@@ -2,7 +2,6 @@
 using Business.Services;
 using NewsPortal.Attributes;
 using NewsPortal.ViewModels;
-using LuceneSearcher;
 using NewsPortal.Helpers;
 using System;
 using System.IO;
@@ -25,11 +24,9 @@ namespace NewsPortal.Controllers
 
         // GET: Admin
         [HttpGet]
-        [OutputCache(CacheProfile = "CacheWithCriteria")]
         public ActionResult Index(Criteria criteria)
         {
             var articles = service.GetArticlesBy(criteria);
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             var pageInfo = new PageInfo
             {
                 PageNumber = criteria.Page,
@@ -42,13 +39,10 @@ namespace NewsPortal.Controllers
                 Articles = articles,
                 PageInfo = pageInfo
             };
-            LuceneSearch.ClearLuceneIndex();
-            LuceneSearch.AddUpdateLuceneIndex(articles);
             return View(articlesViewModel);
         }
 
         // GET: Admin/Details/5
-        [OutputCache(CacheProfile = "CacheWithId")]
         public ActionResult Details(int? id)
         {
             if(id == null)
@@ -67,7 +61,6 @@ namespace NewsPortal.Controllers
 
         // GET: Admin/Create
         [HttpGet]
-        [OutputCache(CacheProfile = "CacheWithoutParams")]
         public ActionResult Create()
         {
             return View();
@@ -100,8 +93,6 @@ namespace NewsPortal.Controllers
                 {
                     SaveArticleImage(article, uploadImage);
                 }
-                LuceneSearch.DeleteArticle(article.Id);
-                LuceneSearch.AddUpdateLuceneIndex(article);
                 service.CreateArticle(article);
 
                 return RedirectToAction("Index");
@@ -111,7 +102,6 @@ namespace NewsPortal.Controllers
 
         // GET: Admin/Edit/5
         [HttpGet]
-        [OutputCache(CacheProfile = "CacheWithId")]
         public ActionResult Edit(int id)
         {
             var article = service.GetArticle(id);
@@ -141,7 +131,6 @@ namespace NewsPortal.Controllers
                 {
                     SaveArticleImage(article, uploadImage);
                 }
-                LuceneSearch.AddUpdateLuceneIndex(article);
                 service.UpdateArticle(article);
 
                 return RedirectToAction("Index");
@@ -151,7 +140,6 @@ namespace NewsPortal.Controllers
 
         // GET: Admin/Delete/5
         [HttpGet]
-        [OutputCache(CacheProfile = "CacheWithId")]
         public ActionResult Delete(int id)
         {
             var article = service.GetArticle(id);
@@ -165,7 +153,6 @@ namespace NewsPortal.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             service.DeleteArticle(id);
-            LuceneSearch.DeleteArticle(id);
             return RedirectToAction("Index");
         }
 
