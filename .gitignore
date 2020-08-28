@@ -4,3 +4,4 @@
 **/Logs
 **/App_Data/*.xml
 **/Data.xml
+**/lucene_index

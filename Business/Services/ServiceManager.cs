@@ -1,4 +1,6 @@
 ﻿using Business.Interfaces;
+using Business.Lucene;
+using Business.Models;
 
 namespace Business.Services
 {
@@ -7,6 +9,7 @@ namespace Business.Services
         private static IUnitOfWork unitOfWork;
         private static IArticleRepository articleRepository;
         private static ICommentRepository commentRepository;
+        private static ILuceneSearcher<Article> luceneSearcher;
 
         public static void SetUnitOfWork(IUnitOfWork unitOfWorkInstance)
         {
@@ -36,6 +39,16 @@ namespace Business.Services
         public static ICommentRepository GetCommentRepository()
         {
             return commentRepository;
+        }
+
+        public static void SetLuceneSearcher(ILuceneSearcher<Article> luceneSearcherInstance)
+        {
+            luceneSearcher = luceneSearcherInstance;
+        }
+
+        public static ILuceneSearcher<Article> GetLuceneSearcher()
+        {
+            return luceneSearcher;
         }
     }
 }

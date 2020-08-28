@@ -1,5 +1,6 @@
 using Business.Models;
 using Business.Services;
+using Lucene;
 using NewsPortal.CustomModelBinders;
 using NHibernate.DAL.Repositories;
 using System.Configuration;
@@ -18,6 +19,7 @@ namespace NewsPortal
             ModelBinders.Binders.Add(typeof(Criteria), new CriteriaModelBinder());
 
             var typeSource = ConfigurationManager.AppSettings["typeSource"];
+            string luceneDirectoryPath = "";
             switch (typeSource)
             {
                 case "xml":
@@ -25,16 +27,21 @@ namespace NewsPortal
                     ServiceManager.SetUnitOfWork(new XmlUnitOfWork(xmlConnectionString));
                     ServiceManager.SetArticleRepository(new XmlArticleRepository());
                     ServiceManager.SetCommentRepository(new XmlCommentRepository());
+                    luceneDirectoryPath = ConfigurationManager.ConnectionStrings["LuceneDirectoryForXml"].ConnectionString;
                     break;
                 case "nhibernate":
                     NHibernateHelper.ConnectionString = ConfigurationManager.ConnectionStrings["NewsPortalDbConnection"].ConnectionString;
-                    
                     ServiceManager.SetUnitOfWork(new NHUnitOfWork());
                     ServiceManager.SetArticleRepository(new ArticleRepository());
                     ServiceManager.SetCommentRepository(new CommentRepository());
-                    
+                    luceneDirectoryPath = ConfigurationManager.ConnectionStrings["LuceneDirectoryForNHibernate"].ConnectionString;
                     break;
             }
+
+            luceneDirectoryPath = Server.MapPath(luceneDirectoryPath);
+
+            ServiceManager.SetLuceneSearcher(new LuceneSearcher(luceneDirectoryPath));
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
