@@ -134,6 +134,7 @@
     <Reference Include="System.Reflection.Metadata, Version=1.4.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reflection.Metadata.1.8.1\lib\net461\System.Reflection.Metadata.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -720,6 +721,10 @@
     <ProjectReference Include="..\Business\Business.csproj">
       <Project>{9f44e825-e6d4-4b1e-a669-5602abe5e9ac}</Project>
       <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cache\Cache.csproj">
+      <Project>{C114D871-6B1F-4E98-8A75-E19DF07E586E}</Project>
+      <Name>Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\EF.DAL\EF.DAL.csproj">
       <Project>{95c4a5e1-ac34-471f-aa06-840e91e2dbec}</Project>

@@ -3,7 +3,7 @@ using System;
 
 namespace Business.Models
 {
-    public class Comment : IEntity
+    public class Comment : CacheModel, IEntity
     {
         public int Id { get; set; }
         public string Text { get; set; }

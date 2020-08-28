@@ -3,6 +3,7 @@ using Business.Services;
 using NewsPortal.Attributes;
 using NewsPortal.ViewModels;
 using System.Web;
+using Cache.Services;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -10,11 +11,11 @@ namespace NewsPortal.Controllers
     [ExceptionLogger]
     public class CommentController : Controller
     {
-        private CommentService service;
+        private CommentServiceWeb service;
 
         public CommentController()
         {
-            service = new CommentService();
+            service = new CommentServiceWeb();
         }
 
         // GET: Comment

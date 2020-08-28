@@ -5,9 +5,8 @@ using System.Xml.Serialization;
 
 namespace Business.Models
 {
-    public class Article : IEntity
+    public class Article : CacheModel, IEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }

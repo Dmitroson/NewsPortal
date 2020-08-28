@@ -1,5 +1,4 @@
 ﻿using Business.Models;
-using Business.Services;
 using NewsPortal.Attributes;
 using NewsPortal.ViewModels;
 using NewsPortal.Helpers;
@@ -7,6 +6,7 @@ using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using Cache.Services;
 
 namespace NewsPortal.Controllers
 {
@@ -15,11 +15,11 @@ namespace NewsPortal.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private ArticleService service;
+        private ArticleServiceWeb service;
 
         public AdminController()
         {
-            service = new ArticleService();
+            service = new ArticleServiceWeb();
         }
 
         // GET: Admin

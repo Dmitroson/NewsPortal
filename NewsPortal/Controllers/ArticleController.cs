@@ -1,5 +1,4 @@
 ﻿using Business.Models;
-using Business.Services;
 using NewsPortal.Attributes;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
@@ -7,6 +6,7 @@ using System.Web;
 using System.IO;
 using System.Configuration;
 using System.Web.Mvc;
+using Cache.Services;
 
 namespace NewsPortal.Controllers
 {
@@ -14,18 +14,17 @@ namespace NewsPortal.Controllers
     [ExceptionLogger]
     public class ArticleController : Controller
     {
-        private ArticleService service;
+        private ArticleServiceWeb service;
          
         public ArticleController()
         {
-            service = new ArticleService();
+            service = new ArticleServiceWeb();
         }
 
         // GET: Article
         [HttpGet]
         public ActionResult Index(Criteria criteria)
         {
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             var articles = service.GetArticlesBy(criteria, true);
 
             var pageInfo = new PageInfo
@@ -59,20 +58,7 @@ namespace NewsPortal.Controllers
             }
 
             return View(article);
-        }
-
-        public ActionResult UpdateLuceneIndex()
-        {
-            var luceneIndexUrl = ConfigurationManager.ConnectionStrings["LuceneDirectory"].ConnectionString;
-            var path = Server.MapPath(luceneIndexUrl);
-
-            DirectoryInfo dir = new DirectoryInfo(path);
-            if (!dir.Exists)
-                dir.Create();
-
-            var articles = service.Articles;
-            return RedirectToAction("Index");
-        }
+        }       
 
     }
 }
