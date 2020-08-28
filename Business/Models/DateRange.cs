@@ -17,7 +17,7 @@ namespace Business.Models
 
         public DateRange()
         {
-            Start = new DateTime(1753, 1, 1);
+            Start = DateTime.MinValue;
             End = DateTime.MaxValue;
         }
 
@@ -35,30 +35,30 @@ namespace Business.Models
             if (options.Contains(TodayOption))
             {
                 Start = DateTime.Today.Date;
-                End = Start;
+                End = DateTime.MaxValue;
             }
 
             if (options.Contains(YesterdayOption))
             {
                 Start = DateTime.Today.Date.AddDays(-1);
-                End = Start;
+                End = DateTime.Today.Date;
             }
 
             if (options.Contains(YesterdayOption) && options.Contains(TodayOption))
             {
                 Start = DateTime.Today.Date.AddDays(-1);
-                End = DateTime.Today.Date;
+                End = DateTime.MaxValue;
             }
 
             if (options.Contains(ThisWeekOption))
             {
                 Start = DateTime.Today.Date.AddDays(-7);
-                End = DateTime.Today.Date;
+                End = DateTime.MaxValue;
             }
 
             if (options.Contains(AllOption))
             {
-                Start = new DateTime(1753, 1, 1);
+                Start = DateTime.MinValue;
                 End = DateTime.MaxValue;
             }
         }
