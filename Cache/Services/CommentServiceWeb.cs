@@ -1,45 +1,43 @@
-﻿using Business.Models;
+﻿using Business.CacheRepositories;
+using Business.Models;
 using Business.Services;
-using Cache.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Cache.Services
 {
     public class CommentServiceWeb
     {
         private CommentService commentService;
-        private CacheRepository<Comment> cacheRepository;
+        private ICacheRepository<Comment> commentCacheRepository;
 
         public CommentServiceWeb()
         {
             commentService = new CommentService();
-            cacheRepository = new CacheRepository<Comment>();
+            commentCacheRepository = ServiceManager.GetCommentCacheRepository();
         }
 
         public void CreateComment(Comment comment, int articleId)
         {
-            cacheRepository.Create(comment);
+            commentCacheRepository.Create(comment);
             commentService.CreateComment(comment, articleId);
         }
 
         public void DeleteComment(int id)
         {
-            cacheRepository.Delete(id.ToString());
+            commentCacheRepository.Delete(id.ToString());
             commentService.DeleteComment(id);
         }
 
         public IEnumerable<Comment> GetComments(int articleId)
         {
-            var comments = cacheRepository.GetItems();
+            var comments = commentCacheRepository.GetItems();
             if (comments == null)
             {
                 var commentsList = commentService.GetComments(articleId);
                 foreach (var comment in commentsList)
                 {
-                    cacheRepository.Create(comment);
+                    commentCacheRepository.Create(comment);
                 }
                 return commentsList;
             }
@@ -52,7 +50,7 @@ namespace Cache.Services
 
         public int GetArticleIdByCommentId(int id)
         {
-            var comment = cacheRepository.Get(id.ToString());
+            var comment = commentCacheRepository.Get(id.ToString());
             var articleId = comment.ArticleId;
             return articleId;
         }

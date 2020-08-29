@@ -8,7 +8,7 @@ namespace Cache
 {
     public static class QueriesLogic
     {
-        public static IQueryable<Article> Filter(IQueryable<Article> articles, DateRange range, bool onlyVisible)
+        public static IEnumerable<Article> Filter(IEnumerable<Article> articles, DateRange range, bool onlyVisible)
         {
             articles = articles.Where(a => a.PubDate.Value.Date >= range.Start && a.PubDate.Value.Date <= range.End);
             if (onlyVisible)
@@ -18,7 +18,7 @@ namespace Cache
             return articles;
         }
 
-        public static IQueryable<Article> Search(IQueryable<Article> articles, string searchString)
+        public static IEnumerable<Article> Search(IEnumerable<Article> articles, string searchString)
         {
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -28,7 +28,7 @@ namespace Cache
             return articles;
         }
 
-        public static IQueryable<Article> Sort(IQueryable<Article> articles, SortOrder order)
+        public static IEnumerable<Article> Sort(IEnumerable<Article> articles, SortOrder order)
         {
             switch (order)
             {

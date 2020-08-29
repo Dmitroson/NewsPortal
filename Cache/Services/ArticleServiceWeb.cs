@@ -1,30 +1,30 @@
-﻿using Business.Models;
+﻿using Business.CacheRepositories;
+using Business.Models;
 using Business.Services;
 using Cache.Repositories;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cache.Services
 {
     public class ArticleServiceWeb
     {
         private ArticleService articleService;
-        private CacheRepository<Article> cacheRepository;
+        private ICacheRepository<Article> articleCacheRepository;
 
         public ArticleServiceWeb()
         {
             articleService = new ArticleService();
-            cacheRepository = new CacheRepository<Article>();
+            articleCacheRepository = ServiceManager.GetArticleCacheRepository();
         }
 
         public Article GetArticle(int id)
         {
-            Article article = cacheRepository.Get(id.ToString());
+            Article article = articleCacheRepository.Get(id.ToString());
 
             if(article == null)
             {
                 article = articleService.GetArticle(id);
-                cacheRepository.Create(article);
+                articleCacheRepository.Create(article);
             }
 
             return article;
@@ -32,31 +32,31 @@ namespace Cache.Services
 
         public void DeleteArticle(int id)
         {
-            cacheRepository.Delete(id.ToString());
+            articleCacheRepository.Delete(id.ToString());
             articleService.DeleteArticle(id);
         }
 
         public void UpdateArticle(Article article)
         {
-            cacheRepository.Update(article);
+            articleCacheRepository.Update(article);
             articleService.UpdateArticle(article);
         }
 
         public void CreateArticle(Article article)
         {
-            cacheRepository.Create(article);
+            articleCacheRepository.Create(article);
             articleService.CreateArticle(article);
         }
 
         public IEnumerable<Article> GetArticles()
         {
-            var articles = cacheRepository.GetItems();
+            var articles = articleCacheRepository.GetItems();
             if(articles == null)
             {
                 var articleRepository = articleService.Articles;
                 foreach (var article in articleRepository)
                 {
-                    cacheRepository.Create(article);
+                    articleCacheRepository.Create(article);
                 }
                 return articleRepository;
             }
@@ -68,14 +68,13 @@ namespace Cache.Services
 
         public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible = false)
         {
-            IQueryable<Article> articles;
-            articles = cacheRepository.GetItems();
+            var articles = articleCacheRepository.GetItems();
             if (articles == null)
             {
                 var articleCollection = articleService.GetArticlesBy(criteria, onlyVisible);
                 foreach(var article in articleCollection)
                 {
-                    cacheRepository.Create(article);
+                    articleCacheRepository.Create(article);
                 }
                 return articleCollection;
             }

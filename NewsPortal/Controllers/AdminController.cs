@@ -50,7 +50,7 @@ namespace NewsPortal.Controllers
                 return HttpNotFound();
             }
 
-            var article = service.GetArticle((int)id);
+            var article = service.GetArticle(id.Value);
             if(article == null)
             {
                 return HttpNotFound();

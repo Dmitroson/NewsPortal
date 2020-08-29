@@ -1,11 +1,13 @@
-﻿using Business.Models;
+﻿using Business.CacheRepositories;
+using Business.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 
 namespace Cache.Repositories
 {
-    public class CacheRepository<T> where T : CacheModel
+    public class CacheRepository<T> : ICacheRepository<T> where T : CacheModel
     {
         public T Get(string key)
         {
@@ -26,30 +28,21 @@ namespace Cache.Repositories
             memoryCache.Add(item.Id.ToString(), item, DateTime.Now.AddMinutes(5));
         }
 
-        public void Create(IQueryable<T> items)
-        {
-            MemoryCache memoryCache = MemoryCache.Default;
-            foreach(var item in items)
-            {
-                memoryCache.Add(item.Id.ToString(), item, DateTime.Now.AddMinutes(5));
-            }
-        }
-
         public void Delete(string key)
         {
             MemoryCache memoryCache = MemoryCache.Default;
             memoryCache.Remove(key);
         }
 
-        public IQueryable<T> GetItems()
+        public IEnumerable<T> GetItems()
         {
-            IQueryable<T> items = null;
-            MemoryCache memoryCache = MemoryCache.Default;
-            foreach(var key in memoryCache.AsQueryable())
+            IEnumerable<T> items = null;
+            var memoryCache = MemoryCache.Default;
+            foreach(var item in memoryCache.AsEnumerable())
             {
                 try
                 {
-                    items.Append(memoryCache.Get(key.Key));
+                    items.Append(memoryCache.Get(item.Key));
                 }
                 catch
                 {

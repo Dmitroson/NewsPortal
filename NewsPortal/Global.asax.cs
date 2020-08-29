@@ -1,5 +1,6 @@
 using Business.Models;
 using Business.Services;
+using Cache.Repositories;
 using Lucene;
 using NewsPortal.CustomModelBinders;
 using NHibernate.DAL.Repositories;
@@ -8,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Services.Description;
 using Xml.DAL.Repositories;
 
 namespace NewsPortal
@@ -41,6 +43,10 @@ namespace NewsPortal
             luceneDirectoryPath = Server.MapPath(luceneDirectoryPath);
 
             ServiceManager.SetLuceneSearcher(new LuceneSearcher(luceneDirectoryPath));
+            new ArticleService().UpdateLuceneIndex();
+
+            ServiceManager.SetArticleCacheRepository(new CacheRepository<Article>());
+            ServiceManager.SetCommentCacheRepository(new CacheRepository<Comment>());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
