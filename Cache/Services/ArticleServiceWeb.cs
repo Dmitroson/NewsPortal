@@ -1,15 +1,14 @@
 ﻿using Business.CacheRepositories;
 using Business.Models;
 using Business.Services;
-using Cache.Repositories;
 using System.Collections.Generic;
 
 namespace Cache.Services
 {
     public class ArticleServiceWeb
     {
-        private ArticleService articleService;
-        private ICacheRepository<Article> articleCacheRepository;
+        private readonly ArticleService articleService;
+        private readonly ICacheRepository<Article> articleCacheRepository;
 
         public ArticleServiceWeb()
         {

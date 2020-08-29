@@ -11,7 +11,7 @@ namespace NewsPortal.Controllers
     [ExceptionLogger]
     public class ArticleController : Controller
     {
-        private ArticleServiceWeb service;
+        private readonly ArticleServiceWeb service;
          
         public ArticleController()
         {

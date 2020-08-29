@@ -15,7 +15,7 @@ namespace NewsPortal.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private ArticleServiceWeb service;
+        private readonly ArticleServiceWeb service;
 
         public AdminController()
         {

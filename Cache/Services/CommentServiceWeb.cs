@@ -8,8 +8,8 @@ namespace Cache.Services
 {
     public class CommentServiceWeb
     {
-        private CommentService commentService;
-        private ICacheRepository<Comment> commentCacheRepository;
+        private readonly CommentService commentService;
+        private readonly ICacheRepository<Comment> commentCacheRepository;
 
         public CommentServiceWeb()
         {

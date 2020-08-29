@@ -1,8 +1,5 @@
-﻿using Business.Interfaces;
-using Business.Models;
-using System;
+﻿using Business.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.CacheRepositories
 {
