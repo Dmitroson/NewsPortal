@@ -5,21 +5,15 @@ namespace Xml.DAL.Repositories
 {
     public class XmlUnitOfWork : IUnitOfWork
     {
-        private string path;
         private XElement snapshot;
         public XElement Document { get; set; }
-
-        public XmlUnitOfWork(string path)
-        {
-            this.path = path;
-        }
 
         public void OpenSession()
         {
             if (Document != null)
                 Dispose();
 
-            Document = XDocument.Load(path).Root;
+            Document = XmlHelper.OpenDocument();
             snapshot = new XDocument(Document).Root;
         }
 
@@ -29,7 +23,7 @@ namespace Xml.DAL.Repositories
             {
                 if(Document != null)
                 {
-                    Document.Save(path);
+                    XmlHelper.SaveDocument();
                     snapshot = new XDocument(Document).Root;
                 }
             }

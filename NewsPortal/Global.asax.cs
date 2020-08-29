@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System.Web.Services.Description;
+using Xml.DAL;
 using Xml.DAL.Repositories;
 
 namespace NewsPortal
@@ -25,8 +25,8 @@ namespace NewsPortal
             switch (typeSource)
             {
                 case "xml":
-                    var xmlConnectionString = Server.MapPath(ConfigurationManager.ConnectionStrings["NewsPortalXmlConnection"].ConnectionString);
-                    ServiceManager.SetUnitOfWork(new XmlUnitOfWork(xmlConnectionString));
+                    XmlHelper.ConnectionString = Server.MapPath(ConfigurationManager.ConnectionStrings["NewsPortalXmlConnection"].ConnectionString);
+                    ServiceManager.SetUnitOfWork(new XmlUnitOfWork());
                     ServiceManager.SetArticleRepository(new XmlArticleRepository());
                     ServiceManager.SetCommentRepository(new XmlCommentRepository());
                     luceneDirectoryPath = ConfigurationManager.ConnectionStrings["LuceneDirectoryForXml"].ConnectionString;

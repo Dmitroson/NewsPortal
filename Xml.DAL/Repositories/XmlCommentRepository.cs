@@ -1,9 +1,7 @@
 ﻿using Business.Interfaces;
 using Business.Models;
-using Business.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 
 namespace Xml.DAL.Repositories
@@ -12,16 +10,17 @@ namespace Xml.DAL.Repositories
     {
         private const string ISOFormat = "yyyy-MM-dd\\THH:mm:ss";
 
-        private readonly XmlUnitOfWork unitOfWork;
-
-        public XmlCommentRepository()
+        private XElement Document
         {
-            unitOfWork = ServiceManager.GetUnitOfWork() as XmlUnitOfWork;
+            get
+            {
+                return XmlHelper.GetDocument();
+            }
         }
 
         public IEnumerable<Comment> GetAll()
         {
-            XElement root = unitOfWork.Document.Element("comments");
+            XElement root = Document.Element("comments");
             IEnumerable<XElement> xComments = root.Elements();
 
             var comments = new List<Comment>();
@@ -43,7 +42,7 @@ namespace Xml.DAL.Repositories
         public Comment Get(int id)
         {
             XElement xComment = null;
-            foreach (var item in unitOfWork.Document.Element("comments").Elements("comment"))
+            foreach (var item in Document.Element("comments").Elements("comment"))
             {
                 if (item.Element("id").Value == id.ToString())
                 {
@@ -67,7 +66,7 @@ namespace Xml.DAL.Repositories
         {
             var comments = new List<Comment>();
 
-            foreach(var item in unitOfWork.Document.Element("comments").Elements("comment"))
+            foreach(var item in Document.Element("comments").Elements("comment"))
             {
                 if (item.Element("articleId").Value == articleId.ToString())
                 {
@@ -88,7 +87,7 @@ namespace Xml.DAL.Repositories
 
         public void Create(Comment comment)
         {
-            XElement root = unitOfWork.Document.Element("comments");
+            XElement root = Document.Element("comments");
             if (root.Attribute("lastId") == null)
             {
                 root.Add(new XAttribute("lastId", 0));
@@ -109,7 +108,7 @@ namespace Xml.DAL.Repositories
         public void Update(Comment comment)
         {
             XElement xComment = null;
-            foreach (var item in unitOfWork.Document.Element("comments").Elements("comment"))
+            foreach (var item in Document.Element("comments").Elements("comment"))
             {
                 if (item.Element("id").Value == comment.Id.ToString())
                 {
@@ -125,7 +124,7 @@ namespace Xml.DAL.Repositories
         public void Delete(int id)
         {
             XElement xComment = null;
-            foreach (var item in unitOfWork.Document.Element("comments").Elements("comment"))
+            foreach (var item in Document.Element("comments").Elements("comment"))
             {
                 if (item.Element("id").Value == id.ToString())
                 {
