@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <database>
-  <articles lastId="19">
+  <articles lastId="26">
     <article>
       <id>9</id>
       <title>First article</title>
@@ -21,14 +21,82 @@
       <visibility>True</visibility>
       <pubDate>2020-08-05T19:38:00</pubDate>
     </article>
+    <article>
+      <id>20</id>
+      <title>XMLfwddsedf</title>
+      <description>&lt;p&gt;adasdasdsdasd&lt;/p&gt;
+</description>
+      <imageUrl>\Images\XML_29.08.2020-18-21-38\service-428540_1280.jpg</imageUrl>
+      <visibility>False</visibility>
+      <pubDate>2020-08-29T18:21:00</pubDate>
+    </article>
+    <article>
+      <id>21</id>
+      <title>sefefsfsef</title>
+      <description>&lt;p&gt;sefsefsef&lt;/p&gt;
+</description>
+      <imageUrl>\Images\sefefsfsef_29.08.2020-23-09-31\testPicture111.jpg</imageUrl>
+      <visibility>false</visibility>
+      <pubDate>2020-08-29T23:09:31</pubDate>
+    </article>
+    <article>
+      <id>22</id>
+      <title>test</title>
+      <description>&lt;p&gt;test&lt;/p&gt;
+</description>
+      <imageUrl>\Images\test_29.08.2020-23-18-39\5-Top-Technology-Trends-In-2019-And-The-Opportunities-They-Will-Create-1030x672.jpg</imageUrl>
+      <visibility>true</visibility>
+      <pubDate>2020-08-29T23:18:39</pubDate>
+    </article>
+    <article>
+      <id>23</id>
+      <title>12312312</title>
+      <description>&lt;p&gt;32123123&lt;/p&gt;
+</description>
+      <imageUrl>\Images\12312312_29.08.2020-23-21-48\beautiful_sunset_poland_sea.jpg</imageUrl>
+      <visibility>false</visibility>
+      <pubDate>2020-08-29T23:21:48</pubDate>
+    </article>
+    <article>
+      <id>24</id>
+      <title>awdawdawd</title>
+      <description>&lt;p&gt;adawdawdad&lt;/p&gt;
+</description>
+      <imageUrl>\Images\awdawdawd_29.08.2020-23-25-34\Без названия.jpg</imageUrl>
+      <visibility>false</visibility>
+      <pubDate>2020-08-29T23:25:34</pubDate>
+    </article>
+    <article>
+      <id>26</id>
+      <title>1232312</title>
+      <description>&lt;p&gt;31231231&lt;/p&gt;
+</description>
+      <imageUrl>\Images\1232312_29.08.2020-23-32-35\beautiful_sunset_poland_sea.jpg</imageUrl>
+      <visibility>false</visibility>
+      <pubDate>2020-08-29T23:32:35</pubDate>
+    </article>
   </articles>
-  <comments lastId="27">
+  <comments lastId="30">
     <comment>
       <id>5</id>
       <text>awdawdawdawd</text>
       <userName>dadawdawd</userName>
       <pubDate>2020-08-10T01:37:27.0270999+03:00</pubDate>
       <articleId>8</articleId>
+    </comment>
+    <comment>
+      <id>28</id>
+      <text>423423</text>
+      <userName>3e2323</userName>
+      <pubDate>2020-08-29T23:18:59</pubDate>
+      <articleId>0</articleId>
+    </comment>
+    <comment>
+      <id>29</id>
+      <text>sefe123213</text>
+      <userName>efefsef</userName>
+      <pubDate>2020-08-29T23:19:23</pubDate>
+      <articleId>21</articleId>
     </comment>
   </comments>
 </database>

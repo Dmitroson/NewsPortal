@@ -1,6 +1,5 @@
 ﻿using Business.Interfaces;
 using Business.Models;
-using Business.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +11,17 @@ namespace Xml.DAL.Repositories
     {
         private const string ISOFormat = "yyyy-MM-dd\\THH:mm:ss";
 
-        private readonly XmlUnitOfWork unitOfWork;
-
-        public XmlArticleRepository()
+        private XElement Document
         {
-            unitOfWork = ServiceManager.GetUnitOfWork() as XmlUnitOfWork;
+            get
+            {
+                return XmlHelper.GetDocument();
+            }
         }
 
         public IEnumerable<Article> GetAll()
         {
-            XElement root = unitOfWork.Document.Element("articles");
+            XElement root = Document.Element("articles");
             IEnumerable<XElement> xArticles = root.Elements();
 
             var articles = new List<Article>();
@@ -44,7 +44,7 @@ namespace Xml.DAL.Repositories
         public Article Get(int id)
         {
             XElement xArticle = null;
-            foreach(var item in unitOfWork.Document.Element("articles").Elements("article"))
+            foreach(var item in Document.Element("articles").Elements("article"))
             {
                 if(item.Element("id").Value == id.ToString())
                 {
@@ -86,18 +86,18 @@ namespace Xml.DAL.Repositories
 
         public void Create(Article article)
         {
-            XElement root = unitOfWork.Document.Element("articles");
+            XElement root = Document.Element("articles");
             if (root.Attribute("lastId") == null)
             {
                 root.Add(new XAttribute("lastId", 0));
             }
 
             int lastId = int.Parse(root.Attribute("lastId").Value);
-
-            root.Attribute("lastId").Value = (++lastId).ToString();
+            article.Id = ++lastId;
+            root.Attribute("lastId").Value = lastId.ToString();
 
             root.Add(new XElement("article",
-                new XElement("id", lastId),
+                new XElement("id", article.Id),
                 new XElement("title", article.Title),
                 new XElement("description", article.Description),
                 new XElement("imageUrl", article.ImageUrl),
@@ -108,7 +108,7 @@ namespace Xml.DAL.Repositories
         public void Update(Article article)
         {
             XElement xArticle = null;
-            foreach (var item in unitOfWork.Document.Element("articles").Elements("article"))
+            foreach (var item in Document.Element("articles").Elements("article"))
             {
                 if (item.Element("id").Value == article.Id.ToString())
                 {
@@ -127,7 +127,7 @@ namespace Xml.DAL.Repositories
         public void Delete(int id)
         {
             XElement xArticle = null;
-            foreach (var item in unitOfWork.Document.Element("articles").Elements("article"))
+            foreach (var item in Document.Element("articles").Elements("article"))
             {
                 if (item.Element("id").Value == id.ToString())
                 {
@@ -137,7 +137,7 @@ namespace Xml.DAL.Repositories
             }
 
             var comments = new List<XElement>();
-            foreach(var comment in unitOfWork.Document.Element("comments").Elements("comment"))
+            foreach(var comment in Document.Element("comments").Elements("comment"))
             {
                 if (comment.Element("articleId").Value == id.ToString())
                 {
