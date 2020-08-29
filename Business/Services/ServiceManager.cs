@@ -1,4 +1,5 @@
-﻿using Business.Interfaces;
+﻿using Business.CacheRepositories;
+using Business.Interfaces;
 using Business.Lucene;
 using Business.Models;
 
@@ -10,6 +11,8 @@ namespace Business.Services
         private static IArticleRepository articleRepository;
         private static ICommentRepository commentRepository;
         private static ILuceneSearcher<Article> luceneSearcher;
+        private static ICacheRepository<Article> articleCacheRepository;
+        private static ICacheRepository<Comment> commentCacheRepository;
 
         public static void SetUnitOfWork(IUnitOfWork unitOfWorkInstance)
         {
@@ -49,6 +52,26 @@ namespace Business.Services
         public static ILuceneSearcher<Article> GetLuceneSearcher()
         {
             return luceneSearcher;
+        }
+
+        public static void SetArticleCacheRepository(ICacheRepository<Article> cacheRepositoryInstance)
+        {
+            articleCacheRepository = cacheRepositoryInstance;
+        }
+
+        public static ICacheRepository<Article> GetArticleCacheRepository()
+        {
+            return articleCacheRepository;
+        }
+
+        public static void SetCommentCacheRepository(ICacheRepository<Comment> cacheRepositoryInstance)
+        {
+            commentCacheRepository = cacheRepositoryInstance;
+        }
+
+        public static ICacheRepository<Comment> GetCommentCacheRepository()
+        {
+            return commentCacheRepository;
         }
     }
 }

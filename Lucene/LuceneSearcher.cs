@@ -15,7 +15,7 @@ namespace Lucene
     public class LuceneSearcher : ILuceneSearcher<Article>
     {
         private FSDirectory directory;
-        private string directoryPath;
+        private readonly string directoryPath;
 
         public LuceneSearcher(string directoryPath)
         {

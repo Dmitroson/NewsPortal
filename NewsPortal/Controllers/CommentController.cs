@@ -1,9 +1,7 @@
 ﻿using Business.Models;
-using Business.Services;
+using Cache.Services;
 using NewsPortal.Attributes;
 using NewsPortal.ViewModels;
-using System.Web;
-using Cache.Services;
 using System.Web.Mvc;
 
 namespace NewsPortal.Controllers
@@ -11,7 +9,7 @@ namespace NewsPortal.Controllers
     [ExceptionLogger]
     public class CommentController : Controller
     {
-        private CommentServiceWeb service;
+        private readonly CommentServiceWeb service;
 
         public CommentController()
         {

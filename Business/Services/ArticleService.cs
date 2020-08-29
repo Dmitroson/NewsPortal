@@ -16,7 +16,6 @@ namespace Business.Services
             unitOfWork = ServiceManager.GetUnitOfWork();
             articleRepository = ServiceManager.GetArticleRepository();
             luceneSearcher = ServiceManager.GetLuceneSearcher();
-            UpdateLuceneIndex();
         }
 
         public IEnumerable<Article> Articles
@@ -67,7 +66,7 @@ namespace Business.Services
             unitOfWork.Commit();
         }
 
-        private void UpdateLuceneIndex()
+        public void UpdateLuceneIndex()
         {
             luceneSearcher.UpdateLuceneIndex(Articles);
         }

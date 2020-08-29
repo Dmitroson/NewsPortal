@@ -2,9 +2,6 @@
 using NewsPortal.Attributes;
 using NewsPortal.Helpers;
 using NewsPortal.ViewModels;
-using System.Web;
-using System.IO;
-using System.Configuration;
 using System.Web.Mvc;
 using Cache.Services;
 
@@ -14,7 +11,7 @@ namespace NewsPortal.Controllers
     [ExceptionLogger]
     public class ArticleController : Controller
     {
-        private ArticleServiceWeb service;
+        private readonly ArticleServiceWeb service;
          
         public ArticleController()
         {
@@ -51,14 +48,13 @@ namespace NewsPortal.Controllers
                 return HttpNotFound();
             }
 
-            var article = service.GetArticle((int)id);
+            var article = service.GetArticle(id.Value);
             if (article == null)
             {
                 return HttpNotFound();
             }
 
             return View(article);
-        }       
-
+        }
     }
 }
