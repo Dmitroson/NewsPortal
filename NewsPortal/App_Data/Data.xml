@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <database>
-  <articles lastId="21">
+  <articles lastId="22">
     <article>
       <id>20</id>
       <title>234</title>
@@ -18,6 +18,15 @@
       <imageUrl>\Images\1345_29.08.2020-11-06-39\VOLKI-krasivye-i-ochen-umnye-zhivotnye.jpg</imageUrl>
       <visibility>true</visibility>
       <pubDate>2020-08-29T11:06:39</pubDate>
+    </article>
+    <article>
+      <id>22</id>
+      <title>fbfgb</title>
+      <description>&lt;p&gt;sdvert4&lt;/p&gt;
+</description>
+      <imageUrl>\Images\fbfgb_29.08.2020-23-08-32\1523x1523x2_3.jpg</imageUrl>
+      <visibility>false</visibility>
+      <pubDate>2020-08-29T23:08:32</pubDate>
     </article>
   </articles>
   <comments lastId="27">

@@ -32,7 +32,7 @@ namespace Cache.Services
         public IEnumerable<Comment> GetComments(int articleId)
         {
             var comments = commentCacheRepository.GetItems();
-            if (comments == null)
+            if (comments.Count() == 0)
             {
                 var commentsList = commentService.GetComments(articleId);
                 foreach (var comment in commentsList)

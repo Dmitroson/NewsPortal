@@ -19,13 +19,13 @@ namespace Cache.Repositories
         public void Update(T item)
         {
             MemoryCache memoryCache = MemoryCache.Default;
-            memoryCache.Set(item.Id.ToString(), item, DateTime.Now.AddMinutes(5));
+            memoryCache.Set(item.Id.ToString(), item, DateTime.Now.AddMinutes(1));
         }
 
         public void Create(T item)
         {
             MemoryCache memoryCache = MemoryCache.Default;
-            memoryCache.Add(item.Id.ToString(), item, DateTime.Now.AddMinutes(5));
+            memoryCache.Add(item.Id.ToString(), item, DateTime.Now.AddMinutes(1));
         }
 
         public void Delete(string key)
@@ -36,18 +36,12 @@ namespace Cache.Repositories
 
         public IEnumerable<T> GetItems()
         {
-            IEnumerable<T> items = null;
+            List<T> items = new List<T>();
             var memoryCache = MemoryCache.Default;
-            foreach(var item in memoryCache.AsEnumerable())
+            foreach(var item in memoryCache)
             {
-                try
-                {
-                    items.Append(memoryCache.Get(item.Key));
-                }
-                catch
-                {
-                    continue;
-                }
+                if(item.Value.GetType() == typeof(T))
+                    items.Add(memoryCache.Get(item.Key) as T);
             }
             return items;
         }
