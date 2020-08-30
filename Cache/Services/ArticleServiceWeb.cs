@@ -38,8 +38,8 @@ namespace Cache.Services
 
         public void UpdateArticle(Article article)
         {
-            articleCacheRepository.Update(article);
             articleService.UpdateArticle(article);
+            articleCacheRepository.Update(article);
         }
 
         public void CreateArticle(Article article)
@@ -68,26 +68,21 @@ namespace Cache.Services
 
         public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible = false)
         {
+            var articleCollection = new ArticleCollection();
             var articles = articleCacheRepository.GetItems();
             if (articles.Count() == 0)
             {
-                var articleCollection = articleService.GetArticlesBy(criteria, onlyVisible);
-                foreach(var article in articleCollection)
+                articles.Concat(articleService.Articles);
+                foreach (var article in articles)
                 {
                     articleCacheRepository.Create(article);
                 }
+                articleCollection = articleService.GetArticlesBy(criteria, onlyVisible);
                 return articleCollection;
             }
             else
             {
-                articles = QueriesLogic.Filter(articles, criteria.FilterRange, onlyVisible);
-                articles = QueriesLogic.Search(articles, criteria.SearchString);
-                articles = QueriesLogic.Sort(articles, criteria.SortOrder);
-                var articleCollection = new ArticleCollection
-                {
-                    TotalItems = articles.Count()
-                };
-
+                articleCollection.TotalItems = articles.Count();
                 articles = articles.Skip((criteria.Page) * criteria.ArticlesPerPage).Take(criteria.ArticlesPerPage);
                 articleCollection.AddItems(articles);
                 return articleCollection;

@@ -19,8 +19,9 @@ namespace Cache.Services
 
         public void CreateComment(Comment comment, int articleId)
         {
-            commentCacheRepository.Create(comment);
+            comment.ArticleId = articleId;
             commentService.CreateComment(comment, articleId);
+            commentCacheRepository.Create(comment);
         }
 
         public void DeleteComment(int id)

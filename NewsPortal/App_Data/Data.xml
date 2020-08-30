@@ -29,13 +29,27 @@
       <pubDate>2020-08-29T23:08:32</pubDate>
     </article>
   </articles>
-  <comments lastId="27">
+  <comments lastId="29">
     <comment>
       <id>5</id>
       <text>awdawdawdawd</text>
       <userName>dadawdawd</userName>
       <pubDate>2020-08-10T01:37:27.0270999+03:00</pubDate>
       <articleId>8</articleId>
+    </comment>
+    <comment>
+      <id>28</id>
+      <text>dvf</text>
+      <userName>32</userName>
+      <pubDate>2020-08-30T00:10:05</pubDate>
+      <articleId>21</articleId>
+    </comment>
+    <comment>
+      <id>29</id>
+      <text>sd</text>
+      <userName>df</userName>
+      <pubDate>2020-08-30T00:10:40</pubDate>
+      <articleId>21</articleId>
     </comment>
   </comments>
 </database>
