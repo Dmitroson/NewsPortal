@@ -48,6 +48,10 @@ namespace NewsPortal
             ServiceManager.SetArticleCacheRepository(new CacheRepository<Article>());
             ServiceManager.SetCommentCacheRepository(new CacheRepository<Comment>());
 
+            string luceneCacheDirectoryPath = Server.MapPath(ConfigurationManager.ConnectionStrings["LuceneDirectoryForCache"].ConnectionString);
+
+            ServiceManager.SetCacheLuceneSearcher(new LuceneSearcher(luceneCacheDirectoryPath));
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

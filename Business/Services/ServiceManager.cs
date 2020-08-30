@@ -11,6 +11,7 @@ namespace Business.Services
         private static IArticleRepository articleRepository;
         private static ICommentRepository commentRepository;
         private static ILuceneSearcher<Article> luceneSearcher;
+        private static ILuceneSearcher<Article> cacheLuceneSearcher;
         private static ICacheRepository<Article> articleCacheRepository;
         private static ICacheRepository<Comment> commentCacheRepository;
 
@@ -52,6 +53,16 @@ namespace Business.Services
         public static ILuceneSearcher<Article> GetLuceneSearcher()
         {
             return luceneSearcher;
+        }
+
+        public static void SetCacheLuceneSearcher(ILuceneSearcher<Article> luceneSearcherInstance)
+        {
+            cacheLuceneSearcher = luceneSearcherInstance;
+        }
+
+        public static ILuceneSearcher<Article> GetCacheLuceneSearcher()
+        {
+            return cacheLuceneSearcher;
         }
 
         public static void SetArticleCacheRepository(ICacheRepository<Article> cacheRepositoryInstance)

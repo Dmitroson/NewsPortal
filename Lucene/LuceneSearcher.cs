@@ -114,6 +114,13 @@ namespace Lucene
             }
         }
 
+        public ArticleCollection GetArticlesBy(IEnumerable<Article> articles, Criteria criteria, bool onlyVisible)
+        {
+            UpdateLuceneIndex(articles);
+            var articleCollection = GetArticlesBy(criteria, onlyVisible);
+            return articleCollection;
+        }
+
         private Filter GetFilter(DateRange dateRange)
         {
             string start = DateTools.DateToString(dateRange.Start, DateTools.Resolution.SECOND);

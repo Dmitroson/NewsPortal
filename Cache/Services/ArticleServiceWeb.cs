@@ -1,7 +1,7 @@
 ﻿using Business.CacheRepositories;
+using Business.Lucene;
 using Business.Models;
 using Business.Services;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cache.Services
@@ -10,11 +10,13 @@ namespace Cache.Services
     {
         private readonly ArticleService articleService;
         private readonly ICacheRepository<Article> articleCacheRepository;
+        private readonly ILuceneSearcher<Article> cacheLuceneSearcher;
 
         public ArticleServiceWeb()
         {
             articleService = new ArticleService();
             articleCacheRepository = ServiceManager.GetArticleCacheRepository();
+            cacheLuceneSearcher = ServiceManager.GetCacheLuceneSearcher();
         }
 
         public Article GetArticle(int id)
@@ -34,36 +36,21 @@ namespace Cache.Services
         {
             articleCacheRepository.Delete(id.ToString());
             articleService.DeleteArticle(id);
+            cacheLuceneSearcher.Delete(id);
         }
 
         public void UpdateArticle(Article article)
         {
             articleService.UpdateArticle(article);
             articleCacheRepository.Update(article);
+            cacheLuceneSearcher.Save(article);
         }
 
         public void CreateArticle(Article article)
         {
             articleCacheRepository.Add(article);
             articleService.CreateArticle(article);
-        }
-
-        public IEnumerable<Article> GetArticles()
-        {
-            var articles = articleCacheRepository.GetItems();
-            if(articles == null)
-            {
-                var articleRepository = articleService.Articles;
-                foreach (var article in articleRepository)
-                {
-                    articleCacheRepository.Add(article);
-                }
-                return articleRepository;
-            }
-            else
-            {
-                return articles;
-            }
+            cacheLuceneSearcher.Save(article);
         }
 
         public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible = false)
@@ -77,24 +64,15 @@ namespace Cache.Services
                 {
                     articleCacheRepository.Add(article);
                 }
-                articleCollection.TotalItems = articles.Count();
-                articles = articleService.GetArticlesBy(criteria, onlyVisible);
-                articleCollection.AddItems(articles);
-                return articleCollection;
+               
+                articleCollection = articleService.GetArticlesBy(criteria, onlyVisible);
             }
             else
             {
-
-                articles = QueriesLogic.Filter(articles, criteria.FilterRange, onlyVisible);
-                articles = QueriesLogic.Search(articles, criteria.SearchString);
-                articles = QueriesLogic.Sort(articles, criteria.SortOrder);
-
-                articles = articles.Skip((criteria.Page) * criteria.ArticlesPerPage).Take(criteria.ArticlesPerPage);
-                articleCollection.TotalItems = articles.Count();
-                articleCollection.AddItems(articles);
-                return articleCollection;
+                articleCollection = cacheLuceneSearcher.GetArticlesBy(articles, criteria, onlyVisible);
             }
-        }
 
+            return articleCollection;
+        }
     }
 }
