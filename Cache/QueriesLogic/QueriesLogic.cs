@@ -10,7 +10,7 @@ namespace Cache
     {
         public static IEnumerable<Article> Filter(IEnumerable<Article> articles, DateRange range, bool onlyVisible)
         {
-            articles = articles.Where(a => a.PubDate.Value.Date >= range.Start && a.PubDate.Value.Date <= range.End);
+            articles = articles.Where(a => a.PubDate.Value.Date >= range.Start && a.PubDate.Value.Date < range.End);
             if (onlyVisible)
             {
                 articles = articles.Where(a => a.PubDate <= DateTime.Now && a.Visibility == true);

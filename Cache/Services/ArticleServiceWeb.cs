@@ -72,24 +72,25 @@ namespace Cache.Services
             var articles = articleCacheRepository.GetItems();
             if (articles.Count() == 0)
             {
-                articles = articleService.GetArticlesBy(criteria, onlyVisible).Articles;
+                articles = articleService.Articles;
                 foreach (var article in articles)
                 {
                     articleCacheRepository.Add(article);
                 }
                 articleCollection.TotalItems = articles.Count();
+                articles = articleService.GetArticlesBy(criteria, onlyVisible);
                 articleCollection.AddItems(articles);
                 return articleCollection;
             }
             else
             {
-                articleCollection.TotalItems = articles.Count();
 
                 articles = QueriesLogic.Filter(articles, criteria.FilterRange, onlyVisible);
                 articles = QueriesLogic.Search(articles, criteria.SearchString);
                 articles = QueriesLogic.Sort(articles, criteria.SortOrder);
 
                 articles = articles.Skip((criteria.Page) * criteria.ArticlesPerPage).Take(criteria.ArticlesPerPage);
+                articleCollection.TotalItems = articles.Count();
                 articleCollection.AddItems(articles);
                 return articleCollection;
             }
