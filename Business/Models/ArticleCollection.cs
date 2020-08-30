@@ -7,6 +7,14 @@ namespace Business.Models
     {
         public int TotalItems { get; set; }
 
+        public IEnumerable<Article> Articles
+        {
+            get
+            {
+                return Items;
+            }
+        }
+
         public void AddItems(IEnumerable<Article> articles)
         {
             foreach (var article in articles)

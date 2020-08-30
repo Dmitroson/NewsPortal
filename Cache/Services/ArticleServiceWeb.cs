@@ -24,7 +24,7 @@ namespace Cache.Services
             if(article == null)
             {
                 article = articleService.GetArticle(id);
-                articleCacheRepository.Create(article);
+                articleCacheRepository.Add(article);
             }
 
             return article;
@@ -44,7 +44,7 @@ namespace Cache.Services
 
         public void CreateArticle(Article article)
         {
-            articleCacheRepository.Create(article);
+            articleCacheRepository.Add(article);
             articleService.CreateArticle(article);
         }
 
@@ -56,7 +56,7 @@ namespace Cache.Services
                 var articleRepository = articleService.Articles;
                 foreach (var article in articleRepository)
                 {
-                    articleCacheRepository.Create(article);
+                    articleCacheRepository.Add(article);
                 }
                 return articleRepository;
             }
@@ -72,17 +72,23 @@ namespace Cache.Services
             var articles = articleCacheRepository.GetItems();
             if (articles.Count() == 0)
             {
-                articles.Concat(articleService.Articles);
+                articles = articleService.GetArticlesBy(criteria, onlyVisible).Articles;
                 foreach (var article in articles)
                 {
-                    articleCacheRepository.Create(article);
+                    articleCacheRepository.Add(article);
                 }
-                articleCollection = articleService.GetArticlesBy(criteria, onlyVisible);
+                articleCollection.TotalItems = articles.Count();
+                articleCollection.AddItems(articles);
                 return articleCollection;
             }
             else
             {
                 articleCollection.TotalItems = articles.Count();
+
+                articles = QueriesLogic.Filter(articles, criteria.FilterRange, onlyVisible);
+                articles = QueriesLogic.Search(articles, criteria.SearchString);
+                articles = QueriesLogic.Sort(articles, criteria.SortOrder);
+
                 articles = articles.Skip((criteria.Page) * criteria.ArticlesPerPage).Take(criteria.ArticlesPerPage);
                 articleCollection.AddItems(articles);
                 return articleCollection;

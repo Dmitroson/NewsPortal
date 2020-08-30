@@ -26,7 +26,7 @@ namespace Cache.Repositories
             memoryCache.Set(item.Id.ToString(), item, DateTime.Now.AddMinutes(1));
         }
 
-        public void Create(T item)
+        public void Add(T item)
         {
             memoryCache.Add(item.Id.ToString(), item, DateTime.Now.AddMinutes(1));
         }
@@ -46,6 +46,5 @@ namespace Cache.Repositories
             }
             return items;
         }
-
     }
 }

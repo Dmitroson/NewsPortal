@@ -7,7 +7,7 @@ namespace Business.CacheRepositories
     {
         T Get(string key);
         void Update(T item);
-        void Create(T item);
+        void Add(T item);
         void Delete(string key);
         IEnumerable<T> GetItems();
     }

@@ -21,7 +21,7 @@ namespace Cache.Services
         {
             comment.ArticleId = articleId;
             commentService.CreateComment(comment, articleId);
-            commentCacheRepository.Create(comment);
+            commentCacheRepository.Add(comment);
         }
 
         public void DeleteComment(int id)
@@ -38,7 +38,7 @@ namespace Cache.Services
                 var commentsList = commentService.GetComments(articleId);
                 foreach (var comment in commentsList)
                 {
-                    commentCacheRepository.Create(comment);
+                    commentCacheRepository.Add(comment);
                 }
                 return commentsList;
             }
