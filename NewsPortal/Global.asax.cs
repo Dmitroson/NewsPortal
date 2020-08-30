@@ -52,6 +52,7 @@ namespace NewsPortal
 
             ServiceManager.SetCacheLuceneSearcher(new LuceneSearcher(luceneCacheDirectoryPath));
 
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

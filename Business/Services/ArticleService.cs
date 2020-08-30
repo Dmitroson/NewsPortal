@@ -8,7 +8,7 @@ namespace Business.Services
     public class ArticleService
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly IArticleRepository articleRepository;
+        private readonly IRepository<Article> articleRepository;
         private readonly ILuceneSearcher<Article> luceneSearcher;
 
         public ArticleService()

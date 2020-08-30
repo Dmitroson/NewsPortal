@@ -8,7 +8,7 @@ namespace Business.Services
     public static class ServiceManager
     {
         private static IUnitOfWork unitOfWork;
-        private static IArticleRepository articleRepository;
+        private static IRepository<Article> articleRepository;
         private static ICommentRepository commentRepository;
         private static ILuceneSearcher<Article> luceneSearcher;
         private static ILuceneSearcher<Article> cacheLuceneSearcher;
@@ -25,12 +25,12 @@ namespace Business.Services
             return unitOfWork;
         }
 
-        public static void SetArticleRepository(IArticleRepository articleRepositoryInstance)
+        public static void SetArticleRepository(IRepository<Article> articleRepositoryInstance)
         {
             articleRepository = articleRepositoryInstance;
         }
 
-        public static IArticleRepository GetArticleRepository()
+        public static IRepository<Article> GetArticleRepository()
         {
             return articleRepository;
         }

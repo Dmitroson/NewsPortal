@@ -55,7 +55,7 @@ namespace Cache.Services
 
         public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible = false)
         {
-            var articleCollection = new ArticleCollection();
+            ArticleCollection articleCollection;
             var articles = articleCacheRepository.GetItems();
             if (articles.Count() == 0)
             {

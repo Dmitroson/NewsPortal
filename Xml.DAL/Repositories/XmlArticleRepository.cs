@@ -2,12 +2,11 @@
 using Business.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 
 namespace Xml.DAL.Repositories
 {
-    public class XmlArticleRepository : IArticleRepository
+    public class XmlArticleRepository : IRepository<Article>
     {
         private const string ISOFormat = "yyyy-MM-dd\\THH:mm:ss";
 
@@ -64,24 +63,6 @@ namespace Xml.DAL.Repositories
             };
 
             return article;
-        }
-
-        public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible)
-        {
-            var articlesQuery = GetAll();
-            articlesQuery = QueriesLogic.Filter(articlesQuery, criteria.FilterRange, onlyVisible);
-            articlesQuery = QueriesLogic.Search(articlesQuery, criteria.SearchString);
-            articlesQuery = QueriesLogic.Sort(articlesQuery, criteria.SortOrder);
-
-            var articles = new ArticleCollection
-            {
-                TotalItems = articlesQuery.Count()
-            };
-
-            articlesQuery = articlesQuery.Skip((criteria.Page) * criteria.ArticlesPerPage).Take(criteria.ArticlesPerPage);
-
-            articles.AddItems(articlesQuery);
-            return articles;
         }
 
         public void Create(Article article)

@@ -1,29 +1,10 @@
-﻿using Business.Interfaces;
-using Business.Models;
+﻿using Business.Models;
 using System.Linq;
 
 namespace NHibernate.DAL.Repositories
 {
-    public class ArticleRepository : NHBaseRepository<Article>, IArticleRepository
+    public class ArticleRepository : NHBaseRepository<Article>
     {
-        public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible)
-        {
-            var articlesQuery = Session.Query<Article>();
-            articlesQuery = QueriesLogic.Filter(articlesQuery, criteria.FilterRange, onlyVisible);
-            articlesQuery = QueriesLogic.Search(articlesQuery, criteria.SearchString);
-            articlesQuery = QueriesLogic.Sort(articlesQuery, criteria.SortOrder);
-
-            var articles = new ArticleCollection
-            {
-                TotalItems = articlesQuery.Count()
-            };
-
-            articlesQuery = articlesQuery.Skip((criteria.Page) * criteria.ArticlesPerPage).Take(criteria.ArticlesPerPage);
-
-            articles.AddItems(articlesQuery);
-            return articles;
-        }
-
         public override void Update(Article article)
         {
             Article editedArticle = Session.Get<Article>(article.Id);
