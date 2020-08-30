@@ -74,5 +74,10 @@ namespace Cache.Services
 
             return articleCollection;
         }
+
+        public void UpdateCacheLuceneIndex()
+        {
+            cacheLuceneSearcher.UpdateLuceneIndex(articleService.Articles);
+        }
     }
 }

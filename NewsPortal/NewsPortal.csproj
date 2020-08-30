@@ -703,6 +703,8 @@
     <Content Include="Views\Admin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\lucene_index\cache\nhibernate\" />
+    <Folder Include="App_Data\lucene_index\cache\xml\" />
     <Folder Include="App_Data\lucene_index\nhibernate\" />
     <Folder Include="App_Data\lucene_index\xml\" />
     <Folder Include="Images\" />

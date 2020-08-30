@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <database>
-  <articles lastId="22">
+  <articles lastId="23">
     <article>
       <id>20</id>
       <title>234</title>
@@ -27,6 +27,15 @@
       <imageUrl>\Images\fbfgb_29.08.2020-23-08-32\1523x1523x2_3.jpg</imageUrl>
       <visibility>false</visibility>
       <pubDate>2020-08-29T23:08:32</pubDate>
+    </article>
+    <article>
+      <id>23</id>
+      <title>4253565679-=----</title>
+      <description>&lt;p&gt;dawdawd&lt;/p&gt;
+</description>
+      <imageUrl>\Images\4253565679-=----_30.08.2020-21-42-39\service-428540_1280.jpg</imageUrl>
+      <visibility>True</visibility>
+      <pubDate>2020-08-30T21:42:00</pubDate>
     </article>
   </articles>
   <comments lastId="29">
