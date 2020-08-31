@@ -23,7 +23,6 @@ namespace NewsPortal
 
             var typeSource = ConfigurationManager.AppSettings["typeSource"];
             string luceneDirectoryPath = "";
-            string luceneCacheDirectoryPath = "";
             switch (typeSource)
             {
                 case "xml":
@@ -32,7 +31,6 @@ namespace NewsPortal
                     ServiceManager.SetArticleRepository(new XmlArticleRepository());
                     ServiceManager.SetCommentRepository(new XmlCommentRepository());
                     luceneDirectoryPath = ConfigurationManager.ConnectionStrings["LuceneDirectoryForXml"].ConnectionString;
-                    luceneCacheDirectoryPath = ConfigurationManager.ConnectionStrings["LuceneDirectoryForXmlCache"].ConnectionString;
                     break;
                 case "nhibernate":
                     NHibernateHelper.ConnectionString = ConfigurationManager.ConnectionStrings["NewsPortalDbConnection"].ConnectionString;
@@ -40,21 +38,15 @@ namespace NewsPortal
                     ServiceManager.SetArticleRepository(new ArticleRepository());
                     ServiceManager.SetCommentRepository(new CommentRepository());
                     luceneDirectoryPath = ConfigurationManager.ConnectionStrings["LuceneDirectoryForNHibernate"].ConnectionString;
-                    luceneCacheDirectoryPath = ConfigurationManager.ConnectionStrings["LuceneDirectoryForNHibernateCache"].ConnectionString;
                     break;
             }
-
-            luceneDirectoryPath = Server.MapPath(luceneDirectoryPath);
-
-            ServiceManager.SetLuceneSearcher(new LuceneSearcher(luceneDirectoryPath));
-            new ArticleService().UpdateLuceneIndex();
 
             ServiceManager.SetArticleCacheRepository(new CacheRepository<Article>());
             ServiceManager.SetCommentCacheRepository(new CacheRepository<Comment>());
 
-            luceneCacheDirectoryPath = Server.MapPath(luceneCacheDirectoryPath);
-            ServiceManager.SetCacheLuceneSearcher(new LuceneSearcher(luceneCacheDirectoryPath));
-            new ArticleServiceWeb().UpdateCacheLuceneIndex();
+            luceneDirectoryPath = Server.MapPath(luceneDirectoryPath);
+            ServiceManager.SetLuceneSearcher(new LuceneSearcher(luceneDirectoryPath));
+            new ArticleService().UpdateLuceneIndex();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
