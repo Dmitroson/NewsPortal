@@ -327,6 +327,7 @@
     <Content Include="Views\Comment\CommentsList.cshtml" />
     <Content Include="Views\Shared\Paging.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
+    <Content Include="Views\Shared\ZeroArticles.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

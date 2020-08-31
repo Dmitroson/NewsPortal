@@ -1,6 +1,13 @@
 ﻿let createButton = document.querySelector('#submitButton');
 
-createButton.addEventListener('click', function () {
+createButton.addEventListener('click', function (e) {
+    let errorMessageForTitle = document.querySelector('#errorMessageForTitle');
+    let title = document.querySelector("#title");
+    if (title.value == "") {
+        errorMessageForTitle.innerHTML = 'Title is required.';
+        event.preventDefault();
+    }
+
     let errorMessageForDescription = document.querySelector('#errorMessageForDescription');
     let editor = document.querySelector('iframe').contentWindow.document.body;
 
@@ -8,6 +15,7 @@ createButton.addEventListener('click', function () {
         errorMessageForDescription.classList.remove('field-validation-valid');
         errorMessageForDescription.classList.add('field-validation-error');
         errorMessageForDescription.innerHTML = 'Description is required.';
+        event.preventDefault();
     }
     else {
         errorMessageForDescription.classList.remove('field-validation-error');
@@ -21,6 +29,7 @@ createButton.addEventListener('click', function () {
 
     if (!uploadImage.classList.contains('valid')) {
         errorMessageForImage.innerHTML = 'Image is required.';
+        event.preventDefault();
     }
     else {
         errorMessageForImage.innerHTML = '';

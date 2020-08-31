@@ -261,4 +261,7 @@
   <data name="Yesterday" xml:space="preserve">
     <value>Вчера</value>
   </data>
+  <data name="ZeroArticles" xml:space="preserve">
+    <value>Увы, но по вашему запросу ничего не найдено :(</value>
+  </data>
 </root>

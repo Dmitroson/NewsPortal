@@ -8,6 +8,11 @@
 
 <h2>@Resources.Resource.Articles</h2>
 
+@if (Model.Articles.Count() == 0)
+{
+    @Html.Partial("ZeroArticles");
+}
+
 <table class="table">
     @foreach (var item in Model.Articles)
     {

@@ -491,5 +491,14 @@ namespace Resources {
                 return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Увы, но по вашему запросу ничего не найдено :(.
+        /// </summary>
+        public static string ZeroArticles {
+            get {
+                return ResourceManager.GetString("ZeroArticles", resourceCulture);
+            }
+        }
     }
 }

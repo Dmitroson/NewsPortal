@@ -422,3 +422,9 @@ input[type="submit"]:hover {
 .return-button {
     padding-bottom: 15px;
 }
+
+.zero-articles{
+    font-size: 30px;
+    margin-top: 15%;
+    color: red;
+}

@@ -7,6 +7,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using Cache.Services;
+using System.Linq;
 
 namespace NewsPortal.Controllers
 {
@@ -32,7 +33,7 @@ namespace NewsPortal.Controllers
                 PageNumber = criteria.Page,
                 PageSize = criteria.ArticlesPerPage,
                 TotalItems = articles.TotalItems
-            };
+            };            
 
             var articlesViewModel = new ArticleIndexViewModel
             {

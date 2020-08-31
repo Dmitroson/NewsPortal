@@ -10,6 +10,11 @@
     @Html.ActionLink(Resources.Resource.Create_New, "Create")
 </p>
 
+@if(Model.Articles.Count() == 0)
+{
+    @Html.Partial("ZeroArticles");
+}
+
 <table class="table">
     @foreach (var item in Model.Articles)
     {
