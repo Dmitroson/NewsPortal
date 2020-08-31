@@ -10,13 +10,11 @@ namespace Cache.Services
     {
         private readonly ArticleService articleService;
         private readonly ICacheRepository<Article> articleCacheRepository;
-        private readonly ILuceneSearcher<Article> cacheLuceneSearcher;
 
         public ArticleServiceWeb()
         {
             articleService = new ArticleService();
             articleCacheRepository = ServiceManager.GetArticleCacheRepository();
-            cacheLuceneSearcher = ServiceManager.GetCacheLuceneSearcher();
         }
 
         public Article GetArticle(int id)
@@ -36,26 +34,22 @@ namespace Cache.Services
         {
             articleCacheRepository.Delete(id.ToString());
             articleService.DeleteArticle(id);
-            cacheLuceneSearcher.Delete(id);
         }
 
         public void UpdateArticle(Article article)
         {
             articleService.UpdateArticle(article);
             articleCacheRepository.Update(article);
-            cacheLuceneSearcher.Save(article);
         }
 
         public void CreateArticle(Article article)
         {
             articleCacheRepository.Add(article);
             articleService.CreateArticle(article);
-            cacheLuceneSearcher.Save(article);
         }
 
         public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible = false)
         {
-            ArticleCollection articleCollection;
             var articles = articleCacheRepository.GetItems();
             if (articles.Count() == 0)
             {
@@ -64,20 +58,10 @@ namespace Cache.Services
                 {
                     articleCacheRepository.Add(article);
                 }
-               
-                articleCollection = articleService.GetArticlesBy(criteria, onlyVisible);
-            }
-            else
-            {
-                articleCollection = cacheLuceneSearcher.GetArticlesBy(articles, criteria, onlyVisible);
             }
 
+            var articleCollection = articleService.GetArticlesBy(criteria, onlyVisible);
             return articleCollection;
-        }
-
-        public void UpdateCacheLuceneIndex()
-        {
-            cacheLuceneSearcher.UpdateLuceneIndex(articleService.Articles);
         }
     }
 }

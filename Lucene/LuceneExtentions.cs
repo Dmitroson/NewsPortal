@@ -16,7 +16,7 @@ namespace Lucene
 
             document.Add(new Field("Title", article.Title, Field.Store.YES, Field.Index.ANALYZED));
 
-            var clearDescription = Regex.Replace(article.Description, "<.*?>", string.Empty);
+            var clearDescription = Regex.Replace(article.Description, @"<[^>]*>", string.Empty);
             document.Add(new Field("Description", clearDescription, Field.Store.YES, Field.Index.ANALYZED));
 
             document.Add(new Field("ImageUrl", article.ImageUrl, Field.Store.YES, Field.Index.NO));
