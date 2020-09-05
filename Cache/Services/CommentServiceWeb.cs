@@ -21,37 +21,41 @@ namespace Cache.Services
         {
             comment.ArticleId = articleId;
             commentService.CreateComment(comment, articleId);
-            commentCacheRepository.Add(comment);
+            commentCacheRepository.Add(comment, $"Comments-{comment.Id}");
+            commentCacheRepository.Delete($"CommentsByArticleId-{articleId}");
         }
 
         public void DeleteComment(int id)
         {
-            commentCacheRepository.Delete(id.ToString());
+            var comment = commentService.GetComment(id);
+            commentCacheRepository.Delete($"CommentsByArticleId-{comment.ArticleId}");
+            if (commentCacheRepository.Get($"Comments-{id}") != null)
+            {
+                commentCacheRepository.Delete($"Comments-{id}");
+            }
             commentService.DeleteComment(id);
+
         }
 
         public IEnumerable<Comment> GetComments(int articleId)
         {
-            var comments = commentCacheRepository.GetItems();
-            if (comments.Count() == 0)
+            var comments = commentCacheRepository.GetItems($"CommentsByArticleId-{articleId}");
+            if (comments == null)
             {
-                var commentsList = commentService.GetComments(articleId);
-                foreach (var comment in commentsList)
-                {
-                    commentCacheRepository.Add(comment);
-                }
-                return commentsList;
+                comments = commentService.GetComments(articleId);
+                commentCacheRepository.Add(comments as List<Comment>, $"CommentsByArticleId-{articleId}");
             }
-            else
-            {
-                comments = comments.Where(comment => comment.ArticleId == articleId);
-                return comments;
-            }
+                return comments;            
         }
 
         public int GetArticleIdByCommentId(int id)
         {
-            var comment = commentCacheRepository.Get(id.ToString());
+            var comment = commentCacheRepository.Get($"Comments-{id}"); 
+            if (comment == null)
+            {
+                comment = commentService.GetComment(id);
+                commentCacheRepository.Add(comment, $"Comments-{id}");
+            }
             var articleId = comment.ArticleId;
             return articleId;
         }

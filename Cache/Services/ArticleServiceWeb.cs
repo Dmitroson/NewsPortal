@@ -24,7 +24,7 @@ namespace Cache.Services
             if(article == null)
             {
                 article = articleService.GetArticle(id);
-                articleCacheRepository.Add(article);
+                articleCacheRepository.Add(article, $"News-{article.Id}");
             }
 
             return article;
@@ -32,35 +32,36 @@ namespace Cache.Services
 
         public void DeleteArticle(int id)
         {
-            articleCacheRepository.Delete(id.ToString());
+            articleCacheRepository.Delete($"News-{id}");
             articleService.DeleteArticle(id);
         }
 
         public void UpdateArticle(Article article)
         {
             articleService.UpdateArticle(article);
-            articleCacheRepository.Update(article);
+            articleCacheRepository.Update(article, $"News-{article.Id}");
         }
 
         public void CreateArticle(Article article)
         {
-            articleCacheRepository.Add(article);
+            articleCacheRepository.Add(article, $"News-{article.Id}");
             articleService.CreateArticle(article);
         }
 
         public ArticleCollection GetArticlesBy(Criteria criteria, bool onlyVisible = false)
         {
-            var articles = articleCacheRepository.GetItems();
-            if (articles.Count() == 0)
+            var articles = articleCacheRepository.GetItems($"NewsByCriteria-{criteria.FilterRange}-{criteria.SearchString}-{criteria.SortOrder}-{criteria.Page}");
+            var articleCollection = new ArticleCollection();
+            if (articles == null)
             {
-                articles = articleService.Articles;
-                foreach (var article in articles)
-                {
-                    articleCacheRepository.Add(article);
-                }
+                articleCollection = articleService.GetArticlesBy(criteria, onlyVisible);
+                articleCacheRepository.Add(articleCollection.ToList(), $"NewsByCriteria-{criteria.FilterRange}-{criteria.SearchString}-{criteria.SortOrder}-{criteria.Page}-{onlyVisible}");
+            }
+            else
+            {
+                articleCollection.AddItems(articles);
             }
 
-            var articleCollection = articleService.GetArticlesBy(criteria, onlyVisible);
             return articleCollection;
         }
     }

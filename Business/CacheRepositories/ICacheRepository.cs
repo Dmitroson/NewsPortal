@@ -6,9 +6,10 @@ namespace Business.CacheRepositories
     public interface ICacheRepository<T> where T : CacheModel
     {
         T Get(string key);
-        void Update(T item);
-        void Add(T item);
+        void Update(T item, string key);
+        void Add(T item, string key);
+        void Add(List<T> items, string key);
         void Delete(string key);
-        IEnumerable<T> GetItems();
+        IEnumerable<T> GetItems(string key);
     }
 }

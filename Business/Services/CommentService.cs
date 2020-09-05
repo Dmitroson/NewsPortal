@@ -50,7 +50,13 @@ namespace Business.Services
             return comments;
         }
 
-        public int GetArticleIdByCommentId(int id)
+        public Comment GetComment(int id)
+        {
+            unitOfWork.OpenSession();
+            return commentRepository.Get(id);
+        }
+
+            public int GetArticleIdByCommentId(int id)
         {
             unitOfWork.OpenSession();
 
