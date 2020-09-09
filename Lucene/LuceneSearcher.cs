@@ -91,7 +91,7 @@ namespace Lucene
                 using (var searcher = new IndexSearcher(Directory, true))
                 {
                     var hitsLimit = 1000;
-                    var fields = "Title,Description".Split(',');
+                    var fields = new string[] { "Title", "Description" };
 
                     var parser = new MultiFieldQueryParser(Version.LUCENE_30, fields, analyzer);
 
