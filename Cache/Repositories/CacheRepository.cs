@@ -2,7 +2,7 @@
 using Business.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Runtime.Caching;
 
 namespace Cache.Repositories
@@ -10,6 +10,7 @@ namespace Cache.Repositories
     public class CacheRepository<T> : ICacheRepository<T> where T : CacheModel
     {
         private MemoryCache memoryCache;
+        private int cachingTime = Convert.ToInt32(ConfigurationManager.AppSettings.Get("cachingTimeInHours"));
 
         public CacheRepository(){
              memoryCache = MemoryCache.Default;
@@ -23,17 +24,17 @@ namespace Cache.Repositories
 
         public void Update(T item, string key)
         {
-            memoryCache.Set(key, item, DateTime.Now.AddMinutes(1));
+            memoryCache.Set(key, item, DateTime.Now.AddHours(cachingTime));
         }
 
         public void Add(T item, string key)
         {
-            memoryCache.Add(key, item, DateTime.Now.AddMinutes(1));
+            memoryCache.Add(key, item, DateTime.Now.AddHours(cachingTime));
         }
 
         public void Add(List<T> items, string key)
         {
-            memoryCache.Add(key, items, DateTime.Now.AddMinutes(1));
+            memoryCache.Add(key, items, DateTime.Now.AddHours(cachingTime));
         }
 
         public void Delete(string key)
