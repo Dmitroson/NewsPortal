@@ -2,7 +2,7 @@
 using Business.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Runtime.Caching;
 
 namespace Cache.Repositories
@@ -10,6 +10,7 @@ namespace Cache.Repositories
     public class CacheRepository<T> : ICacheRepository<T> where T : CacheModel
     {
         private MemoryCache memoryCache;
+        private int cachingTime = Convert.ToInt32(ConfigurationManager.AppSettings.Get("cachingTimeInHours"));
 
         public CacheRepository(){
              memoryCache = MemoryCache.Default;
@@ -19,16 +20,21 @@ namespace Cache.Repositories
         {
             T item = memoryCache.Get(key) as T;
             return item;
+        }        
+
+        public void Update(T item, string key)
+        {
+            memoryCache.Set(key, item, DateTime.Now.AddHours(cachingTime));
         }
 
-        public void Update(T item)
+        public void Add(T item, string key)
         {
-            memoryCache.Set(item.Id.ToString(), item, DateTime.Now.AddMinutes(1));
+            memoryCache.Add(key, item, DateTime.Now.AddHours(cachingTime));
         }
 
-        public void Add(T item)
+        public void Add(List<T> items, string key)
         {
-            memoryCache.Add(item.Id.ToString(), item, DateTime.Now.AddMinutes(1));
+            memoryCache.Add(key, items, DateTime.Now.AddHours(cachingTime));
         }
 
         public void Delete(string key)
@@ -36,15 +42,9 @@ namespace Cache.Repositories
             memoryCache.Remove(key);
         }
 
-        public IEnumerable<T> GetItems()
+        public IEnumerable<T> GetItems(string key)
         {
-            List<T> items = new List<T>();
-            foreach(var item in memoryCache)
-            {
-                if(item.Value.GetType() == typeof(T))
-                    items.Add(memoryCache.Get(item.Key) as T);
-            }
-            return items;
+            return memoryCache.Get(key) as List<T>;
         }
     }
 }
